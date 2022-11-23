@@ -1,0 +1,7 @@
+<view wx:if="{{visiable}}" class="dialog">
+  <view class="content">
+       <input class="input"/>
+       <button class="button">确认</button>
+  </view>
+   <image class="close" src="https://single-student.bj.bcebos.com/dialogc-close.png" bindtap="closeDialog"/>
+</view>

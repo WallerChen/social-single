@@ -1,0 +1,57 @@
+.paper {
+    position: relative;
+}
+.student-back {
+    width:  700.034rpx;
+    height:  955.57rpx;
+}
+
+.paper .user-info {
+    position: absolute;
+    display: flex;
+    left: 60.783rpx;
+    top: 198.251rpx;
+}
+
+.paper .user-info .avatar {
+    width: 229.275rpx;
+    height: 257.246rpx;
+}
+
+.paper .user-info .base-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 90.159rpx;
+    font-size: 25.966rpx;
+    /* width: 229.275rpx;
+    height: 257.246rpx; */
+}
+
+.paper .user-info .base-info span{
+   color: #333333;
+   font-weight: 600;
+}
+
+.paper .user-descript {
+    position: absolute;
+    display: flex;
+    top: 590.251rpx;
+    border: solid 1rpx #845252; 
+    border-radius: 8.454rpx;
+    /* width: 250px; */
+    margin: 0 50rpx 0 50rpx;
+    height: 130px;
+}
+
+.paper .user-descript .detail {
+    overflow: scroll;
+    padding: 10.415rpx;
+    font-size: 30.193rpx;
+}
+
+/* .paper  {
+    width: 229.275rpx;
+    height: 257.246rpx;
+} */
+

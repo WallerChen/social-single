@@ -1,0 +1,20 @@
+<view class="user-page">
+    <view class="user-header">
+        <view class="avatar">
+            <image class="image-url" src="{{userInfo.avatar}}"/>
+        </view>
+         <view class="user-info">
+            <view class="name">
+                {{userInfo.nickName}}
+            </view>
+            <view class="class">
+                <span style="padding-top:5rpx">{{userInfo.class}}脱单一班</span>
+            </view>
+        </view>
+    </view>
+    <view class="user-content">
+        <view class="desc">
+            {{userInfo.desc}}  {{userInfo.desc}}  {{userInfo.desc}}
+        </view>
+    </view>
+</view>

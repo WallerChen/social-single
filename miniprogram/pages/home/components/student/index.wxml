@@ -1,0 +1,18 @@
+ <view class="paper">
+    <image class="student-back" src="https://single-student.bj.bcebos.com/student-document.png"/>
+    <!-- 用户信息介绍 -->
+    <view class="user-info">
+         <image class="avatar" src="{{userInfo.avatar}}"/>
+         <!-- 基本信息 -->
+         <view class="base-info">
+              <view wx:for="{{baseInfoList}}" wx:key="tag">
+                    {{item.tag}}: <span>{{userInfo[item.key]}}</span>
+              </view>
+         </view>
+    </view>
+    <view class="user-descript">
+        <view class="detail">
+            {{userInfo.desc}}  {{userInfo.desc}}  {{userInfo.desc}}
+        </view>
+    </view>
+</view>

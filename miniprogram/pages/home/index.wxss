@@ -1,0 +1,46 @@
+.home-page {
+    /* background-image: url(https://single-student.bj.bcebos.com/background.png); */
+    /* background: red; */
+}
+
+
+.home-header-background {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.home-header {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.group {
+    display: flex;
+    justify-content: center;
+}
+
+.group .class {
+    width: 279rpx;
+    height: 123rpx;
+    margin: 30rpx;
+}
+
+.class {
+    margin-top: 18.116rpx;
+    display: flex;
+}
+
+.class .block {
+    width: 222.222rpx;
+    height: 88.164rpx;
+    margin-left: 60.386rpx;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
