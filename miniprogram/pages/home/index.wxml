@@ -1,7 +1,4 @@
 <view class="homePage">
-  <!-- <card-header></card-header>
-  <nav></nav>
-  <content></content> -->
   <image  class="home-header-background" src="https://single-student.bj.bcebos.com/background.png"/>
   <!-- 顶部 -->
   <view class="home-header">
@@ -14,17 +11,15 @@
           <image class="block" src="https://single-student.bj.bcebos.com/class-one.png"/>
       </view>
   </view>
-  <view class="content"> 
-      <movable-area>
-        <movable-view wx:for="{{4}}" wx:key="item" wx:index="index" x="{{item.x}}" y="{{item.y}}" damping="52" direction="all" bindchange="onChange" data-index="{{index}}" catchtouchend="touchEnd" catchtouchstart="touchStart" catchtouchmove="touchMove" out-of-bounds="true" data-index="{{index}}">
-        <!-- 根据自己的需求替换此区域 start -->
-          <view class="content">
-            <student />
-          </view>
-        <!-- 根据自己的需求替换此区域 end -->
-      </movable-view>
-    </movable-area>
- </view>
-
-  <intercept visiable="{{true}}"/>
+  <movable-area class="m-area">
+    <movable-view wx:for="{{studentList}}" wx:key="item" wx:index="index" x="{{item.x}}" y="{{item.y}}" damping="52" direction="all" bindchange="onChange" data-index="{{index}}" catchtouchend="touchEnd" catchtouchstart="touchStart" catchtouchmove="touchMove" out-of-bounds="true" data-index="{{index}}">
+    <!-- 根据自己的需求替换此区域 start -->
+      <view class="content">
+        <student info="{{item}}"/>
+      </view>
+    <!-- 根据自己的需求替换此区域 end -->
+  </movable-view>
+  </movable-area>
+  <introduce-bottom showIntroduce="{{showIntroduce}}" showBottomTip="{{showBottom}}"/>
+  <intercept bind:confirm="confirm" visible="{{visible}}"/>
 </view>

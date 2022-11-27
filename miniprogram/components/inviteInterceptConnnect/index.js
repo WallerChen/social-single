@@ -3,17 +3,15 @@ Component({
    * 页面的初始数据
    */
   data: {
-    inputValue:'',
+    inputValue:''
   },
   properties: {
     visible: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   observers: {
-    visible(oldObj, newObj) {
-    }
   },
   methods: {
     bindKeyInput: function (e) {
@@ -23,7 +21,6 @@ Component({
     },
     // 触发页面方法
     onConfirm() {
-      console.log('this.data.inputValue):' + this.data.inputValue);
       this.triggerEvent("confirm",this.data.inputValue);
     },
     closeDialog() {

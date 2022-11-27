@@ -1,20 +1,45 @@
 <view class="user-page">
+     <!-- 顶层点击授权登陆 -->
+     <!-- <button class="top-auth" style="width: 100%" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+    </button> 
+    <input type="nickname" class="weui-input" placeholder="请输入昵称"/> -->
+   <!-- <button class="top-auth" style="width: 100%" wx:if="{{canIUseGetUserProfile && !hasUserInfo && !userInfo.openid}}" bindtap="getUserProfile"></button> -->
+    <!-- 展示内容 -->
     <view class="user-header">
         <view class="avatar">
-            <image class="image-url" src="{{userInfo.avatar}}"/>
+            <image class="image-url" src="{{userInfo.avatarUrl}}"/>
         </view>
          <view class="user-info">
             <view class="name">
                 {{userInfo.nickName}}
             </view>
             <view class="class">
-                <span style="padding-top:5rpx">{{userInfo.class}}脱单一班</span>
+                <span style="padding-top:5rpx">{{userInfo.class || '暂无班级'}}</span>
             </view>
+        </view>
+        <view class="connect" bindtap="showConnect">
+            <span>关联到微信号</span>
         </view>
     </view>
     <view class="user-content">
-        <view class="desc">
-            {{userInfo.desc}}  {{userInfo.desc}}  {{userInfo.desc}}
+        <view wx:if="{{!isEdit}}" class="desc">
+            <textarea disabled maxlength="{{1024}}" value="{{userInfo.desc}}" placeholder="介绍一下自己吧～"></textarea>
+        </view>
+         <view wx:else class="desc">
+            <textarea maxlength="{{1024}}" value="{{userInfo.desc}}" bindinput="onInputDesc">
+            </textarea>
         </view>
     </view>
+     <view class="edit" bindtap="onEdit">
+            <span>{{isEdit ? '保存并发布' : '编辑自我介绍'}}</span>
+    </view>
+    <!-- <view>
+        <input style="width:400rpx" bindinput="onInput"/>
+    </view>
+    <view bindtap="onUpdate">
+            <span>更新</span>
+    </view> -->
+    <avatar-and-nickname bind:update="updateUserInfo" visible="{{visibleAvatarName}}" />
+    <intercept_connect bind:confirm="updateInfoSave" visible="{{visible}}"/>
 </view>

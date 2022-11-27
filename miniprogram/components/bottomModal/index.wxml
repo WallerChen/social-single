@@ -1,0 +1,6 @@
+<view class="install_tip" wx:if="{{showBottom}}">
+  <view class="install_tip_back" bindtap="onChangeShowBottomTip"></view>
+  <view class="install_tip_detail">
+    <textarea maxlength="{{1024}}" disabled value="{{introduce}}"></textarea>
+  </view>
+</view>
