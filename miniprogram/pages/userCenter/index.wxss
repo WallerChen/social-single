@@ -107,3 +107,17 @@
     align-items: center;
     justify-content: center;
 }
+
+.publish {
+    margin-left: 500rpx;
+    background-color: #B46769;
+    width: 200.357rpx;
+    height: 45.024rpx;
+    border-radius: 21.135rpx;
+    margin-top:30rpx;
+    font-size: 25.135rpx;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

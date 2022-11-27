@@ -3,24 +3,73 @@
   top: 0;
   z-index: 99;
   width: 100%;
-  height: 100vh;
-  background: #fff;
-  /* justify-content: center; */
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.dialog .content {
+  position: relative;
+  width: 626.208rpx;
+  height: 521.739rpx;
+  background-image: url(https://single-student.bj.bcebos.com/dialog_back.png);
+  background-size: 626.208rpx 521.739rpx;
+}
+
+.dialog .content .title {
+  position: absolute;
+  top: 51.329rpx;
+  left: 50.121rpx;
+  font-size: 26rpx;
+  color: #611F1B;
+  font-weight: 600;
+}
+
+.dialog .content .avatar-content {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 130.329rpx;
+  left: 50.121rpx;
+  color: #611F1B;
+  font-size: 30rpx;
+}
+
+.dialog .content .nick-name-content {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 260.329rpx;
+  left: 50.121rpx;
+  left: 50.121rpx;
+  color: #611F1B;
+  font-size: 30rpx;
+}
+
+
+.dialog .content .button {
+  position: absolute;
+  height: 100.469rpx;
+  width: 478.261rpx;
+  border-radius: 50.077rpx;
+  background-color: #A14530;
+  top: 360.652rpx;
+  left: 74.879rpx;
+  font-size: 42.232rpx;
+  color: #F5EDCC;
+}
+
 .avatar-wrapper {
   padding: 0;
-  width: 56px !important;
+  width: 85rpx;
   border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
 }
 
 .avatar {
   display: block;
-  width: 56px;
-  height: 56px;
-}
-
-.container {
-  display: flex;
+  width: 85rpx;
+  height: 85rpx;
 }

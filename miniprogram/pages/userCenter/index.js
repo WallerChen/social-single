@@ -216,5 +216,31 @@ onEdit() {
   this.setData({
     isEdit: !this.data.isEdit
   })
+},
+onPublish() {
+  wx.showLoading({
+    title: '发布中...',
+  });
+  wx.cloud.callFunction({
+    name: 'inithandler',
+    config: {
+      env: 'single-1g8xzqs704ef759e'
+    },
+    data: {
+      type: 'user',
+      params: {
+        key: 'publicToClass'
+      }
+    }
+  }).then((resp) => {
+    console.log('resp:'+ JSON.stringify(resp));
+    wx.hideLoading();
+ }).catch((e) => {
+    wx.hideLoading();
+    wx.showToast({
+      icon: 'none',
+      title: '发布失败',
+    })
+  });
 }
 });

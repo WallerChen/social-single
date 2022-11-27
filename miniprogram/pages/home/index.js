@@ -45,6 +45,7 @@ Page({
     winHeight = res.windowHeight;
 
     if (app.globalData.employ && app.globalData.employ != '') {
+      console.log(' app.globalData.user:' + JSON.stringify( app.globalData.user))
       this.setData({
         visible: app.globalData.user.class ? false : true
       })
@@ -52,6 +53,7 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.employCallback = employ => {
+      console.log(' app.globalData.user2:2' + JSON.stringify( app.globalData.user))
         if (employ != '') {
           this.setData({
             visible: app.globalData.user.class ? false : true
@@ -193,8 +195,8 @@ Page({
         setTimeout(() => {
           list.splice((list.length - 1), 1);
           that.setData({ studentList: list })
-          // 列表长度小于4的时候请求服务端
-          if (list.length < 4) {
+          // 列表长度小于7的时候请求服务端
+          if (list.length < 7) {
               that.getShowCardList();
           }
         })

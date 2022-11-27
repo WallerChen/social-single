@@ -1,5 +1,5 @@
 import { throttle } from '../../util/util';
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+const defaultAvatarUrl = 'https://single-student.bj.bcebos.com/default-avatar.png'
 const app = getApp();
 Component({
   /**
@@ -102,18 +102,33 @@ Component({
       }
     })
   },
+          // // 再将fileID和nickname存储到数据库
+          // wx.cloud.downloadFile({
+          //   fileID: fileID,
+          //   success: res => {
+          //     console.log(res.tempFilePath)
+          //     // get temp file path
+          //     console.log('downloadFiledownloadFile:' + JSON.stringify(downloadFile));
+          //     that.saveNickname(fileID, nickname)
+          //   },
+          //   fail: err => {
+          //     console.log('err:' + err);
+          //   }
+          // })
 
   // 保存头像和昵称
   saveNickname(fileID, nickname) {
     let that = this;
     let saveBody = {
+      ...app.globalData.user,
       avatarUrl: fileID,
-      nickName: nickname,
-      ...app.globalData.user
-    }
+      nickName: nickname
+    } 
+    console.log('saveBody:' + saveBody);
+    console.log('fileID:' + fileID);
     // 调用云函数
     wx.cloud.callFunction({
-      // // 要调用的云函数名称
+      // 要调用的云函数名称
       name: "inithandler",
       config: {
         env: 'single-1g8xzqs704ef759e'
@@ -128,6 +143,7 @@ Component({
       success: res => {
         console.log('save nickname success', res) 
         app.globalData.user.avatarUrl = fileID;
+        console.log('app.globalData.user.avatarUrl:' + app.globalData.user.avatarUrl);
         app.globalData.user.nickName = nickname;
       },
       fail: err => {

@@ -8,7 +8,9 @@
       </view>
       <!-- class nav -->
       <view class="class">
-          <image class="block" src="https://single-student.bj.bcebos.com/class-one.png"/>
+          <image class="block" src="https://single-student.bj.bcebos.com/class-one.png">
+              <image class="vip" src="https://single-student.bj.bcebos.com/vip.png"/>
+          </image>
       </view>
   </view>
   <movable-area class="m-area">

@@ -34,13 +34,25 @@
 
 .class {
     display: flex;
+    position: relative;
 }
 
 .class .block {
+    position: relative;
     width: 222.222rpx;
     height: 88.164rpx;
     margin-left: 60.386rpx;
 }
+
+.class .block .vip {
+    position: absolute;
+    width: 40rpx;
+    height: 35rpx;
+    top: 0rpx;
+    left: 0rpx;
+ }
+
+
 
 .content {
     display: flex;

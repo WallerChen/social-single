@@ -32,8 +32,13 @@
         </view>
     </view>
      <view class="edit" bindtap="onEdit">
-            <span>{{isEdit ? '保存并发布' : '编辑自我介绍'}}</span>
+            <span>{{isEdit ? '保存' : '编辑自我介绍'}}</span>
     </view>
+
+     <view class="publish" bindtap="onPublish">
+           发布
+    </view>
+
     <!-- <view>
         <input style="width:400rpx" bindinput="onInput"/>
     </view>
