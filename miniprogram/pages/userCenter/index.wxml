@@ -18,9 +18,9 @@
                 <span style="padding-top:5rpx">{{userInfo.class || '暂无班级'}}</span>
             </view>
         </view>
-        <view class="connect" bindtap="showConnect">
-            <span>关联到微信号</span>
-        </view>
+         <view wx:if="{{userInfo.class}}" class="connect" bindtap="onPublish">
+           发布
+         </view>
     </view>
     <view class="user-content">
         <view wx:if="{{!isEdit}}" class="desc">
@@ -31,14 +31,14 @@
             </textarea>
         </view>
     </view>
+  
      <view class="edit" bindtap="onEdit">
             <span>{{isEdit ? '保存' : '编辑自我介绍'}}</span>
     </view>
 
-     <view class="publish" bindtap="onPublish">
-           发布
+      <view wx:if="{{!userInfo.wxcode}}" class="publish" bindtap="showConnect">
+        <span>同步信息</span>
     </view>
-
     <!-- <view>
         <input style="width:400rpx" bindinput="onInput"/>
     </view>
@@ -46,5 +46,5 @@
             <span>更新</span>
     </view> -->
     <avatar-and-nickname bind:update="updateUserInfo" visible="{{visibleAvatarName}}" />
-    <intercept_connect bind:confirm="updateInfoSave" visible="{{visible}}"/>
+    <intercept_connect bind:confirm="updateInfoSave" type="{{publishType}}" visible="{{visible}}"/>
 </view>

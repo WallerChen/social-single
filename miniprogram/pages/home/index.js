@@ -118,6 +118,10 @@ Page({
     let openClass = '脱单一班';
     let decodeText = fromCode(value.detail);
     if (openClass != decodeText) {
+      wx.showToast({
+        icon: 'none',
+        title: '邀请码错误～',
+      })
       return;
     } else {
       app.globalData.user.class = fromCode(value.detail);
@@ -137,9 +141,8 @@ Page({
           }
         }
       }).then((resp) => {
-        console.log(resp);
+        app.event.emit('updateHomeInfo', app.globalData.user);
      }).catch((e) => {
-      console.log(e)
       });
       this.setData({
         visible: false

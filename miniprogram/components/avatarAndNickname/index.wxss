@@ -64,7 +64,8 @@
 
 .avatar-wrapper {
   padding: 0;
-  width: 85rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 8px;
 }
 

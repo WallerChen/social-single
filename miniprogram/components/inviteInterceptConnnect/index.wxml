@@ -1,5 +1,7 @@
 <view wx:if="{{visible}}" class="dialog">
   <view class="content">
+       <view class="title">{{dialogTitle}}
+       </view>
        <input class="input" bindinput="bindKeyInput"/>
        <button class="button" bindtap="onConfirm">确认</button>
   </view>

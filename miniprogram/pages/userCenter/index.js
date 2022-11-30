@@ -5,6 +5,7 @@ const genderMap = {
   2: '女'
 }
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+
 Page({
   /**
    * 页面的初始数据
@@ -23,7 +24,9 @@ Page({
     // 编辑文本内容
     descInputText:'',
     // updateInput
-    updateInputWxcode:''
+    updateInputWxcode:'',
+    // 是否首次发布
+    isFirstPublish: false
   },
 
   onLoad(options) {
@@ -47,16 +50,30 @@ Page({
             });         
           }
         }
-      }
-     
+      } 
     }
+    // 增加监听器
+    app.event.on('updateHomeInfo',this.updateHomeInfo ,this);
+  },
+  onUnload(){
+    app.event.off('updateHomeInfo',this.updateHomeInfo);
+  },
+  updateHomeInfo(body) {
+    this.setData({
+      userInfo: {
+        ...this.data.userInfo,
+        ...body
+      }
+    })
   },
   // 更新用户信息
   updateUserInfo(newUserInfo){
-    console.log('newUserInfonewUserInfo:' + JSON.stringify(newUserInfo));
     this.setData({
-      userInfo: newUserInfo.detail
-    })
+      userInfo: {
+        ...this.data.userInfo,
+        ...newUserInfo.detail
+      }
+    });
   },
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail 
@@ -95,11 +112,16 @@ Page({
 // 现实弹窗
 async showConnect() {
   this.setData({
-    visible: true
+    visible: true,
+    publishType: 'connect'
   })
 },
 // 关联到微信号
 async updateInfoSave(wxcode) {
+  let updatedBody =  {
+    wxcode: wxcode.detail,
+    ...this.data.userInfo
+  };
   wx.cloud.callFunction({
     name: 'inithandler',
     config: {
@@ -108,17 +130,37 @@ async updateInfoSave(wxcode) {
     data: {
       type: 'user',
       params: {
-        key: 'add',
-        body: {
-          wxcode: wxcode.detail,
-          ...this.data.userInfo
-        }
+        key: 'syncInfo',
+        body: updatedBody
       }
     }
   }).then((resp) => {
-    console.log(JSON.stringify(resp));
+    this.setData({
+      visible: false,
+      userInfo: {
+        ...this.data.userInfo,
+        ...updatedBody
+      }
+    });
+    if(resp?.result?.data?.openid) {
+      console.log('resp?.result?.data:' + JSON.stringify(resp?.result?.data));
+      this.setData({
+        userInfo: resp?.result?.data
+      });
+    }
+    wx.showToast({
+      icon: 'none',
+      title: '操作成功'
+    });
+    // 自动发布触发
+    if(this.data.isFirstPublish) {
+      this.onPublish();
+    }
  }).catch((e) => {
-  console.log(e);
+  wx.showToast({
+    icon: "none",
+    title: '操作错误'
+  })
   });
 },
   // 查询用户信息并存储
@@ -218,6 +260,17 @@ onEdit() {
   })
 },
 onPublish() {
+  // 弹窗类型更改
+  this.setData({
+    publishType: 'publish'
+  })
+  if(!this.data.userInfo.wxcode) {
+    this.setData({
+      visible: true,
+      isFirstPublish: true
+    });
+    return;
+  }
   wx.showLoading({
     title: '发布中...',
   });
@@ -233,7 +286,13 @@ onPublish() {
       }
     }
   }).then((resp) => {
-    console.log('resp:'+ JSON.stringify(resp));
+    this.setData({
+      isFirstPublish: false
+    })
+    wx.showToast({
+      icon: 'none',
+      title: '发布成功',
+    })
     wx.hideLoading();
  }).catch((e) => {
     wx.hideLoading();

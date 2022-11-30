@@ -1,5 +1,8 @@
+
+import Event from './util/eventBus'
 // app.js
 App({
+  event: new Event(),
   globalData: {
     employ: '',
     // 登陆用户信息
