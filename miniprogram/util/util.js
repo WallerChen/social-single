@@ -1,3 +1,8 @@
+//  
+export function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 // 字符串加密
 export function toCode (str) {  //加密字符串
     //定义密钥，36个字母和数字

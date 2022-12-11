@@ -50,6 +50,11 @@
     font-size: 35.024rpx;
 }
 
+.user-header .user-info .name span {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .user-header .user-info .class {
     background-color: #B46769;
     width: 128.357rpx;

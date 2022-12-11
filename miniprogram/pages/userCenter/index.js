@@ -1,4 +1,5 @@
-import {classMap} from '../../util/classUtil'
+import {classMap} from '../../util/classUtil';
+import {sleep} from '../../util/util'
 
 const app = getApp();
 const genderMap = {
@@ -368,7 +369,7 @@ onEdit() {
     isEdit: !this.data.isEdit
   });
 },
-onPublish() {
+async onPublish() {
   // 弹窗类型更改
   this.setData({
     publishType: 'publish'
@@ -392,8 +393,8 @@ onPublish() {
   });
 
   // 顺便更新用户信息
-  this.userInfoSave();
-
+  await this.userInfoSave();
+  await sleep(2000);
   wx.cloud.callFunction({
     name: 'inithandler',
     config: {
@@ -409,6 +410,7 @@ onPublish() {
       }
     }
   }).then((resp) => {
+    console.log('publcik:' + JSON.stringify(resp));
     this.setData({
       isFirstPublish: false
     })

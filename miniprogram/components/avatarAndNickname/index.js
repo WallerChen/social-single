@@ -8,7 +8,12 @@ Component({
   data: {
     theme: wx.getSystemInfoSync().theme,
     avatarUrl: defaultAvatarUrl,
-    nickNameValue: ''
+    nickNameValue: '',
+    sex:'',
+    items: [
+      {value: '男', name: '男'},
+      {value: '女', name: '女'}
+    ]
   },
   properties: {
     visible: {
@@ -31,6 +36,12 @@ Component({
   observers: {
   },
   methods: {
+    // 选择性别
+    radioChange(e) {
+      this.setData({
+        sex: e.detail.value
+      })
+    },
     onInput(e) {
       console.log('e.detail.value:' + e.detail.value);
       this.setData({
@@ -47,7 +58,6 @@ Component({
   }, 3000), // 节流，xx毫秒内重复点击无效
   // 点击保存按钮，先上传头像到存储，再保存数据到数据库
   onSaveAvatarNickname: throttle(function(e) {
-    console.log('e:' + e);
     // 没有openid，则不继续处理
     if(!app.globalData.user.openid) {return}
     // 判断是否选择了头像
@@ -104,16 +114,26 @@ Component({
       }
     })
   },
-  // 保存头像和昵称
+  // 保存头像和昵称性别
   saveNickname(fileID, nickname) {
+    let validateKey = ['sex', 'nickname', 'avatarUrl']
     let that = this;
     let saveBody = {
       ...app.globalData.user,
       avatarUrl: fileID,
-      nickName: nickname
+      nickName: nickname,
+      sex: this.data.sex
     } 
-    console.log('saveBody:' + saveBody);
-    console.log('fileID:' + fileID);
+    // 校验
+    for (let key in Object.keys(saveBody)) {
+      if(validateKey.includes(key) && (!saveBody[key] || saveBody[key] == '')) {
+        wx.showToast({
+          title: '信息请填写完整~',
+          icon: 'none'
+        })
+        return;
+      }
+    }
     // 调用云函数
     wx.cloud.callFunction({
       // 要调用的云函数名称

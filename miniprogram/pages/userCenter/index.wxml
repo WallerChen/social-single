@@ -26,11 +26,11 @@
         </view>
     </view>
   
-     <view class="edit" bindtap="onEdit">
-            <span>{{isEdit ? '保存' : '编辑自我介绍'}}</span>
+     <view wx:if="{{userInfo.class}}" class="edit" bindtap="onEdit">
+        <span>{{isEdit ? '保存' : '编辑自我介绍'}}</span>
     </view>
 
-      <view wx:if="{{!userInfo.wxcode}}" class="publish" bindtap="showConnect">
+    <view wx:if="{{!userInfo.wxcode && userInfo.class}}" class="publish" bindtap="showConnect">
         <span>同步信息</span>
     </view>
     <!-- <view>

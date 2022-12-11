@@ -14,9 +14,9 @@
 .dialog .content {
   position: relative;
   width: 626.208rpx;
-  height: 521.739rpx;
+  height: 561.739rpx;
   background-image: url(https://single-student.bj.bcebos.com/dialog_back.png);
-  background-size: 626.208rpx 521.739rpx;
+  background-size: 626.208rpx 561.739rpx;
 }
 
 .dialog .content .title {
@@ -32,7 +32,7 @@
   position: absolute;
   display: flex;
   align-items: center;
-  top: 130.329rpx;
+  top: 110.329rpx;
   left: 50.121rpx;
   color: #611F1B;
   font-size: 30rpx;
@@ -42,11 +42,31 @@
   position: absolute;
   display: flex;
   align-items: center;
-  top: 260.329rpx;
-  left: 50.121rpx;
+  top: 220.329rpx;
   left: 50.121rpx;
   color: #611F1B;
   font-size: 30rpx;
+}
+
+.dialog .content .sex-content {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 300.329rpx;
+  left: 50.121rpx;
+  color: #611F1B;
+  font-size: 30rpx;
+  width: 500rpx;
+}
+
+.dialog .content .sex-content .sexgroup {
+  display: flex;
+  justify-content: space-between;
+  width: 200rpx;
+}
+
+.dialog .content .sex-content .sexgroup .label-ratio {
+  display: flex;
 }
 
 
@@ -56,7 +76,7 @@
   width: 478.261rpx;
   border-radius: 50.077rpx;
   background-color: #A14530;
-  top: 360.652rpx;
+  top: 400.652rpx;
   left: 74.879rpx;
   font-size: 42.232rpx;
   color: #F5EDCC;
