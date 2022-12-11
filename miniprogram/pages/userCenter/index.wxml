@@ -1,25 +1,19 @@
 <view class="user-page">
-     <!-- 顶层点击授权登陆 -->
-     <!-- <button class="top-auth" style="width: 100%" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image class="avatar" src="{{avatarUrl}}"></image>
-    </button> 
-    <input type="nickname" class="weui-input" placeholder="请输入昵称"/> -->
-   <!-- <button class="top-auth" style="width: 100%" wx:if="{{canIUseGetUserProfile && !hasUserInfo && !userInfo.openid}}" bindtap="getUserProfile"></button> -->
-    <!-- 展示内容 -->
     <view class="user-header">
-        <view class="avatar">
+        <view class="avatar" bindtap="chooseWxImage">
             <image class="image-url" src="{{userInfo.avatarUrl}}"/>
         </view>
          <view class="user-info">
-            <view class="name">
-                {{userInfo.nickName}}
+            <view class="name" catchtap="onEditNickName">
+                <span wx:if="{{!isEditNickname}}">{{userInfo.nickName}}</span>
+                <input wx:else value="{{editNickName}}" confirm-type="done" bindinput="onInputEditNickName" bindconfirm="onConfirmEdit"/>
             </view>
             <view class="class">
                 <span style="padding-top:5rpx">{{userInfo.class || '暂无班级'}}</span>
             </view>
         </view>
          <view wx:if="{{userInfo.class}}" class="connect" bindtap="onPublish">
-           发布
+            发布
          </view>
     </view>
     <view class="user-content">

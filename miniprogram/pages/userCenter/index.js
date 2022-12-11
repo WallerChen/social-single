@@ -1,3 +1,5 @@
+import {classMap} from '../../util/classUtil'
+
 const app = getApp();
 const genderMap = {
   0: '未知',
@@ -26,7 +28,11 @@ Page({
     // updateInput
     updateInputWxcode:'',
     // 是否首次发布
-    isFirstPublish: false
+    isFirstPublish: false,
+    // 是否编辑昵称
+    isEditNickname: false,
+    // 编辑昵称
+    editNickName: ''
   },
 
   onLoad(options) {
@@ -54,6 +60,11 @@ Page({
     }
     // 增加监听器
     app.event.on('updateHomeInfo',this.updateHomeInfo ,this);
+  },
+  onShow(){
+    this.setData({
+      visibleAvatarName: app.globalData?.user?.nickName ? false : true
+    });   
   },
   onUnload(){
     app.event.off('updateHomeInfo',this.updateHomeInfo);
@@ -104,7 +115,119 @@ Page({
   bindGetUserInfo (e) {
     console.log(e.detail.userInfo)
   },
+  // 输入昵称
+  onInputEditNickName(e) {
+      this.setData({
+        editNickName: e.detail.value
+      })
+  },
+  // 更改昵称
+  onEditNickName() {
+    this.setData({
+      isEditNickname: true,
+      editNickName: this.data.userInfo.nickName
+    })
+  },
+  // 选择照片
+  chooseWxImage: function () {
+    const that = this;
+    wx.chooseImage({
+      // 最多可以选择的图片张数
+      count: 1,
+      // 所选的图片的尺寸
+      sizeType: ['original', 'compressed'],
+      // 选择图片的来源
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        wx.showLoading({
+          title: '正在上传...',
+          icon: 'loading',
+          mask: true
+        });
+        that.upImgs(res.tempFilePaths[0], 0); // 调用上传方法
+      },
+      fail: function (res) {
+        console.log('fail', res);
+      },
+      complete: function (res) {
+      }
+    });
+  },
 
+  upImgs: function (avatarUrl) {
+    let that = this
+    // 每个用户的头像唯一，采用openid命名
+    let cloudPath = 'avatar/' + new Date().getTime() + '.jpg'
+    wx.cloud.uploadFile({
+      cloudPath: cloudPath,   // 保存到存储中的路径及文件名
+      filePath: avatarUrl,    // 本地待上传的文件路径
+      success: res => {
+        let fileID = res.fileID 
+        // 本地展示
+        app.globalData.user.avatarUrl = fileID;
+        wx.hideLoading({
+          success: (res) => {    
+            wx.showToast({
+              title:'点击「发布」后，大家才能看到您的新头像哟',
+              icon: 'none'
+            })
+            that.updateHomeInfo(app.globalData.user) 
+          },
+        })
+      },
+      fail: err => {
+        wx.hideLoading();
+        wx.showToast({
+          icon: 'none',
+          title: '上传失败'
+        })
+        console.log("upload file failure.", err)
+      },
+      complete: res => {
+        wx.hideLoading();
+        console.log("upload option complete.", res)
+      }
+    })
+  },
+  // 保存昵称
+  saveNickName(nickname) {
+      let that = this;
+      let saveBody = {
+        ...app.globalData.user,
+        nickName: nickname
+      } 
+      // 调用云函数
+      wx.cloud.callFunction({
+        // 要调用的云函数名称
+        name: "inithandler",
+        config: {
+          env: 'single-1g8xzqs704ef759e'
+        },
+        data: {
+          type: 'user',
+          params: {
+            collection: classMap[app.globalData.user?.class],
+            key: 'add',
+            body: saveBody
+          }
+        },
+        success: res => {
+          app.globalData.user.nickName = nickname;
+        },
+        fail: err => {
+          console.error('save nickname fail', err)   
+        },
+        complete: () => {
+          console.log('save nickname complete')
+          // 关闭提示
+          wx.hideLoading({
+            success: (res) => {     
+              that.updateHomeInfo(app.globalData.user) 
+            },
+          })
+        }
+      })
+  },
   // 获取banner数据
   initBanner(){
 
@@ -118,8 +241,10 @@ async showConnect() {
 },
 // 关联到微信号
 async updateInfoSave(wxcode) {
+  app.globalData.user.wxcode = wxcode.detail;
   let updatedBody =  {
     wxcode: wxcode.detail,
+    collection: classMap[app.globalData.user?.class],
     ...this.data.userInfo
   };
   wx.cloud.callFunction({
@@ -163,10 +288,11 @@ async updateInfoSave(wxcode) {
   })
   });
 },
-  // 查询用户信息并存储
-async userInfoSave(body) {
+// 查询用户信息并存储
+async userInfoSave(body = {}) {
     // 调整性别
     body.gender = genderMap[body.gender];
+    body.collection = classMap[app.globalData.user?.class];
     wx.cloud.callFunction({
       name: 'inithandler',
       config: {
@@ -190,39 +316,23 @@ async userInfoSave(body) {
 onInputDesc(e) {
   this.setData({
     descInputText: e.detail.value
-  });
-  
+  });  
 },
 onInput(e) {
   this.setData({
     updateInputWxcode: e.detail.value
   })
 },
-// onUpdate
-// onUpdate() {
-//   wx.cloud.callFunction({
-//     name: 'inithandler',
-//     config: {
-//       env: 'single-1g8xzqs704ef759e'
-//     },
-//     data: {
-//       type: 'classCardData',
-//       params: {
-//         key: 'update',
-//         body: {
-//           wxcode: this.data.updateInputWxcode,
-//           desc: this.data.descInputText
-//         }
-//       }
-//     }
-//   }).then((resp) => {
-//     console.log(resp);
-//  }).catch((e) => {
-//   });
-// },
 // onEdit
 onEdit() {
-  if (this.data.isEdit) {
+  if (!this.data.isEdit){
+    this.setData({
+      descInputText: this.data.userInfo.desc,
+      isEdit: !this.data.isEdit
+    });
+    return;
+  } 
+  else {
     wx.showLoading({
       title: '保存中...',
     });
@@ -236,19 +346,18 @@ onEdit() {
         params: {
           key: 'add',
           body: {
+            collection: classMap[app.globalData.user?.class],
             desc: this.data.descInputText
           }
         }
       }
     }).then((resp) => {
-      let newUserInfo = this.data.userInfo;
-      newUserInfo.desc = this.data.descInputText;
+      app.globalData.user.desc = this.data.descInputText;
       this.setData({
-        userInfo: newUserInfo
+        ['userInfo.desc']: this.data.descInputText
       })
       wx.hideLoading();
    }).catch((e) => {
-      wx.hideLoading();
       wx.showToast({
         icon: 'none',
         title: '保存失败',
@@ -257,7 +366,7 @@ onEdit() {
   }
   this.setData({
     isEdit: !this.data.isEdit
-  })
+  });
 },
 onPublish() {
   // 弹窗类型更改
@@ -271,9 +380,20 @@ onPublish() {
     });
     return;
   }
+  if(!(this.data.userInfo.desc.length > 0)) {
+    wx.showToast({
+      icon: 'none',
+      title: '请填写自我介绍～',
+    })
+    return;
+  }
   wx.showLoading({
     title: '发布中...',
   });
+
+  // 顺便更新用户信息
+  this.userInfoSave();
+
   wx.cloud.callFunction({
     name: 'inithandler',
     config: {
@@ -282,7 +402,10 @@ onPublish() {
     data: {
       type: 'user',
       params: {
-        key: 'publicToClass'
+        key: 'publicToClass',
+        body: {
+          collection: classMap[app.globalData.user?.class],
+        }
       }
     }
   }).then((resp) => {
@@ -301,5 +424,18 @@ onPublish() {
       title: '发布失败',
     })
   });
-}
+},
+// 输入框确认
+onConfirmEdit() {
+  app.globalData.user.nickName = this.data.editNickName;
+  this.setData({
+    isEditNickname: false,
+    ['userInfo.nickName']: this.data.editNickName
+  }, ()=> {
+    wx.showToast({
+      title:'点击「发布」后，大家才能看到您的新昵称哟',
+      icon: 'none'
+    })
+  })
+},
 });

@@ -38,7 +38,8 @@
 
 .user-header .user-info {
     display: flex;
-    margin-left: 63.406rpx;
+    width: 200rpx;
+    margin-left: 40.406rpx;
     flex-direction: column;
     justify-content: space-evenly;
     align-content: center;

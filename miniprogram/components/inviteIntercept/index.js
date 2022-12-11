@@ -23,7 +23,6 @@ Component({
     },
     // 触发页面方法
     onConfirm() {
-      console.log('this.data.inputValue):' + this.data.inputValue);
       this.triggerEvent("confirm",this.data.inputValue);
     },
     closeDialog() {

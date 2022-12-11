@@ -5,11 +5,18 @@ cloud.init({
 
 // 获取数据库集合信息
 const db = cloud.database()
-const userCardCollection = db.collection('user-card-one');
 async function getClassCardRecord(body) {
+  const userCardCollection = db.collection('user-card-' + body.collection);
   // 获取卡片总数用于分页
   let countObj = await userCardCollection.count();
-  let showList = await userCardCollection.skip(body.currentPage * body.pageSize).limit(body.pageSize).get();
+  let showList = await userCardCollection.field({
+    avatarUrl: true,
+    avatar_self: true,
+    desc: true,
+    sex: true,
+    gender: true,
+    nickName: true
+  }).orderBy('collection', 'desc').skip(body.currentPage * body.pageSize).limit(body.pageSize).get();
   let result = {
     total: countObj.total,
     data: showList.data
@@ -18,6 +25,7 @@ async function getClassCardRecord(body) {
 }
 
 async function updateCardInfo(body) {
+  const userCardCollection = db.collection('user-card-' + body.collection);
   let haveShowCard = await userCardCollection.where({
     wxcode: body.wxcode
   }).get();

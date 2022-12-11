@@ -1,6 +1,8 @@
 import {toCode, fromCode} from '../..//util/util';
+import {classMap, classItemList} from '../../util/classUtil'
 let winWidth = 414;
 let winHeight = 736;
+
 function deepClone(obj) {
   if (typeof obj !== 'object' || obj === null) {
     return obj
@@ -20,6 +22,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    classMap,
+    classItemList,
     studentList: [],
     x: 414,
     y: 736,
@@ -35,7 +39,8 @@ Page({
     total: 0,
     // 展现底部详情
     showBottom: false,
-    showIntroduce: ''
+    showIntroduce: '',
+    scrollToView: ''
 },
 
   onLoad(options) {
@@ -45,28 +50,38 @@ Page({
     winHeight = res.windowHeight;
 
     if (app.globalData.employ && app.globalData.employ != '') {
-      console.log(' app.globalData.user:' + JSON.stringify( app.globalData.user))
-      this.setData({
-        visible: app.globalData.user.class ? false : true
-      })
+      this.onShowVisible();
     } else {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.employCallback = employ => {
-      console.log(' app.globalData.user2:2' + JSON.stringify( app.globalData.user))
         if (employ != '') {
-          this.setData({
-            visible: app.globalData.user.class ? false : true
-          });         
+         this.onShowVisible();
         }
       }
     }
     this.setData({ ratio });
-    // 获取卡片信息
-    this.getShowCardList();
-    this.setData({
-      visible: app.globalData.user.class ? false : false
-    })
+   
+  },
+  // 设置卡片可视
+  onShowVisible() {
+     // 判断用户是哪个班级
+     for (const index in this.data.classItemList) {
+      this.setData({
+        [`classItemList[${index}].isShow`]: this.data.classItemList[index].title == app.globalData.user?.class,
+        [`classItemList[${index}].isLock`]: !(this.data.classItemList[index].title == app.globalData.user?.class),
+      });
+     }
+     // 获取卡片信息
+     this.setData({
+      visible: !(app.globalData.user?.class || app.globalData.user?.class == ''),
+      scrollToView: classMap[app.globalData.user?.class]
+    }, ()=> {
+      console.log('this.data.visible:' + this.data.visible);
+        if(!this.data.visible){
+          this.getShowCardList();
+        }
+    });
   },
   // 获取用户ID
   getShowCardList() {
@@ -80,6 +95,7 @@ Page({
         params: {
           key: 'get',
           body: {
+            collection: classMap[app.globalData.user?.class],
             currentPage: this.data.currentPage,
             pageSize: this.data.pageSize
           }
@@ -115,16 +131,18 @@ Page({
   
   // 邀请码确认
   confirm(value) {
-    let openClass = '脱单一班';
+    let classCollection = Object.keys(classMap);
     let decodeText = fromCode(value.detail);
-    if (openClass != decodeText) {
+    console.log('decodeText:' + decodeText);
+    console.log('classCollection:' + classCollection);
+    if (!classCollection.includes(decodeText)) {
       wx.showToast({
         icon: 'none',
         title: '邀请码错误～',
-      })
+      });
       return;
     } else {
-      app.globalData.user.class = fromCode(value.detail);
+      app.globalData.user.class = decodeText;
       // 更新用户class
       wx.cloud.callFunction({
         name: 'inithandler',
@@ -136,17 +154,24 @@ Page({
           params: {
             key: 'add',
             body: {
+              collection: classMap[decodeText],
               ...app.globalData.user
             }
           }
         }
       }).then((resp) => {
+        this.setData({
+          visible: false
+        });
+        // 获取档案信息
+        this.getShowCardList();
         app.event.emit('updateHomeInfo', app.globalData.user);
      }).catch((e) => {
+      wx.showToast({
+        icon: 'none',
+        title: '校验错误～请联系管理员',
       });
-      this.setData({
-        visible: false
-      })
+      });
     }
   },
 
@@ -199,7 +224,7 @@ Page({
           list.splice((list.length - 1), 1);
           that.setData({ studentList: list })
           // 列表长度小于7的时候请求服务端
-          if (list.length < 7) {
+          if (list.length < 5) {
               that.getShowCardList();
           }
         })

@@ -82,8 +82,10 @@ Component({
   // 上传头像
   uploadAvatarUrl(avatarUrl, nickname) {
     let that = this
+    let splitUrlArray = avatarUrl.split('.') || [];
+    
     // 每个用户的头像唯一，采用openid命名
-    let cloudPath = 'avatar/' + app.globalData.user.openid + '.jpg'
+    let cloudPath = 'avatar/' + app.globalData.user.openid + '.' + splitUrlArray[splitUrlArray.length -1];
     console.log('avatarUrl is %s', avatarUrl )
     wx.cloud.uploadFile({
       cloudPath: cloudPath,   // 保存到存储中的路径及文件名
@@ -102,20 +104,6 @@ Component({
       }
     })
   },
-          // // 再将fileID和nickname存储到数据库
-          // wx.cloud.downloadFile({
-          //   fileID: fileID,
-          //   success: res => {
-          //     console.log(res.tempFilePath)
-          //     // get temp file path
-          //     console.log('downloadFiledownloadFile:' + JSON.stringify(downloadFile));
-          //     that.saveNickname(fileID, nickname)
-          //   },
-          //   fail: err => {
-          //     console.log('err:' + err);
-          //   }
-          // })
-
   // 保存头像和昵称
   saveNickname(fileID, nickname) {
     let that = this;

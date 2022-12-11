@@ -12,7 +12,7 @@
                   昵称: <span>{{info['nickName'] || '暂无'}} </span>
               </view>
                 <view >
-                   性别: <span>{{info['sex'] || info['gender'] || '暂无'}} </span>
+                  性别: <span>{{info['sex'] || info['gender'] || '暂无'}} </span>
               </view>
              
          </view>

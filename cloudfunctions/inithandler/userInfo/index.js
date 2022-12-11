@@ -5,7 +5,6 @@ cloud.init({
 // 获取数据库集合信息
 const db = cloud.database();
 const userUserCollection = db.collection('user-info');
-const userCardCollection = db.collection('user-card-one');
 
 // 获取一班班级信息
 exports.main = async (event, context) => {
@@ -14,7 +13,7 @@ exports.main = async (event, context) => {
       case 'add': result = await addRecord(event.params.body); break;
       case 'get': result = await getUserRecord(); break;
       // 信息发布到班级
-      case 'publicToClass': result = await publicMySelf(); break;
+      case 'publicToClass': result = await publicMySelf(event.params.body); break;
       // 同步信息
       case 'syncInfo' : result = await syncInfo(event.params.body); break;
   }
@@ -25,8 +24,20 @@ exports.main = async (event, context) => {
 
 // 添加用户信息
 async function addRecord(body) {
-  // 获取基础信息
   const wxContext = cloud.getWXContext();
+  // 如果不存在班级 则非社群用户
+  if(!body.collection) {
+    return await userUserCollection.add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+       openid: wxContext.OPENID,
+       ...body
+      }
+    });
+  }
+  // 获取基础信息
+  const userCardCollection = db.collection('user-card-' + body.collection);
+ 
   // 先查询是否班级卡片有此同学 并更新相关信息到卡片展现
   let haveShowCard = await userCardCollection.where({
     openid: wxContext.OPENID
@@ -91,11 +102,12 @@ async function getUserRecord() {
     } else {
       return selfData
     }
-  }
+}
 // 发布信息到班级
-async function publicMySelf() {
+async function publicMySelf(body) {
   // 获取openId基础信息
   const wxContext = cloud.getWXContext();
+  const userCardCollection = db.collection('user-card-' + body.collection);
   // 获取个个人信息
   let cardInfo = await userCardCollection.where({
     openid: wxContext.OPENID
@@ -132,7 +144,9 @@ async function publicMySelf() {
 // 同步信息
 async function syncInfo(body) {
   // 获取基础信息
+  const userCardCollection = db.collection('user-card-' + body.collection);
   const wxContext = cloud.getWXContext();
+  
   if(!body.wxcode) {
     return {};
   } else {
