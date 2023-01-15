@@ -44,7 +44,21 @@ Page({
     scrollToView: '',
     adminClass: undefined
 },
-
+  // 分享到朋友圈
+  onShareAppMessage() {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '单身同学录'
+        })
+      }, 2000)
+    })
+    return {
+      title: '单身同学录',
+      path: '/page/home/index',
+      promise 
+    }
+    },
   onLoad(options) {
     let res = wx.getSystemInfoSync();
     let ratio = res.pixelRatio;

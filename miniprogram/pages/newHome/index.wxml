@@ -1,6 +1,28 @@
 <view class="new-home">
-    <view class="class-nav">
-        <view class="item">
+    <view class="header-wrap">
+        <view class="subBlock-select">
+             <view class="title">
+                社群班
+             </view>
         </view>
+         <view class="subBlock-unselect">
+             <view class="title">
+                公开班
+             </view>
+        </view>
+    </view>
+    <view class="class-nav">
+        <scroll-view class="class-list" scroll-x>
+          <block wx:for="{{classItemList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+                <view class="item">
+                     <text>{{item.title}}</text>
+                     <image wx:if="{{item.isVip}}" class="vip" src="https://single-student.bj.bcebos.com/vip.png"/>
+                </view>
+          </block>
+        </scroll-view>
+    </view>
+    <view class="home-content">
+        <button bind:tap="navigatorToActivite">群接龙</button>
+        <view class="hide-content-back"></view>
     </view>
 </view>

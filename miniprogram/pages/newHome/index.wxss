@@ -1,12 +1,93 @@
-.new-home {
-    background-image: linear-gradient(#F1F3F8, #F9FAFF);
+page {
+    /* background-image: linear-gradient(#F1F3F8, #F9FAFF); */
+    background-color: #F1F3F8;
 }
-.class-nav {
+
+.header-wrap {
+    width: 670rpx;
+    height: 148rpx;
     margin-left: 40rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #E3E9F0;
+    border-radius: 74rpx;
+}
+
+.header-wrap .subBlock-select {
+    width: 306rpx;
+    height: 100rpx;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60rpx;
+}
+
+.header-wrap .subBlock-unselect {
+    width: 306rpx;
+    height: 100rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60rpx;
+    color: #90939B;
+}
+
+.header-wrap .title {
+    font-size: 36rpx;
+}
+
+.class-nav {
+    margin: 38rpx 0 0 40rpx;
+}
+
+.class-nav .class-list {
+    display: flex;
 }
 
 .class-nav .item {
+    margin-left: 10rpx;
+    display: inline-block;
+    position: relative;
     width: 144rpx;
     height: 64rpx;
+    border-radius: 20rpx;
     background-color: #E3E9F0;
+    
 }
+
+.class-nav .item .vip {
+    position: absolute;
+    width: 40rpx;
+    height: 35rpx;
+    right: -20rpx;
+    top: -17rpx;
+ }
+
+.class-nav .item text {
+    margin-left: 18rpx;
+    font-size: 28rpx;
+    color: #666666;
+}
+
+.home-content {
+    position: relative;
+    margin: 50rpx 0 0 19rpx;
+    width: 657rpx;
+    height: 862rpx;
+    background-image: url(https://single-design.bj.bcebos.com/newHome/home-back.png);
+    background-size: 657rpx 862rpx;
+}
+
+.hide-content-back {
+    position: absolute;
+    width: 528rpx;
+    height: 688rpx;
+    left: 180rpx;
+    top: 105rpx;
+    background-image: url(https://single-design.bj.bcebos.com/newHome/hide-back.png);
+    background-size: 528rpx 688rpx;
+    z-index: -1;
+}
+
