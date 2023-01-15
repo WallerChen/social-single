@@ -16,6 +16,7 @@ function deepClone(obj) {
   return newObj
 }
 const app = getApp();
+const admins = ['o6orS5emZUHW5BGNYAGO2SP2P7hg', 'o6orS5aPPXUXSFePhdLTy_Ygn-A8', 'o6orS5ZvU2Us8IMFLPkO_WHV8_Io'];
 Page({
 
   /**
@@ -40,7 +41,8 @@ Page({
     // 展现底部详情
     showBottom: false,
     showIntroduce: '',
-    scrollToView: ''
+    scrollToView: '',
+    adminClass: undefined
 },
 
   onLoad(options) {
@@ -63,21 +65,41 @@ Page({
     this.setData({ ratio });
    
   },
+  // 选择班级下拉
+  getClassCard(e) {
+    if(!admins.includes(app.globalData.user?.openid)) return;
+    this.setData({
+      adminClass: e.currentTarget.dataset.class,
+      currentPage: 0,
+      pageSize: 10,
+      studentList: []
+    }, () => {
+      this.getShowCardList();
+    })
+  },
   // 设置卡片可视
   onShowVisible() {
      // 判断用户是哪个班级
      for (const index in this.data.classItemList) {
-      this.setData({
-        [`classItemList[${index}].isShow`]: this.data.classItemList[index].title == app.globalData.user?.class,
-        [`classItemList[${index}].isLock`]: !(this.data.classItemList[index].title == app.globalData.user?.class),
-      });
+      if(admins.includes(app.globalData.user?.openid)){
+        this.setData({
+          [`classItemList[${index}].isShow`]: true,
+          [`classItemList[${index}].isLock`]: false
+        });
+      }
+      else {
+        this.setData({
+          [`classItemList[${index}].isShow`]: this.data.classItemList[index].title == app.globalData.user?.class,
+          [`classItemList[${index}].isLock`]: !(this.data.classItemList[index].title == app.globalData.user?.class),
+        });
+      }
+      
      }
      // 获取卡片信息
      this.setData({
       visible: !(app.globalData.user?.class || app.globalData.user?.class == ''),
       scrollToView: classMap[app.globalData.user?.class]
     }, ()=> {
-      console.log('this.data.visible:' + this.data.visible);
         if(!this.data.visible){
           this.getShowCardList();
         }
@@ -95,7 +117,7 @@ Page({
         params: {
           key: 'get',
           body: {
-            collection: classMap[app.globalData.user?.class],
+            collection: this.data.adminClass || classMap[app.globalData.user?.class],
             currentPage: this.data.currentPage,
             pageSize: this.data.pageSize
           }
@@ -133,8 +155,6 @@ Page({
   confirm(value) {
     let classCollection = Object.keys(classMap);
     let decodeText = fromCode(value.detail);
-    console.log('decodeText:' + decodeText);
-    console.log('classCollection:' + classCollection);
     if (!classCollection.includes(decodeText)) {
       wx.showToast({
         icon: 'none',
@@ -164,7 +184,7 @@ Page({
           visible: false
         });
         // 获取档案信息
-        this.getShowCardList();
+        this.onShowVisible();
         app.event.emit('updateHomeInfo', app.globalData.user);
      }).catch((e) => {
       wx.showToast({

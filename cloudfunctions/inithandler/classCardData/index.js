@@ -16,7 +16,7 @@ async function getClassCardRecord(body) {
     sex: true,
     gender: true,
     nickName: true
-  }).orderBy('collection', 'desc').skip(body.currentPage * body.pageSize).limit(body.pageSize).get();
+  }).orderBy('updateTime', 'desc').skip(body.currentPage * body.pageSize).limit(body.pageSize).get();
   let result = {
     total: countObj.total,
     data: showList.data

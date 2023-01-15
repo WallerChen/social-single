@@ -64,7 +64,8 @@ Page({
   },
   onShow(){
     this.setData({
-      visibleAvatarName: app.globalData?.user?.nickName ? false : true
+      visibleAvatarName: app.globalData?.user?.nickName ? false : true,
+      editNickName: app.globalData?.user?.nickName
     });   
   },
   onUnload(){
@@ -291,6 +292,7 @@ async updateInfoSave(wxcode) {
 },
 // 查询用户信息并存储
 async userInfoSave(body = {}) {
+   let that = this;
     // 调整性别
     body.gender = genderMap[body.gender];
     body.collection = classMap[app.globalData.user?.class];
@@ -305,11 +307,16 @@ async userInfoSave(body = {}) {
           key: 'add',
           body: {
             ...body,
-            ...app.globalData.user
+            ...app.globalData.user,
+            nickName: that.data.editNickName !== app.globalData?.user?.nickName
+              ? that.data.editNickName : app.globalData?.user?.nickName
           }
         }
       }
     }).then((resp) => {
+      if(that.data.editNickName !== app.globalData?.user?.nickName) {
+        that.onConfirmEdit(false);
+      }
    }).catch((e) => {
     });
   },
@@ -428,16 +435,17 @@ async onPublish() {
   });
 },
 // 输入框确认
-onConfirmEdit() {
+onConfirmEdit(showToast = true) {
   app.globalData.user.nickName = this.data.editNickName;
   this.setData({
     isEditNickname: false,
     ['userInfo.nickName']: this.data.editNickName
   }, ()=> {
-    wx.showToast({
-      title:'点击「发布」后，大家才能看到您的新昵称哟',
-      icon: 'none'
-    })
+    if (showToast)
+      wx.showToast({
+        title:'点击「发布」后，大家才能看到您的新昵称哟',
+        icon: 'none'
+      })
   })
 },
 });

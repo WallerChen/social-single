@@ -128,16 +128,30 @@ async function publicMySelf(body) {
       ...ownerbody
     }
     let {_id, ...deleteBody} = finalBody;
+    console.log({
+      ...deleteBody,
+      updateTime: Date.now() + ''
+    });
     // 如果存在openid 则用openid来修改
      return await userCardCollection.where({
         openid: originCardBody.openid
       }).update({
-        data: deleteBody
+        data: {
+          ...deleteBody,
+          updateTime: Date.now() + ''
+        }
       }).catch(e =>{
       });
-    } else {
+    } 
+  else {
+      console.log({
+        ...ownerbody,
+        updateTime: Date.now() + ''
+      });
       return await userCardCollection.add({
-        data: ownerbody
+        data: ownerbody,
+        publishTime: Date.now() + '',
+        updateTime: Date.now() + ''
       })
     }
 }
