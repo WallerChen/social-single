@@ -2,11 +2,14 @@ const cloud = require('wx-server-sdk');
 cloud.init({
   env: 'single-1g8xzqs704ef759e'
 });
+// 动态隐藏信息
+const hideArray = ['TDH0019','kakayidunxuan14','WinnieLiiiu']
 
 // 获取数据库集合信息
 const db = cloud.database()
 async function getClassCardRecord(body) {
   const userCardCollection = db.collection('user-card-' + body.collection);
+  const _ = db.command;
   // 获取卡片总数用于分页
   let countObj = await userCardCollection.count();
   let showList = await userCardCollection.field({
@@ -16,7 +19,12 @@ async function getClassCardRecord(body) {
     sex: true,
     gender: true,
     nickName: true
+  }).where({
+    wxcode: _.nin([hideArray])
   }).orderBy('updateTime', 'desc').skip(body.currentPage * body.pageSize).limit(body.pageSize).get();
+  showList.data = showList.data.filter(function(item) {
+    return item.desc.trim().length !== 0;
+  });
   let result = {
     total: countObj.total,
     data: showList.data
