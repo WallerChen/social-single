@@ -29,5 +29,5 @@
   </movable-view>
   </movable-area>
   <introduce-bottom showIntroduce="{{showIntroduce}}" showBottomTip="{{showBottom}}"/>
-  <intercept bind:confirm="confirm" visible="{{visible}}"/>
+  <intercept bind:confirm="confirm" visible="{{true}}"/>
 </view>

@@ -19,6 +19,13 @@
   background-size: 626.208rpx 521.739rpx;
 }
 
+.dialog .content .text {
+  position: absolute;
+  top: 25.652rpx;
+  right: 40.879rpx;
+  color: #A14530;
+}
+
 .dialog .content .input {
   position: absolute;
   height: 104.469rpx;

@@ -1,5 +1,6 @@
 <view wx:if="{{visible}}" class="dialog">
   <view class="content">
+       <text class="text" bindtap="onPopHelp">帮助</text>
        <input class="input" bindinput="bindKeyInput"/>
        <button class="button" bindtap="onConfirm">确认</button>
   </view>
