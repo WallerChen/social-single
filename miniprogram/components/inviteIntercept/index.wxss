@@ -21,9 +21,10 @@
 
 .dialog .content .text {
   position: absolute;
-  top: 25.652rpx;
-  right: 40.879rpx;
+  top: 440.652rpx;
+  left: 124.879rpx;
   color: #A14530;
+  text-decoration:underline;
 }
 
 .dialog .content .input {
@@ -43,7 +44,7 @@
   width: 478.261rpx;
   border-radius: 50.077rpx;
   background-color: #A14530;
-  top: 360.652rpx;
+  top: 330.652rpx;
   left: 74.879rpx;
   font-size: 42.232rpx;
   color: #F5EDCC;

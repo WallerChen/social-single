@@ -1,8 +1,13 @@
-<view wx:if="{{visible}}" class="dialog">
-  <view class="content">
-       <text class="text" bindtap="onPopHelp">帮助</text>
+<view wx:if="{{visible}}">
+     <view class="dialog">
+          <view class="content">
+       <text class="text" bindtap="onPopHelp">点击添加群主，获取邀请码</text>
        <input class="input" bindinput="bindKeyInput"/>
        <button class="button" bindtap="onConfirm">确认</button>
-  </view>
-   <!-- <image class="close" src="https://single-student.bj.bcebos.com/dialogc-close.png" bindtap="closeDialog"/> -->
+      </view>
+     </view>
+     <custom-modal showWx="{{showWx}}">
+          <image style="width:400rpx;height:400rpx" src="https://single-design.bj.bcebos.com/shizi.jpeg"></image>
+     </custom-modal>
 </view>
+

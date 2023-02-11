@@ -81,7 +81,7 @@
         },
         {
           "name": "",
-          "pathName": "pages/index/index",
+          "pathName": "pages/newHome/index",
           "query": "",
           "launchMode": "default",
           "scene": null

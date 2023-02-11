@@ -79,4 +79,12 @@
     justify-content: center;
 }
 
+.invite {
+    position: absolute;
+    left: 130rpx;
+    top: 1230rpx;
+    color: grey;
+    text-decoration:underline;
+    padding-bottom: 4rpx;
+}
 

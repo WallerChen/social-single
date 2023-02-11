@@ -16,7 +16,7 @@ function deepClone(obj) {
   return newObj
 }
 const app = getApp();
-const admins = ['o6orS5emZUHW5BGNYAGO2SP2P7hg', 'o6orS5aPPXUXSFePhdLTy_Ygn-A8', 'o6orS5ZvU2Us8IMFLPkO_WHV8_Io'];
+const admins = ['o6orS5emZUHW5BGNYAGO2SP2P7hg', 'o6orS5aPPXUXSFePhdLTy_Ygn-A8', 'o6orS5ZvU2Us8IMFLPkO_WHV8_Io', 'o6orS5UyuvCbL7HCHE8c8gk-WjoM'];
 Page({
 
   /**
@@ -42,8 +42,14 @@ Page({
     showBottom: false,
     showIntroduce: '',
     scrollToView: '',
-    adminClass: undefined
+    adminClass: undefined,
+    showWx: false
 },
+  onInvite() {
+    this.setData({
+      showWx: true
+    })
+  },
   // 分享到朋友圈
   onShareAppMessage() {
     const promise = new Promise(resolve => {

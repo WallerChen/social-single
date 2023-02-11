@@ -1,0 +1,10 @@
+<view wx:if="{{showWx}}" class="dialogImage" bind:tap="closeDialog">
+     <view class="dialog-layout">
+     <view class="header">
+        添加群主，加入社群
+     </view>
+      <view class="content">
+        <slot></slot>
+      </view>
+     </view>
+</view>

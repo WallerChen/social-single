@@ -3,7 +3,9 @@ Component({
    * 页面的初始数据
    */
   data: {
-    inputValue:''
+    inputValue:'',
+    modalHidden: true,
+    showWx: false
   },
   properties: {
     visible: {
@@ -22,10 +24,13 @@ Component({
       })
     },
     onPopHelp() {
-      wx.previewImage({
-        current: 'https://single-design.bj.bcebos.com/shizi.jpeg', // 当前显示图片的 http 链接
-        urls: ['https://single-design.bj.bcebos.com/shizi.jpeg']
-      })
+      this.setData({
+        showWx: true
+      });
+      // wx.previewImage({
+      //   current: 'https://single-design.bj.bcebos.com/shizi.jpeg', // 当前显示图片的 http 链接
+      //   urls: ['https://single-design.bj.bcebos.com/shizi.jpeg']
+      // })
     },
     // 触发页面方法
     onConfirm() {

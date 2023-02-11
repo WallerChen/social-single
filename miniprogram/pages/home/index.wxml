@@ -28,6 +28,10 @@
     <!-- 根据自己的需求替换此区域 end -->
   </movable-view>
   </movable-area>
+  <view class="invite" bind:tap="onInvite">邀请好友进入社群一起脱单交友！</view>
+  <custom-modal showWx="{{showWx}}">
+      <image style="width:400rpx;height:400rpx" src="https://single-design.bj.bcebos.com/shizi.jpeg"></image>
+  </custom-modal>
   <introduce-bottom showIntroduce="{{showIntroduce}}" showBottomTip="{{showBottom}}"/>
-  <intercept bind:confirm="confirm" visible="{{true}}"/>
+  <intercept bind:confirm="confirm" visible="{{visible}}"/>
 </view>
