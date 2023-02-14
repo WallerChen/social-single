@@ -1,10 +1,13 @@
 <view class="homePage">
+  <animation visible="{{visibleAnimation}}">
+    <canvas class="animation" id="canvas" type="2d"></canvas>
+  </animation>
   <image  class="home-header-background" src="https://single-student.bj.bcebos.com/background.png"/>
   <!-- 顶部 -->
   <view class="home-header">
       <view class="group">
-            <image class="class" src='https://single-student.bj.bcebos.com/groupPrimary.png'/>
-            <image class="class" src='https://single-student.bj.bcebos.com/groupPublic.png'/>
+          <image class="class" src='https://single-student.bj.bcebos.com/groupPrimary.png'/>
+          <image class="class" src='https://single-student.bj.bcebos.com/groupPublic.png'/>
       </view>
       <!-- class nav -->
       <scroll-view class="class" scroll-x>

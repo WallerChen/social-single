@@ -1,0 +1,7 @@
+<view wx:if="{{visible}}" class="dialog-animation">
+  <!-- 动画特效 -->
+  <!-- <canvas class="content" id="canvas" type="2d"></canvas> -->
+  <!-- <view class="content"> -->
+      <slot></slot>
+  <!-- </view> -->
+</view>

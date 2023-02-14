@@ -4,6 +4,7 @@
     "student": "/pages/home/components/student/index",
     "intercept": "/components/inviteIntercept/index",
     "introduce-bottom": "/components/bottomModal/index",
-    "custom-modal" : "/components/customModal/index"
+    "custom-modal" : "/components/customModal/index",
+    "animation": "/components/animation/index"
   }
 }

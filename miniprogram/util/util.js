@@ -77,3 +77,19 @@ export function wxPromisify(fn) {
     })
   }
 }
+
+// 判断是否是某一天
+export function yearMonthDayStr(beginDateStr, endDateStr) {
+  let currentData = new Date();
+  let year = currentData.getFullYear();
+  let mm = currentData.getMonth() + 1;
+  let dd = currentData.getDate();
+  return year + '-' + mm + '-' + dd;
+  // var curDate = new Date(),
+  //     beginDate = new Date(beginDateStr),
+  //     endDate = new Date(endDateStr);
+  // if (curDate >= beginDate && curDate <= endDate) {
+  //     return true;
+  // }
+  // return false;
+}

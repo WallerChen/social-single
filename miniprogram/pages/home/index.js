@@ -1,5 +1,6 @@
-import {toCode, fromCode} from '../..//util/util';
-import {classMap, classItemList} from '../../util/classUtil'
+import {toCode, fromCode, yearMonthDayStr} from '../..//util/util';
+import {classMap, classItemList} from '../../util/classUtil';
+import lottie from 'lottie-miniprogram';
 let winWidth = 414;
 let winHeight = 736;
 
@@ -43,8 +44,44 @@ Page({
     showIntroduce: '',
     scrollToView: '',
     adminClass: undefined,
-    showWx: false
+    showWx: false,
+    // Animation
+    visibleAnimation: false
 },
+  init() {
+    let current = yearMonthDayStr();
+    if (this.inited || (current !== '2023-2-14')) {
+      return
+    }
+    this.setData({
+      visibleAnimation: true
+    })
+    wx.createSelectorQuery().selectAll('#canvas').node(res => {
+      const canvas = res[0].node
+      const context = canvas.getContext('2d')
+      canvas.width = 700
+      canvas.height = 1242
+      lottie.setup(canvas)
+      this.ani = lottie.loadAnimation({
+        loop: true,
+        autoplay: true,
+        animationData: require('../../json/data.js'),
+        // path: 'https://single-design.bj.bcebos.com/214.json',
+        rendererSettings: {
+          context,
+        },
+      });
+      this.inited = true
+    }).exec();
+    setTimeout(() => {
+      this.setData({
+        visibleAnimation: false
+      })
+    }, 6000);
+  },
+  onReady() {
+    this.init();
+  },
   onInvite() {
     this.setData({
       showWx: true

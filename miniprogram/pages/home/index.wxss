@@ -81,10 +81,15 @@
 
 .invite {
     position: absolute;
-    left: 130rpx;
+    left: 140rpx;
     top: 1230rpx;
     color: grey;
     text-decoration:underline;
     padding-bottom: 4rpx;
+}
+/* animation */
+.animation {
+    height: 100vh;
+    width: 100%;
 }
 
