@@ -6,7 +6,8 @@ Page({
      */
     data: {
       classItemList,
-      classMap
+      classMap,
+      showModal:false,
     },
   
     onLoad(options) {
@@ -23,17 +24,9 @@ Page({
     },
     onUnload(){
     },
-    navigatorToActivite() {
-      wx.navigateToMiniProgram({
-        appId: 'wx059cd327295ab444',
-        path: 'page/index/index?id=123',
-        extraData: {
-          foo: 'bar'
-        },
-        envVersion: 'develop',
-        success(res) {
-          // 打开成功
-        }
+    closeModal() {
+      this.setData({
+        showModal:false
       })
     }
   });

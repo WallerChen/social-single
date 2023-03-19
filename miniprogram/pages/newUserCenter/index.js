@@ -33,13 +33,17 @@ Page({
     // 是否编辑昵称
     isEditNickname: false,
     // 编辑昵称
-    editNickName: ''
+    editNickName: '',
+    showModal:true
+  },
+  cancel() {
+    this.setData({
+      showModal:false
+    })
   },
 
   onLoad(options) {
     let that = this;
-    console.log('getUserProfile-------------',wx.getUserProfile);
-    console.log(app.globalData?.user);
     // 查看是否授权
     if (wx.getUserProfile) {
       if (app.globalData.employ && app.globalData.employ != '') {
@@ -62,7 +66,8 @@ Page({
       } 
     }
     // 增加监听器
-    app.event.on('updateHomeInfo',this.updateHomeInfo ,this);
+    app.event.on('updateHomeInfo', this.updateHomeInfo, this);
+    
   },
   onShow(){
     this.setData({
@@ -73,6 +78,11 @@ Page({
   onUnload(){
     app.event.off('updateHomeInfo',this.updateHomeInfo);
   },
+
+  onReady() {
+    this.drawLine();
+  },
+
   updateHomeInfo(body) {
     this.setData({
       userInfo: {
@@ -96,6 +106,24 @@ Page({
     newUserInfo.avatarUrl = avatarUrl;
     this.setData({
       userInfo: newUserInfo
+    })
+  },
+  getUserProfile(e) {
+    // 推荐使用 wx.getUserProfile 获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+    // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        // 1、存储到个人信息资料库
+        this.userInfoSave(res.userInfo);
+        this.setData({
+          userInfo: {
+            class: app.globalData.user.class,
+            ...res.userInfo
+          },
+          hasUserInfo: true
+        })
+      }
     })
   },
   bindGetUserInfo (e) {
