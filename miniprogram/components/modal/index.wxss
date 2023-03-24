@@ -1,0 +1,29 @@
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog .dialog-layout {
+    min-width:478rpx;
+    padding:46rpx;
+    position: fixed;
+    top: 400rpx;
+    z-index: 100;
+    background: rgba(255,255,255,255.3);
+    border-radius: 50rpx;
+}
+
+
+.dialogImage .dialog-layout .content {
+    display: flex;
+    justify-content: center;
+}

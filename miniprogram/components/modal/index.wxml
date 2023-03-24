@@ -1,0 +1,7 @@
+<view wx:if="{{showModal}}" class="dialog" bind:tap="closeDialog">
+     <view class="dialog-layout">
+      <view class="content">
+        <slot></slot>
+      </view>
+     </view>
+</view>

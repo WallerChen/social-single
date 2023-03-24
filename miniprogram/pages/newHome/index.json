@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "",
   "usingComponents": {
-  
+    "modal":"../../components/modal/index"
   }
 }
