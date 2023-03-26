@@ -102,7 +102,8 @@ Page({
       promise 
     }
     },
-  onLoad(options) {
+  onLoad(options) { 
+
     let res = wx.getSystemInfoSync();
     let ratio = res.pixelRatio;
     winWidth = res.windowWidth;

@@ -92,6 +92,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/infoAuth/infoAuth",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/infoAuth/idCard/idCard",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
