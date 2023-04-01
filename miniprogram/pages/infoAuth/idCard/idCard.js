@@ -1,66 +1,69 @@
-// pages/infoAuth/idCard/idCard.js
+
+import { APICall } from "../../../util/request"
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    name: "",
+    idNum: ""
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
+  userInfoAuth() {
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
 
-  },
+  async onConfirm() {
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
+    if (this.data.idNum.length !== 18 && this.data.idNum.length != 15) {
+      console.log("this.data.idNo.length", this.data.idNum.length);
+      wx.showToast({
+        icon: 'error',
+        title: "请输入有效身份证号码"
+      })
+      return
+    }
 
-  },
+    try {
+      wx.showLoading({
+        title: '验证中...',
+      })
+      let res = await APICall("POST", "/api/idcard/validate", {
+        name: this.data.name,
+        idNum: this.data.idNum,
+      })
+      wx.hideLoading()
+      console.log("idcard/validate", res);
+      let data = res.data.data
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
+      if (data.respCode == "0000") {
+        wx.showToast({
+          icon: 'success',
+          title: "实名验证成功"
+        })
+        return
+      }
 
-  },
+      wx.showModal({
+        showCancel: false,
+        title: '实名认证失败',
+        content: `${data.respMsg}, 错误码: ${data.respCode}`,
+      })
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
+    } catch (error) {
+      wx.hideLoading()
+      console.error("idcard/validate fail", error);
 
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+      wx.showModal({
+        showCancel: false,
+        title: '实名认证失败',
+        content: `错误：${error.data.msg || JSON.stringify(error.data)}`,
+      })
+    }
   }
+
 })
