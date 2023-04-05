@@ -1,0 +1,29 @@
+<image class="bg-bird" src="/assets/images/bird.png"></image>
+<view class="hint">互联网/金融/事业单位等优质青年聚集地，认证后遇见更优秀的TA</view>
+<view class="card">
+  <view class="title">认证方式</view>
+  <view class="select">
+    <text class="value">社保证明/支付宝社保截图</text>
+    <text class="option">更换▼</text>
+  </view>
+  <view>
+    <view class="row">
+      <text>公司名称</text>
+      <input model:value="{{company}}" placeholder-class="placeholder" placeholder="点击填写" />
+    </view>
+    <view class="row">
+      <text>上传图片</text>
+    </view>
+  </view>
+  <view class="upload-image">
+    <view hover-class="hover-class" wx:for="{{images}}" class="img-box" data-index="{{index}}" bindtap="onSelectImage">
+      <image mode="aspectFit" src="{{item}}"></image>
+      <view class="delete-icon" data-index="{{index}}" catchtap="onRemove">X</view>
+    </view>
+    <view hover-class="hover-class" wx:if="{{images.length <1}}" class="img-placeholder" bindtap="onSelectImage">
+      <image class="plus-icon" src="/assets/images/plus.svg"></image>
+      <view class="img-hint">需露出参保公司和姓名</view>
+    </view>
+  </view>
+</view>
+<view bindtap="onConfirm" hover-class="hover-class" class="confirm">立即认证</view>

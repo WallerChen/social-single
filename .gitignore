@@ -1,3 +1,5 @@
 node_modules
 miniprogram/pages/infoAuth/infoAuth.wxss
 miniprogram/pages/infoAuth/idCard/idCard.wxss
+miniprogram/pages/infoAuth/education/education.wxss
+miniprogram/pages/infoAuth/job/job.wxss

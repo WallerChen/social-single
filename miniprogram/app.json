@@ -5,7 +5,9 @@
     "pages/newHome/index",
     "pages/newUserCenter/index",
     "pages/infoAuth/infoAuth",
-    "pages/infoAuth/idCard/idCard"
+    "pages/infoAuth/idCard/idCard",
+    "pages/infoAuth/job/job",
+    "pages/infoAuth/education/education"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

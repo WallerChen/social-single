@@ -1,5 +1,5 @@
-const USE_WXCLOUD = false
-// const USE_WXCLOUD = true
+// const USE_WXCLOUD = false
+const USE_WXCLOUD = true
 const LOCAL_SERVER = 'http://localhost:8100'
 
 let DEBUG_OPENID = "DEBUG_OPENID"
