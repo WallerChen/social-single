@@ -92,6 +92,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/test/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

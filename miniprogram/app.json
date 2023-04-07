@@ -3,7 +3,8 @@
     "pages/home/index",
     "pages/userCenter/index",
     "pages/newHome/index",
-    "pages/newUserCenter/index"
+    "pages/newUserCenter/index",
+    "pages/test/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
