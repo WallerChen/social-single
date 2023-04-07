@@ -80,7 +80,7 @@ Page({
   },
 
   onReady() {
-    this.drawLine();
+    // this.drawLine();
   },
 
   updateHomeInfo(body) {

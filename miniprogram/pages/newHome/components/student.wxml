@@ -1,0 +1,32 @@
+
+
+<view class="home-content" bindtouchstart="touchStart" bindtouchmove="touchMove">
+        <!-- <button bind:tap="navigatorToActivite">群接龙</button> -->
+ <block wx:for="{{4}}" wx:key="item" >     
+<view class="hide-content-back"></view>
+<view class="home-content-info {{nextList[index]}} {{prevList[index]}}"
+ style="z-index:{{5 - index}}">
+        <view class="header">
+                <view class="left-wrap">
+                    <view class="title">学生档案{{item}}{{nextList[index]}}{{prevList[index]}}</view>
+                    <view class="user">
+                        <view class="name">{{classUserList[0].nick_name}}</view>
+                        <view class="sex"></view>
+                    </view>
+                    <view class="title">自我介绍</view>
+                </view>
+            <view class="right-wrap">
+                    <image class="avatar" src="{{classUserList[0].avatar_url}}"></image>
+            </view>
+            </view>
+        <view class="content">{{classUserList[0].desc}}
+        用于不认识的朋友间的初次见面时。
+        一般还用于求职和招聘的时候使用。
+        参加公务员考试也需要使用。
+        学生入学自我介绍。
+        各种考试也需要使用。
+        编辑个人档案和简历的时候也需要使用。
+        演讲或者主持的时候。</view>
+</view>
+</block>
+</view>

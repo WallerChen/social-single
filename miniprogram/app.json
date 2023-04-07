@@ -3,7 +3,9 @@
     "pages/home/index",
     "pages/userCenter/index",
     "pages/newHome/index",
-    "pages/newUserCenter/index"
+    "pages/newUserCenter/index",
+    "pages/activity/index",
+    "pages/test/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -18,10 +20,16 @@
     "borderStyle": "white",
     "list": [
       {
-        "pagePath": "pages/home/index",
+        "pagePath": "pages/newHome/index",
         "text": "资料",
         "iconPath": "pages/images/tabbar/info-no-select.png",
         "selectedIconPath": "pages/images/tabbar/info-select.png"
+      },
+      {
+        "pagePath": "pages/activity/index",
+        "text": "活动",
+        "iconPath": "pages/images/tabbar/activity-no-select.png",
+        "selectedIconPath": "pages/images/tabbar/activity-select.png"
       },
       {
         "pagePath": "pages/newUserCenter/index",

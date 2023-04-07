@@ -1,0 +1,120 @@
+page {
+    /* background-image: linear-gradient(#F1F3F8, #F9FAFF); */
+    background-color: #F1F3F8;
+}
+
+.page-header {
+    position: absolute;
+    left: -10rpx;
+    top: -8rpx;
+    width: 788rpx;
+    height: 446rpx;
+}
+
+.page-content {
+    position: absolute;
+    top: 382rpx;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-content .page-select {
+    width: 670rpx;
+    height: 82rpx;
+    background: #FFFFFF;
+    box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0,0,0,0.06);
+    border-radius: 74rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.page-content .page-select .left-wrap {
+   
+}
+
+.page-content .page-select .right-wrap {
+   
+}
+
+.page-content .page-activity {
+    margin-top: 30rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content .page-activity .card {
+    width: 662rpx;
+    height: 468rpx;
+    background: #FFFFFF;
+    box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0,0,0,0.06);
+    border-radius: 80rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-content .page-activity .card .header {
+    margin-top: 40rpx;
+    width: 582rpx;
+    height: 190rpx;
+    border-radius: 40rpx;
+}
+
+.page-content .page-activity .card .content {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content .page-activity .card .content .header {
+    display: flex;
+    height: 70rpx;
+    justify-content: space-between;
+}
+
+.page-content .page-activity .card .content .header .title {
+    font-size: 32rpx;
+    color: #333333;
+}
+
+.page-content .page-activity .card .content .header .price {
+    font-size: 32rpx;
+    color: #7B90FF;
+}
+
+.page-content .page-activity .card .content .desc {
+    font-size: 26rpx;
+    color: #999999;
+}
+
+.page-content .page-activity .card .content .bottom {
+    margin-top: 10rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-content .page-activity .card .content .bottom .date {
+    font-size: 26rpx;
+    color: #90939B;
+}
+
+.page-content .page-activity .card .content .bottom .author {
+    font-size: 26rpx;
+    color: #90939B;
+}
+
+.page-content .page-activity .card .content .bottom .button {
+    width: 144rpx;
+    height: 58rpx;
+}
+
+
+
+
+
+
+
