@@ -34,16 +34,19 @@ page {
     margin-top: 33rpx;
     display: flex;
     flex-direction: row;
-
-    color: #7B90FF;
+    // border: 1px solid black;
     font-size: 24rpx;
     font-weight: 500;
 
-    // 渐变border 要使用svg 来实现
-    .grad-border-badge {
+    color: #7B90FF;
+
+    .badge {
+      box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0, 0, 0, 0.08);
       margin-right: 16rpx;
       width: 144rpx;
       height: 54rpx;
+      background: #FFFFFF;
+      border-radius: 32rpx;
       position: relative;
       display: flex;
       justify-content: center;
@@ -58,6 +61,29 @@ page {
         height: 100%;
       }
     }
+  }
+}
+
+// 渐变border 要使用svg 来实现
+.gradiant-badge {
+  // margin-right: 16rpx;
+  width: 144rpx;
+  height: 54rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #7B90FF;
+
+  text {
+    position: absolute;
+  }
+
+  .svg {
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -108,7 +134,9 @@ page {
         background: linear-gradient(133deg, #A5D5FF 0%, #7D93FF 100%, #7D93FF 100%);
         box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0, 0, 0, 0.08);
         border-radius: 32rpx;
-
+        width: 144rpx;
+        box-sizing: border-box;
+        text-align: center;
         font-size: 24rpx;
         font-weight: 600;
         color: #FFFFFF;
