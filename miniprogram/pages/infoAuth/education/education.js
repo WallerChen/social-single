@@ -11,7 +11,6 @@ Page({
   },
 
   onLoad(options) {
-
     let studentInfo = app.globalData.studentInfo
     if (studentInfo.has) {
       console.log("studentInfo", studentInfo);
@@ -85,7 +84,7 @@ Page({
       let img = localImgList[i].url;
 
       wx.showLoading({ title: `上传中(${i + 1}/${localImgList.length})...` })
-      let res = await request.uploadOneFile(img, 'test.jpg', { 'compressImg': '1' })
+      let res = await request.uploadOneFile(img, util.getFilename(img), { 'compressImg': '1' })
       console.log("res", i, res);
       if (res.data.code !== 200) {
         wx.hideLoading()

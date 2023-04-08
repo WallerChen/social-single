@@ -174,3 +174,9 @@ export function chooseMessageFile(count = 1) {
     })
   })
 }
+
+
+export function getFilename(url) {
+  let filename = url.substring(url.lastIndexOf('/') + 1);
+  return filename;
+}
