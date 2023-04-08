@@ -6,6 +6,9 @@ import * as util from "../../../util/util"
 Page({
 
   data: {
+    bachelor: '',
+    master: '',
+    doctor: '',
     BOS_ADDR: request.BOS_ADDR,
     images: []// { url:'', cloud: false } // cloud: 是否是云端图片
   },
@@ -19,7 +22,13 @@ Page({
       for (const img of imgList) {
         this.data.images.push({ url: img, cloud: true })
       }
-      this.setData({ images: this.data.images })
+
+      this.setData({
+        bachelor: studentInfo.info.schoolBachelor,
+        master: studentInfo.info.schoolMaster,
+        doctor: studentInfo.info.schoolDoctor,
+        images: this.data.images
+      })
     }
 
   },
@@ -67,7 +76,15 @@ Page({
   },
 
   async onConfirm() {
-    // 未修改的图片不触发上传文件
+
+    if (!this.data.bachelor && !this.data.master && !this.data.doctor) {
+      wx.showToast({
+        icon: 'error',
+        title: "请填写学历信息"
+      })
+      return
+    }
+
 
     if (!this.data.images.length) {
       wx.showToast({
@@ -77,6 +94,7 @@ Page({
       return
     }
 
+    // 未修改的图片不触发上传文件
     let wxFileList = this.data.images.filter(img => img.cloud).map(img => { return { filepath: img.url } })
     let localImgList = this.data.images.filter(img => !img.cloud)
 
@@ -99,7 +117,12 @@ Page({
     console.log("wxFileList", wxFileList);
     wx.hideLoading()
 
-    let res = await request.APICall("POST", "/api/student/education", { wxFileList: wxFileList })
+    let res = await request.APICall("POST", "/api/student/education", {
+      wxFileList: wxFileList,
+      bachelor: this.data.bachelor,
+      master: this.data.master,
+      doctor: this.data.doctor,
+    })
     console.log("POST education", res);
     // TODO: 检查返回错误
 

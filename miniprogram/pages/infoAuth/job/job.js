@@ -20,7 +20,10 @@ Page({
       for (const img of imgList) {
         this.data.images.push({ url: img, cloud: true })
       }
-      this.setData({ images: this.data.images })
+      this.setData({
+        images: this.data.images,
+        company: studentInfo.info.jobCompany
+      })
     }
 
   },
@@ -70,6 +73,14 @@ Page({
   async onConfirm() {
     // 未修改的图片不触发上传文件
 
+    if (!this.data.company) {
+      wx.showToast({
+        icon: 'error',
+        title: "请填写工作信息"
+      })
+      return
+    }
+
     if (!this.data.images.length) {
       wx.showToast({
         icon: 'error',
@@ -100,7 +111,10 @@ Page({
     console.log("wxFileList", wxFileList);
     wx.hideLoading()
 
-    let res = await request.APICall("POST", "/api/student/job", { wxFileList: wxFileList })
+    let res = await request.APICall("POST", "/api/student/job", {
+      wxFileList: wxFileList,
+      company: this.data.company
+    })
     console.log("POST job", res);
     // TODO: 检查返回错误
 

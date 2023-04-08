@@ -14,11 +14,11 @@
   </view>
 </view>
 <view class="menu">
-  <view class="item" wx:for="{{menu}}" wx:key="index" hover-class="{{item.authStep==2? '' :'hover-class'}}" data-index="{{index}}" bindtap="{{item.authStep==2? null :'onAuthClick'}}">
+  <view class="item" wx:for="{{menu}}" wx:key="index" hover-class="hover-class" data-index="{{index}}" bindtap="onAuthClick">
     <image src="/assets/images/idcard.png"></image>
     <view class="right">
       <view class="row">
-        <view class="title">{{item.title}} -- {{item.authStep}}</view>
+        <view class="title">{{item.title}}</view>
         <view wx:if="{{item.authStep==2}}" class="gradiant-badge">
           <text>已验证</text>
           <image class="svg" src="/assets/images/badge.svg"></image>
