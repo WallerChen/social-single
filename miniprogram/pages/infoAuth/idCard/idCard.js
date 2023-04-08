@@ -1,5 +1,4 @@
-
-import { APICall } from "../../../util/request"
+import * as request from "../../../util/request"
 
 Page({
 
@@ -32,13 +31,13 @@ Page({
       wx.showLoading({
         title: '验证中...',
       })
-      let res = await APICall("POST", "/api/idcard/validate", {
+      let res = await request.APICall("POST", "/api/student/idcard", {
         name: this.data.name,
         idNum: this.data.idNum,
       })
       wx.hideLoading()
-      console.log("idcard/validate", res);
-      let data = res.data.data
+      console.log("POST idcard", res);
+      let data = res.data
 
       if (data.respCode == "0000") {
         wx.showToast({

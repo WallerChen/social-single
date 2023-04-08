@@ -25,11 +25,10 @@
   </view>
   <view class="upload-image">
     <!-- 允许多个 -->
-    <view hover-class="hover-class" wx:for="{{images}}" wx:key="index"  class="img-box" data-index="{{index}}" bindtap="onSelectImage">
-      <image mode="aspectFit" src="{{item}}"></image>
+    <view hover-class="hover-class" wx:for="{{images}}" wx:key="index" class="img-box" data-index="{{index}}" bindtap="onSelectImage">
+      <image mode="aspectFit" src="{{ item.cloud? BOS_ADDR+item.url :item.url }}"></image>
       <view class="delete-icon" data-index="{{index}}" catchtap="onRemove">X</view>
     </view>
-
     <view hover-class="hover-class" wx:if="{{images.length <3}}" class="img-placeholder" bindtap="onSelectImage">
       <image class="plus-icon" src="/assets/images/plus.svg"></image>
       <view class="img-hint">请上传学历证书</view>

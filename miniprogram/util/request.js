@@ -2,7 +2,9 @@ const USE_WXCLOUD = false
 // const USE_WXCLOUD = true
 const LOCAL_SERVER = 'http://localhost:8100'
 
-let DEBUG_OPENID = "DEBUG_OPENID"
+export const BOS_ADDR = "https://single-student.bj.bcebos.com/"
+
+const DEBUG_OPENID = "DEBUG_OPENID"
 
 
 function wxCloudContainer(method, path, data) {
@@ -50,7 +52,7 @@ export function APICall(method, path, data) {
         if (res.data.code !== 200) {
           reject(res);
         } else {
-          resolve(res);
+          resolve(res.data);
         }
       },
       reject: (res) => {

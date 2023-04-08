@@ -1,3 +1,4 @@
+let app = getApp()
 
 import * as request from "../../../util/request"
 import * as util from "../../../util/util"
@@ -5,10 +6,22 @@ import * as util from "../../../util/util"
 Page({
 
   data: {
-    images: []
+    BOS_ADDR: request.BOS_ADDR,
+    images: []// { url:'', cloud: false } // cloud: 是否是云端图片
   },
 
   onLoad(options) {
+
+    let studentInfo = app.globalData.studentInfo
+    if (studentInfo.has) {
+      console.log("studentInfo", studentInfo);
+      let educationImages = studentInfo.info.educationImages
+      let imgList = educationImages.split("\n")
+      for (const img of imgList) {
+        this.data.images.push({ url: img, cloud: true })
+      }
+      this.setData({ images: this.data.images })
+    }
 
   },
   onRemove(e) {
@@ -35,6 +48,8 @@ Page({
           } else { // 聊天记录
             filePathList = await util.chooseMessageFile(selectCnt)
           }
+
+          filePathList = filePathList.map(img => { return { url: img, cloud: false } })
 
           if (index == null) {
             // 新增图片
@@ -63,10 +78,13 @@ Page({
       return
     }
 
-    let wxFileList = []
-    for (let i = 0; i < this.data.images.length; i++) {
-      let img = this.data.images[i];
-      wx.showLoading({ title: `上传中(${i + 1}/${this.data.images.length})...` })
+    let wxFileList = this.data.images.filter(img => img.cloud).map(img => { return { filepath: img.url } })
+    let localImgList = this.data.images.filter(img => !img.cloud)
+
+    for (let i = 0; i < localImgList.length; i++) {
+      let img = localImgList[i].url;
+
+      wx.showLoading({ title: `上传中(${i + 1}/${localImgList.length})...` })
       let res = await request.uploadOneFile(img, 'test.jpg', { 'compressImg': '1' })
       console.log("res", i, res);
       if (res.data.code !== 200) {
@@ -82,12 +100,12 @@ Page({
     console.log("wxFileList", wxFileList);
     wx.hideLoading()
 
-    let res = await request.APICall("POST", "/api/validate/education", { wxFileList: wxFileList })
-    console.log("validate/education", res);
+    let res = await request.APICall("POST", "/api/student/education", { wxFileList: wxFileList })
+    console.log("POST education", res);
     // TODO: 检查返回错误
 
     wx.showModal({
-      title: '提示',
+      title: '提交成功',
       content: "虾虾~ 请等待审核(*^_^*)",
       showCancel: false,
     })
