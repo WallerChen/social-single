@@ -133,7 +133,10 @@ export function chooseCamera(count = 1) {
       sizeType: ['original', 'compressed'],
       sourceType: ['camera'],
       mediaType: ['image'],
-      success: async (res) => { resolve(res.tempFiles[0].path || res.tempFiles[0].tempFilePath) },
+      success: async (res) => {
+        let fileList = res.tempFiles.map(item => item.path || item.tempFilePath);
+        resolve(fileList)
+      },
       fail: () => { reject() }
     })
   })
@@ -147,7 +150,10 @@ export function chooseAlbum(count = 1) {
       sizeType: ['original', 'compressed'],
       sourceType: ['album'],
       mediaType: ['image'],
-      success: async (res) => { resolve(res.tempFiles[0].path || res.tempFiles[0].tempFilePath) },
+      success: async (res) => {
+        let fileList = res.tempFiles.map(item => item.path || item.tempFilePath);
+        resolve(fileList)
+      },
       fail: () => { reject() }
     })
   })
@@ -159,7 +165,11 @@ export function chooseMessageFile(count = 1) {
     wx.chooseMessageFile({
       type: 'image',
       count: count,
-      success: async (res) => { resolve(res.tempFiles[0].path) },
+      success: async (res) => {
+        resolve(res.tempFiles[0].path)
+        let fileList = res.tempFiles.map(item => item.path);
+        resolve(fileList)
+      },
       fail: () => { reject() }
     })
   })

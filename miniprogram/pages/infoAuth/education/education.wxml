@@ -25,7 +25,7 @@
   </view>
   <view class="upload-image">
     <!-- 允许多个 -->
-    <view hover-class="hover-class" wx:for="{{images}}" class="img-box" data-index="{{index}}" bindtap="onSelectImage">
+    <view hover-class="hover-class" wx:for="{{images}}" wx:key="index"  class="img-box" data-index="{{index}}" bindtap="onSelectImage">
       <image mode="aspectFit" src="{{item}}"></image>
       <view class="delete-icon" data-index="{{index}}" catchtap="onRemove">X</view>
     </view>

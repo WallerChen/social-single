@@ -20,7 +20,7 @@
 
 
 <view class="menu">
-  <view class="item" wx:for="{{menu}}" hover-class="hover-class" data-index="{{index}}"  bindtap="onAuthClick">
+  <view class="item" wx:for="{{menu}}" wx:key="index" hover-class="hover-class" data-index="{{index}}"  bindtap="onAuthClick">
     <image src="/assets/images/idcard.png"></image>
     <view class="right">
       <view class="row">

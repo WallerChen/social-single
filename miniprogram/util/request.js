@@ -1,5 +1,5 @@
-// const USE_WXCLOUD = false
-const USE_WXCLOUD = true
+const USE_WXCLOUD = false
+// const USE_WXCLOUD = true
 const LOCAL_SERVER = 'http://localhost:8100'
 
 let DEBUG_OPENID = "DEBUG_OPENID"
@@ -55,6 +55,36 @@ export function APICall(method, path, data) {
       },
       reject: (res) => {
         reject(res);
+      }
+    })
+  })
+}
+
+export async function uploadOneFile(filePath, filename, formData = {}) {
+  if (!formData['filename']) {
+    formData['filename'] = filename
+  }
+
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      url: `${LOCAL_SERVER}/api/wx-upload`,
+      header: {
+        'X-Wx-Openid': DEBUG_OPENID,
+      },
+      formData: formData,
+      filePath: filePath,
+      name: 'file',
+      success: async (res) => {
+        // wx.uploadFile 返回的是 string
+        try {
+          res.data = JSON.parse(res.data)
+          resolve(res)
+        } catch (error) {
+          reject(Error(res.data))
+        }
+      },
+      fail: (err) => {
+        reject(err)
       }
     })
   })

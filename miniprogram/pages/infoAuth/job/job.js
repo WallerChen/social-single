@@ -5,6 +5,7 @@ import * as util from "../../../util/util"
 Page({
 
   data: {
+    company: '',
     images: []
   },
 
