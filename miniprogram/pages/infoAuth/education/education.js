@@ -9,11 +9,14 @@ Page({
     bachelor: '',
     master: '',
     doctor: '',
+    authStep: 0,
     BOS_ADDR: request.BOS_ADDR,
     images: []// { url:'', cloud: false } // cloud: 是否是云端图片
   },
 
   onLoad(options) {
+    let authStep = Number(options.authStep)
+
     let studentInfo = app.globalData.studentInfo
     if (studentInfo.has) {
       console.log("studentInfo", studentInfo);

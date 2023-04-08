@@ -8,10 +8,13 @@ Page({
   data: {
     company: '',
     BOS_ADDR: request.BOS_ADDR,
+    authStep: 0,
     images: []// { url:'', cloud: false } // cloud: 是否是云端图片
   },
 
   onLoad(options) {
+    let authStep = Number(options.authStep)
+
     let studentInfo = app.globalData.studentInfo
     if (studentInfo.has) {
       console.log("studentInfo", studentInfo);
@@ -22,7 +25,8 @@ Page({
       }
       this.setData({
         images: this.data.images,
-        company: studentInfo.info.jobCompany
+        company: studentInfo.info.jobCompany,
+        authStep: authStep,
       })
     }
 

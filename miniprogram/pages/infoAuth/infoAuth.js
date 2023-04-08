@@ -53,9 +53,9 @@ Page({
   onAuthClick(e) {
     let index = e.currentTarget.dataset.index
 
-
+    let authStep = this.data.menu[index].authStep
     wx.navigateTo({
-      url: this.data.menu[index].path
+      url: this.data.menu[index].path + `?authStep=${authStep}`,
     })
 
   }

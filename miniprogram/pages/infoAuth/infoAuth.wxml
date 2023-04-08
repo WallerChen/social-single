@@ -14,7 +14,8 @@
   </view>
 </view>
 <view class="menu">
-  <view class="item" wx:for="{{menu}}" wx:key="index" hover-class="hover-class" data-index="{{index}}" bindtap="onAuthClick">
+  <!-- 身份证验证不允许二次修改 -->
+  <view class="item" wx:for="{{menu}}" wx:key="index" hover-class="{{(item.authStep==2 && index==0)?'' :'hover-class'}}" data-index="{{index}}" bindtap="{{(item.authStep==2 && index==0)?'' :'onAuthClick'}}">
     <image src="/assets/images/idcard.png"></image>
     <view class="right">
       <view class="row">
