@@ -23,7 +23,9 @@ Page({
       let educationImages = studentInfo.info.educationImages
       let imgList = educationImages.split("\n")
       for (const img of imgList) {
-        this.data.images.push({ url: img, cloud: true })
+        if (img){
+          this.data.images.push({ url: img, cloud: true })
+        }
       }
 
       this.setData({
