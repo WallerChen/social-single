@@ -17,7 +17,7 @@
   </view>
   <view class="upload-image">
     <view hover-class="hover-class" wx:for="{{images}}" wx:key="index" class="img-box" data-index="{{index}}" bindtap="onSelectImage">
-      <image mode="aspectFit" src="{{ item.cloud? BOS_ADDR+item.url :item.url }}"></image>
+      <image mode="aspectFill" src="{{ item.cloud? BOS_ADDR+item.url :item.url }}"></image>
       <view class="delete-icon" data-index="{{index}}" catchtap="onRemove">X</view>
     </view>
     <view hover-class="hover-class" wx:if="{{images.length <1}}" class="img-placeholder" bindtap="onSelectImage">
