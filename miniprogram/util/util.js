@@ -85,11 +85,18 @@ export function yearMonthDayStr(beginDateStr, endDateStr) {
   let mm = currentData.getMonth() + 1;
   let dd = currentData.getDate();
   return year + '-' + mm + '-' + dd;
-  // var curDate = new Date(),
-  //     beginDate = new Date(beginDateStr),
-  //     endDate = new Date(endDateStr);
-  // if (curDate >= beginDate && curDate <= endDate) {
-  //     return true;
-  // }
-  // return false;
+}
+
+// 深度clone
+export function deepClone(obj) {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj
+  }
+  let newObj = obj instanceof Array ? [] : {}
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
+    }
+  }
+  return newObj
 }
