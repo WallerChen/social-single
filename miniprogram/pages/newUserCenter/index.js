@@ -1,7 +1,6 @@
 import {classMap} from '../../util/classUtil';
 import {sleep} from '../../util/util'
 
-const app = getApp();
 const genderMap = {
   0: '未知',
   1: '男',
@@ -34,7 +33,7 @@ Page({
     isEditNickname: false,
     // 编辑昵称
     editNickName: '',
-    showModal:true
+    showModal: false
   },
   cancel() {
     this.setData({
@@ -44,6 +43,7 @@ Page({
 
   onLoad(options) {
     let that = this;
+    let app = getApp();
     // 查看是否授权
     if (wx.getUserProfile) {
       if (app.globalData.employ && app.globalData.employ != '') {
@@ -56,10 +56,13 @@ Page({
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
         // 所以此处加入 callback 以防止这种情况
         app.employCallback = employ => {
+          
           if (employ != '') {
             that.setData({
               userInfo: app.globalData?.user,
               visibleAvatarName: app.globalData?.user.nickName ? false : true
+            }, ()=> {
+              console.log('userInfo:' + JSON.stringify(this.data.userInfo));
             });         
           }
         }
@@ -70,17 +73,18 @@ Page({
     
   },
   onShow(){
+    let app = getApp();
     this.setData({
       visibleAvatarName: app.globalData?.user?.nickName ? false : true,
       editNickName: app.globalData?.user?.nickName
     });   
   },
   onUnload(){
+    let app = getApp();
     app.event.off('updateHomeInfo',this.updateHomeInfo);
   },
 
   onReady() {
-    this.drawLine();
   },
 
   updateHomeInfo(body) {

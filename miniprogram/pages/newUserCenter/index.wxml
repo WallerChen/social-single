@@ -8,7 +8,9 @@
          </view>
       </view>
       <view class="card-content">
-         <textarea maxlength="{{200}}" />
+         <textarea maxlength="{{200}}">
+            {{userInfo.desc}}
+         </textarea>
       </view>
       <view class="buttons">
          <view class="b-item">保存</view>

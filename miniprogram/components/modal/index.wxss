@@ -16,7 +16,7 @@
     min-width:478rpx;
     padding:46rpx;
     position: fixed;
-    top: 400rpx;
+    top: 150rpx;
     z-index: 100;
     background: rgba(255,255,255,255.3);
     border-radius: 50rpx;
