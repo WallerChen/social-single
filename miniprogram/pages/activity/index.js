@@ -5,8 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showDropdown: [0, 0],
+
     // 活动列表
     activityList: [],
+
   },
 
   onLoad(options) {
@@ -22,7 +25,7 @@ Page({
     let that = this;
     wx.request({
       url: 'http://localhost/activity',
-      success (res) {
+      success(res) {
         console.log('res:' + JSON.stringify(res));
         console.log('res:' + res.data.rows);
         let activityData = res.data.rows.map(item => {
@@ -37,8 +40,20 @@ Page({
       }
     });
   },
-  onShow(){
+
+
+  onShowDropdown(e) {
+    let index = e.currentTarget.dataset.index
+    this.data.showDropdown[index] = 1
+    this.setData({ showDropdown: this.data.showDropdown });
   },
-  onUnload(){
+  onSelectItem(e) {
+    let menu = e.currentTarget.dataset.menu
+    let item = e.currentTarget.dataset.item
+    console.log("select", item);
+
+    this.data.showDropdown[menu] = 0
+
+    this.setData({ showDropdown: this.data.showDropdown });
   },
 });
