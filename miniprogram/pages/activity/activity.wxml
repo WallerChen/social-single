@@ -1,0 +1,16 @@
+<view class="filter">
+  <view class="dropdown">
+    <text data-index="0" bindtap="onShowDropdown">筛选条件1 ▼</text>
+    <view class="dropdown-list" style="transform: scaleY({{showDropdown[0]}});">
+      <view class="item" data-menu="0" data-item="0" bindtap="onSelectItem">条件A</view>
+      <view class="item" data-menu="0" data-item="1" bindtap="onSelectItem">条件B</view>
+    </view>
+  </view>
+  <view class="dropdown">
+    <text data-index="1" bindtap="onShowDropdown">筛选条件2 ▼</text>
+    <view class="dropdown-list" style="transform: scaleY({{showDropdown[1]}});">
+      <view class="item" data-menu="1" data-item="0" bindtap="onSelectItem">条件A</view>
+      <view class="item" data-menu="1" data-item="1" bindtap="onSelectItem">条件B</view>
+    </view>
+  </view>
+</view>
