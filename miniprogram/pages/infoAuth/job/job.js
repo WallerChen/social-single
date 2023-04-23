@@ -14,6 +14,7 @@ Page({
 
   onLoad(options) {
     let authStep = Number(options.authStep)
+    this.setData({ authStep })
 
     let studentInfo = app.globalData.studentInfo
     if (studentInfo.has) {

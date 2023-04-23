@@ -24,6 +24,7 @@
           <text>已验证</text>
           <image class="svg" src="/assets/images/badge.svg"></image>
         </view>
+        <view wx:elif="{{item.authStep==3}}" class="badge bad">已驳回</view>
         <view wx:elif="{{item.authStep==1}}" class="badge">审核中</view>
         <view wx:else class="badge">立即认证</view>
       </view>

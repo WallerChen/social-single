@@ -37,5 +37,5 @@
 </view>
 <!--  -->
 <view wx:if="{{authStep==0}}" bindtap="onConfirm" hover-class="hover-class" class="btn-confirm btn-clickable">立即认证</view>
-<view wx:elif="{{authStep==1}}" bindtap="onConfirm" hover-class="hover-class" class="btn-confirm btn-clickable">重新提交</view>
-<image wx:else class="btn-confirm btn-done" src="/assets/images/btn-auth-done.png"></image>
+<image wx:elif="{{authStep==2}}" class="btn-confirm btn-done" src="/assets/images/btn-auth-done.png"></image>
+<view wx:else bindtap="onConfirm" hover-class="hover-class" class="btn-confirm btn-clickable">重新提交</view>

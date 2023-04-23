@@ -16,6 +16,7 @@ Page({
 
   onLoad(options) {
     let authStep = Number(options.authStep)
+    this.setData({ authStep })
 
     let studentInfo = app.globalData.studentInfo
     if (studentInfo.has) {
@@ -23,7 +24,7 @@ Page({
       let educationImages = studentInfo.info.educationImages
       let imgList = educationImages.split("\n")
       for (const img of imgList) {
-        if (img){
+        if (img) {
           this.data.images.push({ url: img, cloud: true })
         }
       }
