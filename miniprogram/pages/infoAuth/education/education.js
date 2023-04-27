@@ -10,7 +10,6 @@ Page({
     master: '',
     doctor: '',
     authStep: 0,
-    BOS_ADDR: request.BOS_ADDR,
     images: []// { url:'', cloud: false } // cloud: 是否是云端图片
   },
 
@@ -25,7 +24,7 @@ Page({
       let imgList = educationImages.split("\n")
       for (const img of imgList) {
         if (img) {
-          this.data.images.push({ url: img, cloud: true })
+          this.data.images.push({ url: request.BOS_ADDR+ img, cloud: true })
         }
       }
 

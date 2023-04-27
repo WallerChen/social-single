@@ -7,7 +7,6 @@ Page({
 
   data: {
     company: '',
-    BOS_ADDR: request.BOS_ADDR,
     authStep: 0,
     images: []// { url:'', cloud: false } // cloud: 是否是云端图片
   },
@@ -23,7 +22,7 @@ Page({
       let imgList = jobImages.split("\n")
       for (const img of imgList) {
         if (img) {
-          this.data.images.push({ url: img, cloud: true })
+          this.data.images.push({ url: request.BOS_ADDR+ img, cloud: true })
         }
       }
       this.setData({
