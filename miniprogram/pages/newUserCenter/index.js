@@ -33,7 +33,8 @@ Page({
     isEditNickname: false,
     // 编辑昵称
     editNickName: '',
-    showModal: false
+    showModal: false,
+    showImages: []
   },
   cancel() {
     this.setData({
@@ -56,7 +57,6 @@ Page({
         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
         // 所以此处加入 callback 以防止这种情况
         app.employCallback = employ => {
-          
           if (employ != '') {
             that.setData({
               userInfo: app.globalData?.user,
@@ -70,14 +70,18 @@ Page({
     }
     // 增加监听器
     app.event.on('updateHomeInfo', this.updateHomeInfo, this);
-    
   },
   onShow(){
     let app = getApp();
+    let showImages = userInfo.image_list?.split(',');
     this.setData({
       visibleAvatarName: app.globalData?.user?.nickName ? false : true,
-      editNickName: app.globalData?.user?.nickName
+      editNickName: app.globalData?.user?.nickName,
+      showImages
     });   
+    console.log('userInfo:' + userInfo);
+    console.log('showImages:' + showImages);
+
   },
   onUnload(){
     let app = getApp();
@@ -338,6 +342,7 @@ async userInfoSave(body = {}) {
   },
 // onInputDesc
 onInputDesc(e) {
+  console.log('e.detail.value:' + e.detail.value);
   this.setData({
     descInputText: e.detail.value
   });  
@@ -347,47 +352,88 @@ onInput(e) {
     updateInputWxcode: e.detail.value
   })
 },
+
+onChangeEidt() {
+  if(!this.data.isEdit) {
+    wx.showToast({
+      icon: 'none',
+      title: '可以开始编辑咯～',
+    })
+  }
+  this.setData({
+    isEdit: !this.data.isEdit,
+    descInputText: this.data.userInfo.desc
+  })
+},
+
+onPublishModal(){
+  this.setData({
+    showModal: true
+  })
+},
+
+// 选择多张照片
+onChooseShowImage() {
+  let that = this;
+  wx.chooseMedia({
+    count: 3,
+    mediaType: ['image'],
+    sourceType: ['album', 'camera'],
+    maxDuration: 30,
+    camera: 'back',
+    success(res) {
+      console.log(JSON.stringify(res.tempFiles))
+      if(res.tempFiles.length + that.data.showImages.length <= 3) {
+        // 取出缓存路径
+        let pathArray = res.tempFiles.map(file => file.tempFilePath);
+        that.setData({
+          showImages: that.data.showImages.concat(pathArray)
+        })
+      }else {
+        that.showToast('最多选取3张照片哦～');
+      }
+    }
+  })
+},
+// 删除头像照片
+onDeleteImage(e) {
+  let {index} = e.target.dataset;
+  // console.log(JSON.stringify(e.target.dataset.index));
+  const newArr = [...this.data.showImages.slice(0, index), ...this.data.showImages.slice(index + 1)];
+  this.setData({
+    showImages: newArr
+  });
+},
+
 // onEdit
-onEdit() {
-  if (!this.data.isEdit){
-    this.setData({
-      descInputText: this.data.userInfo.desc,
-      isEdit: !this.data.isEdit
-    });
-    return;
-  } 
-  else {
+onSave() {
     wx.showLoading({
       title: '保存中...',
     });
-    wx.cloud.callFunction({
-      name: 'inithandler',
-      config: {
-        env: 'single-1g8xzqs704ef759e'
-      },
+    console.log('this.data.descInputText,:' + this.data.descInputText);
+    wx.request({
+      url: 'http://localhost:7001/miniapp/update',
+      method: 'POST',
       data: {
-        type: 'user',
-        params: {
-          key: 'add',
-          body: {
-            collection: classMap[app.globalData.user?.class],
-            desc: this.data.descInputText
-          }
-        }
+          ...this.data.userInfo,
+          desc: this.data.descInputText,
+          image_list: this.data.showImages
+      },
+      success (res) {
+        wx.showToast({
+          icon: 'none',
+          title: '保存成功',
+        })
+        console.log('res:' + JSON.stringify(res));
+      },
+      fail(res) {
+        wx.showToast({
+          icon: 'none',
+          title: '保存失败',
+        })
       }
-    }).then((resp) => {
-      app.globalData.user.desc = this.data.descInputText;
-      this.setData({
-        ['userInfo.desc']: this.data.descInputText
-      })
-      wx.hideLoading();
-   }).catch((e) => {
-      wx.showToast({
-        icon: 'none',
-        title: '保存失败',
-      })
-    });
-  }
+  });
+  wx.hideLoading();
   this.setData({
     isEdit: !this.data.isEdit
   });

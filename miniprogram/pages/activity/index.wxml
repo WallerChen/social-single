@@ -49,5 +49,7 @@
                 </view>
             </block>
          </view>
+
+         <view class="bottom-height"></view>
     </view>
 </view>

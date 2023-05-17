@@ -4,20 +4,30 @@
       <view class="card-head">
          <view>我的介绍</view>
          <view>
-            <image src="https://single-design.bj.bcebos.com/newHome/edit.png"></image>
+            <image catchtap="onChangeEidt" src="https://single-design.bj.bcebos.com/newHome/edit.png"></image>
          </view>
       </view>
       <view class="card-content">
-         <textarea maxlength="{{200}}">
-            {{userInfo.desc}}
+         <textarea value="{{userInfo.desc}}" bindinput="onInputDesc" disabled="{{!isEdit}}" maxlength="{{200}}">
          </textarea>
       </view>
       <view class="buttons">
-         <view class="b-item">保存</view>
-         <view class="b-item">发布</view>
+         <view class="b-item" catchtap="onSave">保存</view>
+         <view class="b-item" catchtap="onPublishModal">发布</view>
       </view>
       <view class="upload-image">
-         <view class="add-image"></view>
+         <view wx:for="{{showImages}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+            <!-- <view class="icon-box-ctn">
+               <view class="icon-box-title">停止或关闭</view>
+               <view class="icon-box-desc">用于在表单中，表示关闭或停止</view>
+            </view> -->
+            <image class="show-image" src="{{item}}">
+               <view class="show-image-close" >
+                  <icon catchtap="onDeleteImage" data-index="{{index}}" class="icon-small" type="cancel" size="23"></icon>
+               </view>
+            </image>
+         </view>
+         <view wx:if="{{showImages.length < 3}}" catchtap="onChooseShowImage" class="add-image"></view>
       </view>
       <view class="card-footer">
          <view class="line">
@@ -41,7 +51,9 @@
          <view>建议提出</view>
       </view>
    </view>
-   <modal showModal="{{showModal}}">
+   <view class="tab-bottom"></view>
+   
+   <modal showModal="{{showModal}}" top="{{350}}">
       <view class="modal-content">
          <view class="content-title">确认发布，离脱单更进一步！</view>
          <view class="content-btns">

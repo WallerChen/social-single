@@ -26,6 +26,12 @@
         "selectedIconPath": "pages/images/tabbar/info-select.png"
       },
       {
+        "pagePath": "pages/activity/index",
+        "text": "活动",
+        "iconPath": "pages/images/tabbar/activity-no-select.png",
+        "selectedIconPath": "pages/images/tabbar/activity-select.png"
+      },
+      {
         "pagePath": "pages/newUserCenter/index",
         "text": "我的",
         "iconPath": "pages/images/tabbar/mine-no-select.png",

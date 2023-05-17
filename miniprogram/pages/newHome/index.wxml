@@ -58,7 +58,7 @@
             </view>
         </view>
         </view> 
-    <modal showModal="{{showModal}}">
+    <modal showModal="{{showModal}}" top="{{150}}">
         <view class="modal">
             <view class="modal-header">
                 <view>我的介绍</view>

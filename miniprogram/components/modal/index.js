@@ -8,6 +8,9 @@ Component({
   properties: {
     showModal: {
       type: Boolean
+    },
+    top: {
+      type: Number
     }
   },
 

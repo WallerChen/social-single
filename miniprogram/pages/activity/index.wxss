@@ -26,6 +26,7 @@ page {
 .page-content .page-activity .card {
   width: 662rpx;
   height: 468rpx;
+  margin-top: 20rpx;
   background: #FFFFFF;
   box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0, 0, 0, 0.06);
   border-radius: 80rpx;
@@ -78,6 +79,12 @@ page {
   width: 144rpx;
   height: 58rpx;
 }
+/* 活动页底部叠高 */
+.bottom-height {
+  height: 100rpx;
+}
+
+
 page {
   background: #f4f6fb;
   margin-top: 100rpx;

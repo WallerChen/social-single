@@ -40,7 +40,6 @@ Page({
     },
     onUnload(){
     },
-
 // 分享到朋友圈
     onShareAppMessage() {
       const promise = new Promise(resolve => {

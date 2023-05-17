@@ -1,4 +1,5 @@
 import { yearMonthDayStr } from '../../util/util';
+import { getActivityCT } from '../../api/activity'
 
 Page({
   /**
@@ -6,7 +7,6 @@ Page({
    */
   data: {
     showDropdown: [0, 0],
-
     // 活动列表
     activityList: [],
 
@@ -22,26 +22,43 @@ Page({
       }
     });
     // 加载活动
-    let that = this;
-    wx.request({
-      url: 'http://localhost/activity',
-      success(res) {
-        console.log('res:' + JSON.stringify(res));
-        console.log('res:' + res.data.rows);
-        let activityData = res.data.rows.map(item => {
-          return {
-            date: yearMonthDayStr(item.createdAt),
-            ...item
-          }
-        })
-        that.setData({
-          activityList: activityData
-        })
-      }
+    // let that = this;
+
+    this.getActivityData();
+    
+    // wx.request({
+    //   url: 'http://localhost/activity',
+    //   success(res) {
+    //     console.log('res:' + JSON.stringify(res));
+    //     console.log('res:' + res.data.rows);
+    //     let activityData = res.data.rows.map(item => {
+    //       return {
+    //         date: yearMonthDayStr(item.createdAt),
+    //         ...item
+    //       }
+    //     })
+    //     that.setData({
+    //       activityList: activityData
+    //     })
+    //   }
+    // });
+  },
+  getActivityData() {
+    getActivityCT().then((resp) => {
+      // console.log('res:' + JSON.stringify(resp.data.rows));
+      let activityData = resp.data.rows.map(item => {
+        return {
+          date: yearMonthDayStr(item.createdAt),
+          ...item
+        }
+      })
+      this.setData({
+        activityList: activityData
+      })
+   }).catch((e) => {
+      console.log(e)
     });
   },
-
-
   onShowDropdown(e) {
     let index = e.currentTarget.dataset.index
     this.data.showDropdown[index] = 1

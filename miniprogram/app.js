@@ -19,30 +19,60 @@ App({
       });
     }
     //  获取用户登陆
-    wx.cloud.callFunction({
-      name: 'inithandler',
-      config: {
-        env: 'single-1g8xzqs704ef759e'
+    wx.request({
+      url: 'http://localhost:7001/miniapp/userinfo',
+      header: {
+        'x-wx-openid': 'o6orS5ZvU2Us8IMFLPkO_WHV8_Io'
       },
-      data: {
-        type: 'user',
-        params: {
-          key: 'get'
+      method: 'POST',
+      success (res) {
+        // 判断是库里是否存在此用户
+        let result = res?.data;
+        console.log('result:' + JSON.stringify(result));
+        // 存在登陆用户
+        if(result){
+          that.globalData.user = result;
         }
+        that.globalData.employ = true;
+        /* 由于这里是网络请求，可能会在 Page.onLoad 之后才返回
+        * 所以此处加入 callback 以防止这种情况 */
+        if (that.employCallback) {
+          that.employCallback(true);
+        }
+        console.log('res:' + JSON.stringify(res));
+      },
+      fail(res) {
+        wx.showToast({
+          icon: 'none',
+          title: '获取失败',
+        })
       }
-    }).then((resp) => {
-      // 判断是库里是否存在此用户
-      let result = resp?.result?.data?.data;
-      // 存在登陆用户
-      if(result.length > 0){
-        this.globalData.user = result[result.length -1];
-      }
-      that.globalData.employ = true;
-      /* 由于这里是网络请求，可能会在 Page.onLoad 之后才返回
-      * 所以此处加入 callback 以防止这种情况 */
-      if (that.employCallback) {
-        that.employCallback(true);
-      }
-   })
+  });
+
+  //   wx.cloud.callFunction({
+  //     name: 'inithandler',
+  //     config: {
+  //       env: 'single-1g8xzqs704ef759e'
+  //     },
+  //     data: {
+  //       type: 'user',
+  //       params: {
+  //         key: 'get'
+  //       }
+  //     }
+  //   }).then((resp) => {
+  //     // 判断是库里是否存在此用户
+  //     let result = resp?.result?.data?.data;
+  //     // 存在登陆用户
+  //     if(result.length > 0){
+  //       this.globalData.user = result[result.length -1];
+  //     }
+  //     that.globalData.employ = true;
+  //     /* 由于这里是网络请求，可能会在 Page.onLoad 之后才返回
+  //     * 所以此处加入 callback 以防止这种情况 */
+  //     if (that.employCallback) {
+  //       that.employCallback(true);
+  //     }
+  //  })
   }
 });
