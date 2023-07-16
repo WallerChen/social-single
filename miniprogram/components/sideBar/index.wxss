@@ -1,0 +1,28 @@
+.side-bar-view {
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.side-bar-view .side-bar-content {
+  width: 0;
+  height: 100%;
+  border-radius: 0 30rpx 30rpx 0;
+  background-color: #ffffff;
+  overflow: hidden;
+  transition-property: width;
+  transition-duration: 0.2s;
+}
+.side-bar-view .side-bar-content .side-bar-slot {
+  width: 440rpx;
+  height: 100%;
+}
+.side-bar-view .expand {
+  width: 440rpx;
+}
+.mask {
+  width: 100%;
+}

@@ -1,0 +1,123 @@
+.info-view {
+  height: 100vh;
+  position: relative;
+  overflow-y: scroll;
+  background-color: #F1F3F8;
+}
+.info-view .course-view {
+  width: 670rpx;
+  height: 148rpx;
+  margin: 0 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #E3E9F0;
+  color: #90939B;
+  border-radius: 74rpx;
+}
+.info-view .course-view .course-panel {
+  width: 306rpx;
+  height: 100rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  border-radius: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-view .course-view .course-select {
+  color: #333333;
+  background-color: #FFFFFF;
+}
+.info-view .classroom-view {
+  width: 670rpx;
+  margin: 29rpx 40rpx 0 40rpx;
+}
+.info-view .classroom-view .classroom-list {
+  overflow: auto;
+  white-space: nowrap;
+}
+.info-view .classroom-view .classroom-list .class-item {
+  width: 157rpx;
+  height: 83rpx;
+  display: inline-block;
+  text-align: center;
+}
+.info-view .classroom-view .classroom-list .vip-class {
+  line-height: 95rpx;
+  background: url(https://single-design.bj.bcebos.com/yutong/source/images/info/classroom-bg.png) 0 0 no-repeat;
+  background-size: 157rpx 83rpx;
+}
+.info-view .classroom-view .classroom-list .normal-class {
+  width: 144rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 20rpx;
+  background: #E3E9F0;
+}
+.info-view .classroom-view .classroom-list .classroom-select {
+  font-weight: bold;
+}
+.info-view .classmate-view {
+  height: 862rpx;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+.info-view .classmate-view .classmate-book {
+  height: 100%;
+  display: flex;
+  transform-style: preserve-3d;
+  perspective: 1600;
+  -webkit-perspective: 1600;
+}
+.info-view .classmate-view .classmate-book .book-pages {
+  height: 100%;
+  position: relative;
+}
+.info-view .classmate-view .classmate-book .book-pages .book-page {
+  width: 657rpx;
+  height: 100%;
+  position: absolute;
+  transform-origin: top left;
+  animation-fill-mode: forwards;
+}
+.info-view .classmate-view .classmate-book .book-pages .content-back {
+  width: 528rpx;
+  height: 688rpx;
+  left: 180rpx;
+  top: 105rpx;
+  position: absolute;
+  background-image: url(https://single-design.bj.bcebos.com/yutong/source/images/info/last-page-bg.png);
+  background-size: 528rpx 688rpx;
+  z-index: -1;
+}
+.info-view .doves-bg {
+  width: 186rpx;
+  height: 178rpx;
+  position: absolute;
+  top: 110rpx;
+  left: 560rpx;
+}
+.prevAnimation {
+  animation: prev 0.6s ease-in;
+}
+.nextAnimation {
+  animation: next 0.6s ease-in;
+}
+@keyframes prev {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+@keyframes next {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}

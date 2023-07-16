@@ -1,0 +1,62 @@
+<view class="mine-view">
+  <view class="user-card">
+    <user-card userInfo="{{userInfo}}" bindshow="showSideBar" bindmodify="modifyUserInfo" />
+  </view>
+  <view class="into-card">
+    <view class="into-head">
+      <view>我的介绍</view>
+      <image class="edit-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/edit-icon.png" />
+    </view>
+    <view class="card-content">
+      <textarea class="card-content-textarea" maxlength="{{maxWords}}" value="{{desc}}" bindinput="descEdit" />
+    </view>
+    <view class="buttons">
+      <view class="button-item" bindtap="save">保存</view>
+      <view class="button-item" bindtap="release">发布</view>
+    </view>
+    <view class="letter-count">
+      <text class="current-letter">{{desc.length}}</text>
+      <text class="total-letter">/</text>
+      <text class="total-letter">{{maxWords}}</text>
+    </view>
+    <view class="upload-image">
+      <block wx:for="{{imageList}}" wx:key="value">
+        <view class="image-list-item">
+          <image class="image-list-image" src="{{item}}" />
+          <view class="delete-image" catchtap="deleteImageList" data-image-url="{{item}}"> - </view>
+        </view>
+      </block>
+      <view wx:if="{{imageList.length < 3}}" class="add-image" catchtap="addImageList" />
+    </view>
+    <view class="card-footer">
+      <view class="line">
+        <text class="line-text">单身同学录</text>
+      </view>
+    </view>
+    <image class="dove-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/dove-bg.png" />
+  </view>
+  <view class="footer-tab">
+    <view class="tab-item">
+      <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-tdjs-icon.png" />
+      <view>团队介绍</view>
+      <view class="line" />
+    </view>
+    <view class="tab-item">
+      <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-sqgf-icon.png" />
+      <view>社区规范</view>
+      <view class="line" />
+    </view>
+    <view class="tab-item">
+      <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-jytc-icon.png" />
+      <view>建议提出</view>
+    </view>
+  </view>
+  <modal show="{{announceModal.show}}">
+    <anounce bindcancel="hideSideBar" />
+  </modal>
+  <delete-draft show="{{isShowDeleteDraft}}" bindonhide="hideDeleteDraft" bindondelete="deleteDraft" />
+  <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
+  <side-bar show="{{sideBar.show}}" bindonhide="hideSideBar">
+    <sider />
+  </side-bar>
+</view>

@@ -1,0 +1,11 @@
+<view class="announce-view">
+  <view class="content-title">确认发布，离脱单更进一步！</view>
+  <view class="content-btns">
+    <view class="btn" bindtap="cancel">取消</view>
+    <view class="btn">确认</view>
+  </view>
+  <view class="tips">
+    <image class="tip-icon" src="https://single-student.bj.bcebos.com/vip.png"></image>
+    <view>同步展示至公开班</view>
+  </view>
+</view>

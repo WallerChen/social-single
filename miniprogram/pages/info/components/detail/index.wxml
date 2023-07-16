@@ -1,0 +1,32 @@
+<view class="detail-view">
+  <view class="header">
+    <view>我的介绍</view>
+    <image
+      class="close-icon"
+      src="https://single-design.bj.bcebos.com/newHome/close.png"
+      bindtap="close"
+    />
+  </view>
+  <view class="content">
+    <view class="desc">
+      <text>{{desc}}</text>
+    </view>
+    <view class="images">
+      <block wx:if="{{imageList.length}}">
+        <templete
+          wx:for="{{imageList}}"
+          data-image="{{item}}"
+          bindtap="previewImage"
+          wx:key="item"
+        >
+          <image src="{{item}}" />
+        </templete>
+      </block>
+      <block wx:else>
+        <templete data-image="{{avatarUrl}}" bindtap="previewImage">
+          <image class="photo" src="{{avatarUrl}}" />
+        </templete>
+      </block>
+    </view>
+  </view>
+</view>

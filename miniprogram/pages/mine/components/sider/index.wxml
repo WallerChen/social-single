@@ -1,0 +1,17 @@
+<view class="sider-view">
+  <view class="sider-title">
+    <text>模式切换</text>
+  </view>
+  <view class="sider-content">
+    <view class="menu-item choosen">
+      <image class="menu-item-left-icon" />
+      <text class="menu-item-text">脱单模式</text>
+      <image class="menu-item-right-icon" />
+    </view>
+    <view class="menu-item">
+      <image class="menu-item-left-icon" />
+      <text class="menu-item-text">其他模式</text>
+      <image class="menu-item-right-icon" />
+    </view>
+  </view>
+</view>

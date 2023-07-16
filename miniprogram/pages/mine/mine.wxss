@@ -1,0 +1,197 @@
+.mine-view {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  overflow-y: scroll;
+  background-color: #F1F3F8;
+}
+.mine-view .user-card {
+  margin: 0 40rpx 30rpx 40rpx;
+}
+.mine-view .into-card {
+  width: 670rpx;
+  height: 812rpx;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 40rpx;
+  padding: 60rpx;
+  border-radius: 80rpx;
+  background: #FFFFFF;
+}
+.mine-view .into-card .into-head {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+.mine-view .into-card .into-head .edit-icon {
+  width: 27rpx;
+  height: 27rpx;
+}
+.mine-view .into-card .card-content {
+  height: 240rpx;
+  margin-bottom: 10rpx;
+}
+.mine-view .into-card .card-content .card-content-textarea {
+  width: 100%;
+  height: 100%;
+}
+.mine-view .into-card .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.mine-view .into-card .buttons .button-item {
+  width: 120rpx;
+  height: 54rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 54rpx;
+}
+.mine-view .into-card .buttons .button-item:nth-child(1) {
+  color: #999999;
+  background: #F2F7FD;
+}
+.mine-view .into-card .buttons .button-item:nth-child(2) {
+  margin-left: 20rpx;
+  color: #FFFFFF;
+  background: linear-gradient(to right, #A5D5FF, #7D93FF);
+}
+.mine-view .into-card .letter-count {
+  height: 55rpx;
+  margin-top: 11rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  color: #999999;
+}
+.mine-view .into-card .letter-count .current-letter {
+  font-size: 38rpx;
+}
+.mine-view .into-card .letter-count .total-letter {
+  font-size: 30rpx;
+}
+.mine-view .into-card .upload-image {
+  margin-top: 28rpx;
+  overflow: hidden;
+}
+.mine-view .into-card .upload-image .image-list-item {
+  width: 170rpx;
+  height: 170rpx;
+  display: inline-block;
+  position: relative;
+  border-radius: 40rpx;
+  margin: 0 5rpx;
+  overflow: hidden;
+}
+.mine-view .into-card .upload-image .image-list-item .image-list-image {
+  width: 100%;
+  height: 100%;
+}
+.mine-view .into-card .upload-image .image-list-item .delete-image {
+  width: 25rpx;
+  height: 25rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  top: -170rpx;
+  left: 130rpx;
+}
+.mine-view .into-card .upload-image .add-image {
+  width: 170rpx;
+  height: 170rpx;
+  display: inline-block;
+  position: relative;
+  border: 1rpx dashed #90939B;
+  border-radius: 40rpx;
+  margin: 0 5rpx;
+}
+.mine-view .into-card .upload-image .add-image::after {
+  content: "";
+  position: absolute;
+  background: #E5E5E5;
+  left: 50%;
+  top: 50%;
+  width: 2%;
+  height: 30rpx;
+  transform: translateY(-15rpx);
+}
+.mine-view .into-card .upload-image .add-image::before {
+  content: "";
+  position: absolute;
+  background: #E5E5E5;
+  top: 50%;
+  left: 50%;
+  height: 2%;
+  width: 30rpx;
+  transform: translateX(-15rpx);
+}
+.mine-view .into-card .card-footer {
+  margin-top: 55rpx;
+}
+.mine-view .into-card .card-footer .line {
+  position: relative;
+  width: 90%;
+  height: 10rpx;
+  margin: 32rpx auto 24rpx;
+  background-image: linear-gradient(to right, #959490 35%, #fff 0%);
+  background-position: bottom;
+  background-size: 30rpx 1rpx;
+  background-repeat: repeat-x;
+}
+.mine-view .into-card .card-footer .line .line-text {
+  width: 200rpx;
+  position: absolute;
+  left: 50%;
+  top: -12rpx;
+  transform: translateX(-100rpx);
+  text-align: center;
+  color: #959490;
+  font-size: 26rpx;
+  background: #FFFFFF;
+}
+.mine-view .into-card .dove-bg {
+  width: 143rpx;
+  height: 117rpx;
+  position: absolute;
+  top: 740rpx;
+  left: 552rpx;
+}
+.mine-view .footer-tab {
+  width: 662rpx;
+  height: 106rpx;
+  margin: 30rpx 40rpx 24rpx 40rpx;
+  border-radius: 80rpx;
+  box-sizing: border-box;
+  padding: 34rpx 60rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+.mine-view .footer-tab .tab-item {
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: #666666;
+}
+.mine-view .footer-tab .tab-item .tab-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 7rpx;
+}
+.mine-view .footer-tab .tab-item::after {
+  content: "";
+  width: 1rpx;
+  height: 80%;
+  position: absolute;
+  right: -33rpx;
+  background: #666666;
+}
+.mine-view .footer-tab .tab-item:nth-child(3)::after {
+  display: none;
+}

@@ -1,0 +1,44 @@
+<view class="info-view">
+  <view class="course-view">
+    <view class="course-panel course-select">
+      <text>社群班</text>
+    </view>
+    <view class="course-panel">
+      <text>公开班</text>
+    </view>
+  </view>
+  <view class="classroom-view">
+    <scroll-view class="classroom-list" scroll-x scroll-with-animation>
+      <block wx:for="{{classItemList}}" wx:key="value">
+        <view wx:if="{{item.isVip}}" class="class-item vip-class {{item.title === classname ? 'classroom-select' : ''}}">
+          <view data-class="{{item.value}}" catchtap="getClassCard">
+            <text>{{item.title}}</text>
+          </view>
+        </view>
+        <view wx:else class="class-item {{item.isShow ? 'classroom-select' : ''}}">
+          <view class="normal-class" data-class="{{item.value}}" catchtap="getClassCard">
+            <text>{{item.title}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <view class="classmate-view">
+    <view class="classmate-book" bindtouchstart="touchStart" bindtouchmove="touchMove" catchtap="openModal">
+      <view class="book-pages">
+        <block wx:for="{{studentList}}" wx:key="item">
+          <view class="book-page {{nextList[index]}} {{prevList[index]}}" style="z-index:{{total - index}}">
+            <classmateInfo nickName="{{item.nick_name ? item.nick_name : ''}}" avatarUrl="{{item.avatarUrl ? item.avatarUrl : ''}}" desc="{{item.desc ? item.desc : ''}}" sex="{{item.sex ? item.sex : ''}}" />
+          </view>
+        </block>
+        <view class="content-back" />
+      </view>
+    </view>
+  </view>
+  <!-- <image class="hello-classmate-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/hello-classmate-bg.png" /> -->
+  <image class="doves-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/doves-bg.png" />
+  <modal show="{{isShowModal}}">
+    <detail desc="{{studentList[currentPage].desc ? studentList[currentPage].desc : ''}}" imageList="{{studentList[currentPage].image_list ? studentList[currentPage].image_list.split(','): []}}" avatarUrl="{{studentList[currentPage].avatarUrl ? studentList[currentPage].avatarUrl : ''}}" bindclose="closeModal" />
+  </modal>
+  <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
+</view>

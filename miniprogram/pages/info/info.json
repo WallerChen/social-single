@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "invite": "../../components/invite/index",
+    "modal": "../../components/modal/index",
+    "classmateInfo": "./components/classmateInfo/index",
+    "detail": "./components/detail/index"
+  }
+}

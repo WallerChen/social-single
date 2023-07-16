@@ -1,0 +1,26 @@
+.detail-view {
+  width: 600rpx;
+}
+.detail-view > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 36rpx;
+  margin-bottom: 28rpx;
+}
+.detail-view > .header > .close-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+.detail-view > .content > .desc {
+  height: 400rpx;
+  font-size: 32rpx;
+  color: #666666;
+  overflow-y: scroll;
+}
+.detail-view > .content > .images .photo {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 30rpx;
+  margin-top: 50rpx;
+}

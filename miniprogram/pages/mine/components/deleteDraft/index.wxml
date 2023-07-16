@@ -1,0 +1,9 @@
+<view wx:if="{{show}}" class="delete-draft-view">
+  <view class="layout">
+    <view class="title">是否保留上次的草稿？</view>
+    <view class="button-group">
+      <view class="button" bindtap="delete">不保留</view>
+      <view class="button" bindtap="save">保留</view>
+    </view>
+  </view>
+</view>
