@@ -7,6 +7,8 @@ export default (path, method, params = {}) => {
     method,
     header: {
       'X-WX-SERVICE': 'user-info-auth',
+      // 'X-WX-OPENID': 'fasiehfias',
+      // 'X-WX-EXCLUDE-CREDENTIALS': 'openid' // 不附带用户unionid，openid，access—token
     },
     data: params,
   });

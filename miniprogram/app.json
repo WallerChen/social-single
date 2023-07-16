@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/info/info",
-    "pages/activity/activity",
     "pages/mine/mine"
   ],
   "window": {
@@ -10,17 +9,12 @@
     "navigationBarBackgroundColor": "#F1F3F8",
     "navigationBarTextStyle": "black"
   },
+  "lazyCodeLoading": "requiredComponents",
   "tabBar": {
     "color": "#9B9B9B",
     "selectedColor": "#000000",
     "borderStyle": "white",
     "list": [
-      {
-        "pagePath": "pages/activity/activity",
-        "text": "活动",
-        "iconPath": "src/images/activity/activityTabBarNoSelected.png",
-        "selectedIconPath": "src/images/activity/activityTabBarSelected.png"
-      },
       {
         "pagePath": "pages/info/info",
         "text": "资料",

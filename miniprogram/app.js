@@ -1,4 +1,3 @@
-
 import Event from './utils/eventBus';
 import { getUserRegister } from './api/request';
 App({
@@ -22,5 +21,6 @@ App({
     const classname = userRegisterResult?.data?.data?.class;
     wx.setStorageSync('isRegister', registered);
     wx.setStorageSync('classname', classname);
+    this.event.emit('checkoutRegister');
   },
 });

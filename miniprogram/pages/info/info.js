@@ -2,6 +2,8 @@ import { classMap, classItemList } from '../../constant/classInfo';
 import { getClassmateList } from '../../api/request';
 import { deepClone } from '../../utils/util';
 
+const app = getApp();
+
 let startX = 0;
 let endX = 0;
 let shouldMove = true;
@@ -31,6 +33,12 @@ Page({
   },
   onLoad() {
     this.onGetClassmateList(this.data.page);
+    app.event.on('checkoutRegister', this.checkoutRegister, this);
+  },
+  onUnload() {
+    app.event.off('checkoutRegister', this.checkoutRegister);
+  },
+  checkoutRegister() {
     const isRegister = wx.getStorageSync('isRegister');
     const classname = wx.getStorageSync('classname');
     if (isRegister) {

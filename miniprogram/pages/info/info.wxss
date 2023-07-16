@@ -60,6 +60,7 @@
 }
 .info-view .classmate-view {
   height: 862rpx;
+  margin: 30rpx 0 0 40rpx;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;

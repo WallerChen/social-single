@@ -13,7 +13,7 @@ Page({
     },
     imageList: [],  //  介绍配图
     desc: '', //描述
-    maxWords: 200,  // 最大字数
+    maxWords: 500,  // 最大字数
     isShowInvite: false,
     isShowDeleteDraft: false,
   },
@@ -24,20 +24,17 @@ Page({
   async onGetUserInfo() {
     try {
       const userInfoResult = await getUserInfo();
-      const hasDraft = userInfoResult?.data?.data.hasDraft ?? false;
+      const hasDraft = userInfoResult?.data?.data?.hasDraft ?? false;
       if (hasDraft) {
         this.setData({ isShowDeleteDraft: true });
       }
-      else {
-
-      }
-      const avatarUrl = userInfoResult?.data?.data.hasDraft ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-      const classname = userInfoResult?.data?.data.class ?? '';
-      const gender = userInfoResult?.data?.data.sex ?? '';
-      const nickname = userInfoResult?.data?.data.nickname ?? '';
-      const birthday = userInfoResult?.data?.data.birthday;
-      const desc = userInfoResult?.data?.data.desc;
-      const imageList = userInfoResult?.data?.data.imageList ?? [];
+      const avatarUrl = userInfoResult?.data?.data?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
+      const classname = userInfoResult?.data?.data?.class ?? '';
+      const gender = userInfoResult?.data?.data?.sex ?? '';
+      const nickname = userInfoResult?.data?.data?.nickname ?? '';
+      const birthday = userInfoResult?.data?.data?.birthday;
+      const desc = userInfoResult?.data?.data?.desc ?? '';
+      const imageList = userInfoResult?.data?.data?.imageList ?? [];
       this.setData({
         userInfo: { avatarUrl, classname, nickname, gender, birthday },
         desc,
