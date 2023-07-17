@@ -125,8 +125,18 @@ Page({
       desc: this.data.desc,
     };
     try {
+      wx.showLoading({
+        title: '保存中',
+        mask: true,
+      });
       const result = await postUserInfoDraft(params);
-      console.log('#yudi', result);
+      wx.hideLoading();
+      if (result.data.code !== 200) {
+        wx.showToast({
+          title: '保存失败',
+          icon: 'error',
+        })
+      }
     }
     catch (e) {
       console.error(e);
