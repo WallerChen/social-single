@@ -4,9 +4,10 @@
   <view class="intro">
     <view class="name">{{nickName}}</view>
     <text>性别: {{sex}}</text>
-    <image class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
+    <image wx:if="{{sex == '男'}}" class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
+    <image wx:else class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
   </view>
-  <image class="avatar" src="{{avatarUrl}}" />
+  <image class="avatar" mode="aspectFill" src="{{avatarUrl}}" />
   <view class="title">自我介绍</view>
   <view class="self-intro">
     <text>{{desc}}</text>

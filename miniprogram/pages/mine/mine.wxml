@@ -54,7 +54,7 @@
   <modal show="{{announceModal.show}}">
     <anounce bindcancel="hideSideBar" />
   </modal>
-  <delete-draft show="{{isShowDeleteDraft}}" bindonhide="hideDeleteDraft" bindondelete="deleteDraft" />
+  <delete-draft show="{{isShowDeleteDraft}}" bindonhide="hideDeleteDraft" bindondelete="deleteDraft" bindonsave="onShowDraftInfo" />
   <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
   <side-bar show="{{sideBar.show}}" bindonhide="hideSideBar">
     <sider />

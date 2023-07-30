@@ -24,7 +24,7 @@
       </block>
       <block wx:else>
         <templete data-image="{{avatarUrl}}" bindtap="previewImage">
-          <image class="photo" src="{{avatarUrl}}" />
+          <image class="photo" mode="aspectFill" src="{{avatarUrl}}" />
         </templete>
       </block>
     </view>

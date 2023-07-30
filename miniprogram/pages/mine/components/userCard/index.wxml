@@ -5,17 +5,17 @@
     <view class="user-info">
       <view class="name">
         <textarea class="name-textarea" value="{{userInfo.nickname}}" bindinput="editNickname" maxlength="7" auto-height="true" />
-        <image class="gender-male-icon hide-gender-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/gender-male-icon.png" />
-        <image class="gender-female-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/gender-female-icon.png" />
+        <image wx:if="{{userInfo.sex == '男'}}"class="gender-male-icon hide-gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
+        <image wx:else  class="gender-female-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
       </view>
       <view class="class">
         <span>{{userInfo.classname || '暂无班级'}}</span>
       </view>
     </view>
   </view>
-  <view class="change-mode">
+  <!-- <view class="change-mode">
     <view class="change-word" bindtap="showSider">脱单模式</view>
     <image class="change-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/switch-icon.png" bindtap="showSider" />
   </view>
-  <view class="auth">我的认证</view>
+  <view class="auth">我的认证</view> -->
 </view>

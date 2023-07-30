@@ -11,6 +11,7 @@ Component({
       this.hide();
     },
     save() {
+      this.triggerEvent('onsave');
       this.hide();
     },
   },

@@ -6,8 +6,8 @@ export default (path, method, params = {}) => {
     path,
     method,
     header: {
-      'X-WX-SERVICE': 'user-info-auth',
-      // 'X-WX-SERVICE': 'go-backend-test',
+      // 'X-WX-SERVICE': 'user-info-auth',
+      'X-WX-SERVICE': 'go-backend-test',
       // 'X-WX-OPENID': 'fasiehfias',
       // 'X-WX-EXCLUDE-CREDENTIALS': 'openid' // 不附带用户unionid，openid，access—token
     },

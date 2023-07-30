@@ -1,5 +1,6 @@
 import awx from '../../api/awx';
 import { getUserInfo, postUserInfoDraft, deleteUserInfoDraft } from '../../api/request';
+const app = getApp();
 
 Page({
   data: {
@@ -14,6 +15,7 @@ Page({
     imageList: [],  //  介绍配图
     desc: '', //描述
     maxWords: 500,  // 最大字数
+    draftInfo:{},
     isShowInvite: false,
     isShowDeleteDraft: false,
   },
@@ -21,24 +23,44 @@ Page({
     this.onGetUserInfo();
   },
 
-  async onGetUserInfo() {
+  onShowDraftInfo() {
+    let draftInfo = this.data.draftInfo
+    const avatarUrl = draftInfo?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
+    const gender = draftInfo?.sex ?? '';
+    const nickname = draftInfo?.nickname ?? '';
+    const birthday = draftInfo?.birthday;
+    const desc = draftInfo?.desc ?? '';
+    const imageList = draftInfo?.imageList ?? [];
+    this.setData({
+      userInfo: {...this.data.userInfo,avatarUrl, nickname, gender, birthday },
+      desc,
+      imageList,
+    });
+  },
+
+  async onGetUserInfo(isDraft = false) {
     try {
       const userInfoResult = await getUserInfo();
       const hasDraft = userInfoResult?.data?.data?.hasDraft ?? false;
       if (hasDraft) {
         this.setData({ isShowDeleteDraft: true });
       }
-      const avatarUrl = userInfoResult?.data?.data?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-      const classname = userInfoResult?.data?.data?.class ?? '';
-      const gender = userInfoResult?.data?.data?.sex ?? '';
-      const nickname = userInfoResult?.data?.data?.nickname ?? '';
-      const birthday = userInfoResult?.data?.data?.birthday;
-      const desc = userInfoResult?.data?.data?.desc ?? '';
-      const imageList = userInfoResult?.data?.data?.imageList ?? [];
+      let userInfo = userInfoResult?.data?.data;
+
+
+
+      const avatarUrl = userInfo?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
+      const classname = userInfo?.class ?? '';
+      const gender = userInfo?.sex ?? '';
+      const nickname = userInfo?.nickname ?? '';
+      const birthday = userInfo?.birthday;
+      const desc = userInfo?.desc ?? '';
+      const imageList = userInfo?.imageList ?? [];
       this.setData({
         userInfo: { avatarUrl, classname, nickname, gender, birthday },
         desc,
         imageList,
+        draftInfo:userInfo?.draftInfo
       });
     }
     catch (e) {
@@ -116,11 +138,22 @@ Page({
   },
 
   async save() {
+    // const isoString = new Date(this.data.userInfo.birthday).toISOString();
+    // console.log(isoString); // 输出：'2023-03-18T04:25:23.000Z'
+    // const offset = '+08:00';
+    // const isoStringWithOffset = isoString.slice(0, -1) + offset;
+    // console.log(isoStringWithOffset); // 输出：'2023-03-18T04:25:23.000+08:00'
+
     const params = {
       nickname: this.data.userInfo.nickname,
       sex: this.data.userInfo.sex,
       avatarUrl: this.data.userInfo.avatarUrl,
       birthday: this.data.userInfo.birthday,
+      // birthday: new Date(this.data.userInfo.birthday).toLocaleDateString('zh-CN', {
+      //   year: 'numeric',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
+      //   month: '2-digit',
+      //   day: '2-digit'
+      // }),
       imageList: this.data.imageList,
       desc: this.data.desc,
     };
