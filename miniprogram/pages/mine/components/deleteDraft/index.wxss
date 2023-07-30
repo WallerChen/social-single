@@ -30,7 +30,10 @@
   align-items: center;
 }
 .delete-draft-view .layout .button-group .button {
-  width: 144rpx;
+  width: fit-content;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  box-sizing: border-box;
   height: 58rpx;
   border-radius: 32rpx;
   display: flex;
@@ -38,4 +41,9 @@
   align-items: center;
   color: #FFFFFF;
   background: linear-gradient(133deg, #A5D5FF 0%, #7D93FF 100%, #7D93FF 100%);
+}
+
+.delete-draft-view .layout .button-group .button-discard {
+  color: red;
+  background: #F2F7FD; 
 }

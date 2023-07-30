@@ -6,3 +6,4 @@ export const getUserRegister = params => cloudContainer('/api/v1/user/register',
 export const postUserRegister = params => cloudContainer('/api/v1/user/register', 'POST', params);
 export const deleteUserInfoDraft = params => cloudContainer('/api/v1/user/info-draft', 'DELETE', params);
 export const postUserInfoDraft = params => cloudContainer('/api/v1/user/info-draft', 'POST', params);
+export const publishUserInfo = params => cloudContainer('/api/v1/user/info', 'POST', params);
