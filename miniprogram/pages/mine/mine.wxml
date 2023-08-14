@@ -26,7 +26,7 @@
           <view class="delete-image" catchtap="deleteImageList" data-image-url="{{item}}"> - </view>
         </view>
       </block>
-      <view wx:if="{{imageList.length < 3}}" class="add-image" catchtap="addImageList" />
+      <view wx:if="{{!imageList || imageList.length < 3}}" class="add-image" catchtap="addImageList" />
     </view>
     <view class="card-footer">
       <view class="line">
@@ -54,7 +54,8 @@
   <modal show="{{announceModal.show}}">
     <anounce bindcancel="hideSideBar" />
   </modal>
-  <delete-draft show="{{isShowDeleteDraft}}" bindonhide="hideDeleteDraft" bindondelete="deleteDraft" bindonsave="onShowDraftInfo" />
+  <delete-draft show="{{isShowDeleteDraft}}" bindondiscard="discardDraft" bindonrestore="restoreDraft" />
+
   <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
   <side-bar show="{{sideBar.show}}" bindonhide="hideSideBar">
     <sider />

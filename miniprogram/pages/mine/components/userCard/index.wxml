@@ -4,12 +4,12 @@
     <image class="avatar-crown" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/crown-bg.png" />
     <view class="user-info">
       <view class="name">
-        <textarea class="name-textarea" value="{{userInfo.nickname}}" bindinput="editNickname" maxlength="7" auto-height="true" />
+        <input class="name-textarea" value="{{userInfo.nickname}}" bindinput="editNickname" />
         <image wx:if="{{userInfo.sex == '男'}}"class="gender-male-icon hide-gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
         <image wx:else  class="gender-female-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
       </view>
       <view class="class">
-        <span>{{userInfo.classname || '暂无班级'}}</span>
+        <span>{{userInfo.class || '暂无班级'}}</span>
       </view>
     </view>
   </view>

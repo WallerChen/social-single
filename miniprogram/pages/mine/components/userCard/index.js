@@ -6,7 +6,7 @@ Component({
       type: Object,
       value: {
         nickname: String,
-        classname: String,
+        class: String,
         avatarUrl: String,
         gender: String,
       }

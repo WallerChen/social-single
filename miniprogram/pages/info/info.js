@@ -146,10 +146,18 @@ Page({
   next() {
     const { page, currentPage, pageSize, total } = this.data;
     // 数据全部已拉取
-    if (((page - 1) * pageSize + currentPage + 1) === total) {
+    console.log('currentPage:',currentPage);
+    console.log('total:',total);
+    if ((currentPage + 1) === total) {
+      wx.showToast({
+        title: '翻到尽头了哦～',
+        icon: 'none',
+      })
+      return;
     }
+    
     // 翻到末尾重新拉取新数据
-    else if ((currentPage + 1) === pageSize * (page - 1)) {
+    else if ((currentPage + 1) === (pageSize * (page - 1) -3)) {
       this.onGetClassmateList(this.data.page);
     }
     if (currentPage < total) {

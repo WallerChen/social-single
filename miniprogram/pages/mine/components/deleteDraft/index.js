@@ -3,16 +3,17 @@ Component({
     show: Boolean,
   },
   methods: {
-    hide() {
-      this.triggerEvent('onhide');
+    onDiscard() {
+      this.triggerEvent('ondiscard');
+      this.setData({
+        show: false
+      })
     },
-    delete() {
-      this.triggerEvent('ondelete');
-      this.hide();
-    },
-    save() {
-      this.triggerEvent('onsave');
-      this.hide();
-    },
+    onRestore() {
+      this.triggerEvent('onrestore');
+      this.setData({
+        show: false
+      })
+    }, 
   },
 });
