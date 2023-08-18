@@ -109,6 +109,10 @@ Page({
       studentList: [],
     }, () => this.onGetClassmateList());
   },
+  onPublicToast() {
+    wx.showToast({ title: '建设ing，小可爱们请等待~', icon: 'none' });
+    
+  },
   openModal() {
     this.setData({ isShowModal: true });
   },

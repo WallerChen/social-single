@@ -12,8 +12,8 @@
   <view class="self-intro">
     <text>{{desc}}</text>
   </view>
-  <view class="footer">
+  <!-- <view class="footer">
     <image class="footer-icon" src="https://single-design.bj.bcebos.com/newHome/xiaoxi.png" />
     <image class="footer-icon" src="https://single-design.bj.bcebos.com/newHome/zhuanfa.png" />
-  </view>
+  </view> -->
 </view>

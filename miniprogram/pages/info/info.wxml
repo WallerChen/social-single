@@ -3,7 +3,7 @@
     <view class="course-panel course-select">
       <text>社群班</text>
     </view>
-    <view class="course-panel">
+    <view class="course-panel" catchtap="onPublicToast">
       <text>公开班</text>
     </view>
   </view>
