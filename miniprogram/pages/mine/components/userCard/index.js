@@ -1,4 +1,6 @@
-import awx from '../../../../api/awx';
+import awx from '../../../../api/awx'
+
+import * as request from '../../../../api/request'
 
 Component({
   properties: {
@@ -8,12 +10,12 @@ Component({
         nickname: String,
         class: String,
         avatarUrl: String,
-        gender: String,
+        gender: String
       }
     }
   },
   data: {
-    defaultAvatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+    defaultAvatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
   },
   methods: {
     // 显示侧边栏
@@ -22,23 +24,31 @@ Component({
     },
     // 编辑昵称
     editNickname(e) {
-      this.triggerEvent('modify', { nickname: e.detail.value });
+      this.triggerEvent('modify', { nickname: e.detail.value })
     },
     // 编辑头像
     async editAvatar() {
+      const chooseResult = await awx.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        sizeType: ['original', 'compressed'],
+        sourceType: ['album', 'camera']
+      })
+
       try {
-        const chooseResult = await awx.chooseMedia({
-          count: 1,
-          mediaType: ['image'],
-          sizeType: ['original', 'compressed'],
-          sourceType: ['album', 'camera'],
-        });
-        const avatarUrl = chooseResult.tempFiles[0].tempFilePath;
-        this.triggerEvent('modify', { avatarUrl });
+        wx.showLoading({ title: '保存中', mask: true })
+        const res = await request.uploadImage(chooseResult.tempFiles[0])
+        console.log('uploadImage', res)
+
+        const avatarUrl = res.data.data.url
+        this.triggerEvent('modify', { avatarUrl })
+        wx.hideLoading()
+
+        // 更新用户头像
+      } catch (e) {
+        console.error(e)
+        wx.showToast({ title: '保存失败', icon: 'error' })
       }
-      catch (e) {
-        console.error(e);
-      }
-    },
-  },
-});
+    }
+  }
+})
