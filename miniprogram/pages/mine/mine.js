@@ -1,4 +1,4 @@
-import awx from '../../api/awx';
+import awx from '../../api/awx'
 
 import {
   getUserInfo,
@@ -6,57 +6,60 @@ import {
   deleteUserInfoDraft,
   publishUserInfo,
   uploadImage
-} from '../../api/request';
-const app = getApp();
+} from '../../api/request'
+
+const app = getApp()
 
 Page({
   data: {
     userInfo: { // 用户信息
     },
     announceModal: { // 通知弹窗
-      show: false,
+      show: false
     },
     sideBar: { // 侧边栏
-      show: false,
+      show: false
     },
     imageList: [], //  介绍配图
-    desc: '', //描述
-    maxWords: 500,  // 最大字数
+    desc: '', // 描述
+    maxWords: 500, // 最大字数
     draftInfo: {},
     isShowInvite: false,
-    isShowDeleteDraft: false,
+    isShowDeleteDraft: false
   },
   onLoad() {
-    this.onGetUserInfo();
+    this.onGetUserInfo()
   },
 
   onShowDraftInfo() {
-    let draftInfo = this.data.draftInfo
-    const avatarUrl = draftInfo?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-    const gender = draftInfo?.sex ?? '';
-    const nickname = draftInfo?.nickname ?? '';
-    const birthday = draftInfo?.birthday;
-    const desc = draftInfo?.desc ?? '';
-    const imageList = draftInfo?.imageList ?? [];
+    const draftInfo = this.data.draftInfo
+    const avatarUrl = draftInfo?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+    const gender = draftInfo?.sex ?? ''
+    const nickname = draftInfo?.nickname ?? ''
+    const birthday = draftInfo?.birthday
+    const desc = draftInfo?.desc ?? ''
+    const imageList = draftInfo?.imageList ?? []
     this.setData({
-      userInfo: { ...this.data.userInfo, avatarUrl, nickname, gender, birthday },
+      userInfo: {
+        ...this.data.userInfo, avatarUrl, nickname, gender, birthday
+      },
       desc,
-      imageList,
-    });
+      imageList
+    })
   },
 
   async onGetUserInfo(isDraft = false) {
     try {
-      const userInfoResult = await getUserInfo();
-      const hasDraft = userInfoResult?.data?.data?.hasDraft ?? false;
+      const userInfoResult = await getUserInfo()
+      const hasDraft = userInfoResult?.data?.data?.hasDraft ?? false
       if (hasDraft) {
         this.setData({
           isShowDeleteDraft: true
-        });
+        })
       }
-      let userInfo = userInfoResult?.data?.data
-      delete (userInfo, "draftInfo")
-      let userInfoDraft = userInfoResult?.data?.data.draftInfo
+      const userInfo = userInfoResult?.data?.data
+      delete (userInfo, 'draftInfo')
+      const userInfoDraft = userInfoResult?.data?.data.draftInfo
 
       // const avatarUrl = userInfoResult?.data?.data?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
       // const classname = userInfoResult?.data?.data?.class ?? '';
@@ -71,49 +74,49 @@ Page({
         userInfoDraft,
 
         desc: userInfo.desc,
-        imageList: userInfo.imageList || [],
-      });
+        imageList: userInfo.imageList || []
+      })
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   },
 
   hideInvite() {
     this.setData({
       isShowInvite: false
-    });
+    })
   },
   showAnnounceModal() {
     this.setData({
       announceModal: {
         ...this.data.announceModal,
         show: true
-      },
-    });
+      }
+    })
   },
   hideAnnounceModal() {
     this.setData({
       announceModal: {
         ...this.data.announceModal,
         show: false
-      },
-    });
+      }
+    })
   },
   restoreDraft() {
     this.setData({
       isShowDeleteDraft: false,
       userInfo: { ...this.data.userInfo, ...this.data.userInfoDraft },
       desc: this.data.userInfoDraft.desc,
-      imageList: this.data.userInfoDraft.imageList || [],
-    });
+      imageList: this.data.userInfoDraft.imageList || []
+    })
 
     // console.log("userInfo", this.data.userInfo);
   },
   async discardDraft() {
     try {
-      await deleteUserInfoDraft();
+      await deleteUserInfoDraft()
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   },
 
@@ -122,76 +125,69 @@ Page({
       sideBar: {
         ...this.data.sideBar,
         show: true
-      },
-    });
+      }
+    })
   },
   hideSideBar() {
     this.setData({
       sideBar: {
         ...this.data.sideBar,
         show: false
-      },
-    });
+      }
+    })
   },
 
   async addImageList() {
-
     // 最多9张
-    let allowCnt = 9 - this.data.imageList.length;
+    const allowCnt = 9 - this.data.imageList.length
     const chooseResult = await awx.chooseMedia({
       count: allowCnt,
       mediaType: ['image'],
       sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-    });
+      sourceType: ['album', 'camera']
+    })
 
-    wx.showLoading({ title: '保存中', mask: true, });
+    wx.showLoading({ title: '保存中', mask: true })
 
-    let promiseList = [];
-    promiseList = chooseResult.tempFiles.map((file) => {
-      return uploadImage(file);
-    });
-
+    let promiseList = []
+    promiseList = chooseResult.tempFiles.map((file) => uploadImage(file))
 
     try {
-      const res = await Promise.all(promiseList);
-      console.log("uploadImage", res);
+      const res = await Promise.all(promiseList)
+      console.log('uploadImage', res)
 
-      let imgList = res.map((item) => {
-        return item.data.data.url;
-      });
+      const imgList = res.map((item) => item.data.data.url)
 
-      const newImageList = [...this.data.imageList, ...imgList];
-      this.setData({ imageList: newImageList });
+      const newImageList = [...this.data.imageList, ...imgList]
+      this.setData({ imageList: newImageList })
 
       // TODO: 同时更新用户信息
       // const result = await publishUserInfo({
       //   imageList: newImageList,
       // });
 
-      wx.hideLoading();
-
+      wx.hideLoading()
     } catch (e) {
-      console.error("addImageList err", e);
+      console.error('addImageList err', e)
       wx.showToast({ title: '保存失败', icon: 'error' })
     }
   },
   deleteImageList(e) {
-    const url = e.currentTarget.dataset.imageUrl;
-    const newImageList = [];
+    const url = e.currentTarget.dataset.imageUrl
+    const newImageList = []
     for (const value of this.data.imageList) {
       if (value !== url) {
-        newImageList.push(value);
+        newImageList.push(value)
       }
     }
     this.setData({
       imageList: newImageList
-    });
+    })
   },
   descEdit(e) {
     this.setData({
       desc: e.detail.value
-    });
+    })
   },
   modifyUserInfo(e) {
     this.setData({
@@ -199,7 +195,7 @@ Page({
         ...this.data.userInfo,
         ...e.detail
       }
-    });
+    })
   },
 
   async save() {
@@ -220,49 +216,49 @@ Page({
       //   day: '2-digit'
       // }),
       imageList: this.data.imageList,
-      desc: this.data.desc,
-    };
+      desc: this.data.desc
+    }
     try {
-      wx.showLoading({ title: '保存中', mask: true, });
-      const result = await postUserInfoDraft(params);
-      console.log("postUserInfoDraft", result);
-      wx.hideLoading();
+      wx.showLoading({ title: '保存中', mask: true })
+      const result = await postUserInfoDraft(params)
+      console.log('postUserInfoDraft', result)
+      wx.hideLoading()
       if (result.data.code !== 200) {
-        wx.showToast({
-          title: '保存失败',
-          icon: 'error',
-        })
+        wx.showToast({ title: '保存失败', icon: 'error' })
+        return
       }
+
+      wx.showToast({ title: '已存草稿', icon: 'success' })
     } catch (e) {
-      console.error(e);
+      wx.showToast({ title: '保存失败', icon: 'error' })
+      console.error(e)
     }
   },
   async release() {
-
     const params = {
       nickname: this.data.userInfo.nickname,
       sex: this.data.userInfo.sex,
       avatarUrl: this.data.userInfo.avatarUrl,
       birthday: this.data.userInfo.birthday,
       imageList: this.data.imageList,
-      desc: this.data.desc,
-    };
+      desc: this.data.desc
+    }
     try {
-      wx.showLoading({ title: '保存中', mask: true, });
-      console.log("params", params);
-      const result = await publishUserInfo(params);
-      console.log("publishUserInfo", result);
-      wx.hideLoading();
+      wx.showLoading({ title: '发布中', mask: true })
+      console.log('params', params)
+      const result = await publishUserInfo(params)
+      console.log('publishUserInfo', result)
+      wx.hideLoading()
       if (result.data.code !== 200) {
-        wx.showToast({
-          title: '保存失败',
-          icon: 'error',
-        })
+        wx.showToast({ title: '发布失败', icon: 'error' })
+        return
       }
 
-      await deleteUserInfoDraft();
+      await deleteUserInfoDraft()
+      wx.showToast({ title: '发布成功', icon: 'success' })
     } catch (e) {
-      console.error(e);
+      console.error(e)
+      wx.showToast({ title: '发布失败', icon: 'error' })
     }
-  },
-});
+  }
+})
