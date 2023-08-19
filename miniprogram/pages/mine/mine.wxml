@@ -23,7 +23,7 @@
       <block wx:for="{{imageList}}" wx:key="value">
         <view class="image-list-item">
           <image class="image-list-image" src="{{item}}" />
-          <view class="delete-image" catchtap="deleteImageList" data-image-url="{{item}}"> - </view>
+          <image class="delete-image" catchtap="deleteImageList" data-image-url="{{item}}" src="/src/images/icon/delete.svg" ></image>
         </view>
       </block>
       <view wx:if="{{!imageList || imageList.length < 3}}" class="add-image" catchtap="addImageList" />
