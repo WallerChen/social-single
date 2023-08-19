@@ -1,9 +1,9 @@
-<!--pages/info/components/classmateInfo/index.wxml-->
+<!-- pages/info/components/classmateInfo/index.wxml -->
 <view class="classmate-info-view">
   <view class="title">学生档案</view>
   <view class="intro">
     <view class="name">{{nickName}}</view>
-    <text>性别: {{sex}}</text>
+    <text>{{nickname}}</text>
     <image wx:if="{{sex == '男'}}" class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
     <image wx:else class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
   </view>

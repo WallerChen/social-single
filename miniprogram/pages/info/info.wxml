@@ -28,7 +28,7 @@
       <view class="book-pages">
         <block wx:for="{{studentList}}" wx:key="item">
           <view class="book-page {{nextList[index]}} {{prevList[index]}}" style="z-index:{{total - index}}" catchtap="openModal">
-            <classmateInfo nickName="{{item.nick_name ? item.nick_name : ''}}" avatarUrl="{{item.avatarUrl ? item.avatarUrl : ''}}" desc="{{item.desc ? item.desc : ''}}" sex="{{item.sex ? item.sex : ''}}" />
+            <classmateInfo nickName="{{item.nickname ? item.nickname : ''}}" avatarUrl="{{item.avatarUrl ? item.avatarUrl : ''}}" desc="{{item.desc ? item.desc : ''}}" sex="{{item.sex ? item.sex : ''}}" />
           </view>
         </block>
         <view class="content-back" />
