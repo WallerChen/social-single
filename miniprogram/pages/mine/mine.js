@@ -4,7 +4,8 @@ import {
   getUserInfo,
   postUserInfoDraft,
   deleteUserInfoDraft,
-  publishUserInfo
+  publishUserInfo,
+  uploadImage
 } from '../../api/request';
 const app = getApp();
 
@@ -21,7 +22,7 @@ Page({
     imageList: [], //  介绍配图
     desc: '', //描述
     maxWords: 500,  // 最大字数
-    draftInfo:{},
+    draftInfo: {},
     isShowInvite: false,
     isShowDeleteDraft: false,
   },
@@ -38,7 +39,7 @@ Page({
     const desc = draftInfo?.desc ?? '';
     const imageList = draftInfo?.imageList ?? [];
     this.setData({
-      userInfo: {...this.data.userInfo,avatarUrl, nickname, gender, birthday },
+      userInfo: { ...this.data.userInfo, avatarUrl, nickname, gender, birthday },
       desc,
       imageList,
     });
@@ -101,7 +102,7 @@ Page({
   restoreDraft() {
     this.setData({
       isShowDeleteDraft: false,
-      userInfo: {...this.data.userInfo,...this.data.userInfoDraft},
+      userInfo: { ...this.data.userInfo, ...this.data.userInfoDraft },
       desc: this.data.userInfoDraft.desc,
       imageList: this.data.userInfoDraft.imageList || [],
     });
@@ -134,20 +135,45 @@ Page({
   },
 
   async addImageList() {
+
+    // 最多9张
+    let allowCnt = 9 - this.data.imageList.length;
+    const chooseResult = await awx.chooseMedia({
+      count: allowCnt,
+      mediaType: ['image'],
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+    });
+
+    wx.showLoading({ title: '保存中', mask: true, });
+
+    let promiseList = [];
+    promiseList = chooseResult.tempFiles.map((file) => {
+      return uploadImage(file);
+    });
+
+
     try {
-      const chooseResult = await awx.chooseMedia({
-        count: 1,
-        mediaType: ['image'],
-        sizeType: ['original', 'compressed'],
-        sourceType: ['album', 'camera'],
+      const res = await Promise.all(promiseList);
+      console.log("uploadImage", res);
+
+      let imgList = res.map((item) => {
+        return item.data.data.url;
       });
-      const imageItem = chooseResult.tempFiles[0].tempFilePath;
-      const newImageList = [...this.data.imageList, imageItem];
-      this.setData({
-        imageList: newImageList
-      });
+
+      const newImageList = [...this.data.imageList, ...imgList];
+      this.setData({ imageList: newImageList });
+
+      // TODO: 同时更新用户信息
+      // const result = await publishUserInfo({
+      //   imageList: newImageList,
+      // });
+
+      wx.hideLoading();
+
     } catch (e) {
-      console.error(e);
+      console.error("addImageList err", e);
+      wx.showToast({ title: '保存失败', icon: 'error' })
     }
   },
   deleteImageList(e) {
@@ -197,11 +223,9 @@ Page({
       desc: this.data.desc,
     };
     try {
-      wx.showLoading({
-        title: '保存中',
-        mask: true,
-      });
+      wx.showLoading({ title: '保存中', mask: true, });
       const result = await postUserInfoDraft(params);
+      console.log("postUserInfoDraft", result);
       wx.hideLoading();
       if (result.data.code !== 200) {
         wx.showToast({
@@ -224,11 +248,10 @@ Page({
       desc: this.data.desc,
     };
     try {
-      wx.showLoading({
-        title: '保存中',
-        mask: true,
-      });
+      wx.showLoading({ title: '保存中', mask: true, });
+      console.log("params", params);
       const result = await publishUserInfo(params);
+      console.log("publishUserInfo", result);
       wx.hideLoading();
       if (result.data.code !== 200) {
         wx.showToast({
