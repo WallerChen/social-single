@@ -1,2 +1,3 @@
 node_modules
 miniprogram/pages/mine/mine.wxss
+miniprogram/pages/mine/components/userCard/index.wxss

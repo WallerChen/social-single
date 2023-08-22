@@ -11,14 +11,26 @@
     display: flex;
     position: relative;
 
-    .avatar-image {
+    .img-container {
       width: 158rpx;
       height: 158rpx;
-      border: 3rpx solid transparent;
       border-radius: 50%;
-      background-clip: padding-box, border-box;
-      background-origin: padding-box, border-box;
-      background-image: linear-gradient(to bottom, #A5D5FF, #A5D5FF), linear-gradient(90deg, #A5D5FF, #7D93FF);
+      border: 4rpx solid #A5D5FF;
+      // padding: 10rpx;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      
+      .avatar-image {
+        width: 100%;
+        height: 100%;
+        border: white 4rpx solid;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background: #A5D5FF;
+      }
     }
 
     .avatar-crown {

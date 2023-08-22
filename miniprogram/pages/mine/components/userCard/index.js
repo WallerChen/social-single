@@ -37,7 +37,7 @@ Component({
 
       try {
         wx.showLoading({ title: '保存中', mask: true })
-        const res = await request.uploadImage(chooseResult.tempFiles[0])
+        const res = await request.uploadImage(chooseResult.tempFiles[0], true, 'avatar/TEST.png')
         console.log('uploadImage', res)
 
         const avatarUrl = res.data.data.url

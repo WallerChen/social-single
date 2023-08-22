@@ -1,6 +1,10 @@
 <view class="user-card-view">
   <view class="user-header">
-    <image class="avatar-image" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" catchtap="editAvatar" />
+
+    <view class="img-container">
+      <image class="avatar-image" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" catchtap="editAvatar" />
+    </view>
+
     <image class="avatar-crown" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/crown-bg.png" />
     <view class="user-info">
       <view class="name">
