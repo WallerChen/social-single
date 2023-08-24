@@ -5,7 +5,8 @@
   <view class="into-card">
     <view class="into-head">
       <view>我的介绍</view>
-      <image class="edit-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/edit-icon.png" />
+      <!-- <image class="edit-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/edit-icon.png" /> -->
+      
     </view>
     <view class="card-content">
       <textarea class="card-content-textarea" maxlength="{{maxWords}}" value="{{desc}}" bindinput="descEdit" />
@@ -38,17 +39,17 @@
   <view class="footer-tab">
     <view class="tab-item">
       <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-tdjs-icon.png" />
-      <view>团队介绍</view>
+      <view catchtap="onPublicToast">团队介绍</view>
       <view class="line" />
     </view>
     <view class="tab-item">
       <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-sqgf-icon.png" />
-      <view>社区规范</view>
+      <view catchtap="onPublicToast">社区规范</view>
       <view class="line" />
     </view>
     <view class="tab-item">
       <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-jytc-icon.png" />
-      <view>建议提出</view>
+      <view catchtap="onPublicToast">建议提出</view>
     </view>
   </view>
   <modal show="{{announceModal.show}}">
