@@ -54,9 +54,12 @@ Page({
       const studentList = this.data.studentList ?? []
       const cardData = classmateList?.data?.data?.list
       const total = classmateList?.data?.data?.total
+
       const clonedCardData = deepClone(cardData)
-      for (const item of clonedCardData) {
-        studentList.push(item)
+      if (clonedCardData) {
+        for (const item of clonedCardData) {
+          studentList.push(item)
+        }
       }
       const finalPage = total / this.data.pageSize
       const finalShowPage = (this.data.pageIndex + 1 > finalPage) ? 0 : this.data.pageIndex + 1
@@ -73,7 +76,6 @@ Page({
     this.setData({ isShowInvite: false })
   },
   onShowVisible() {
-    const app = getApp()
     for (const index in this.data.classItemList) {
       if (admins.includes(app.globalData.user?.openid)) {
         this.setData({
@@ -93,7 +95,6 @@ Page({
     }, () => !this.data.visible && this.onGetClassmateList())
   },
   getClassCard(e) {
-    const app = getApp()
     if (!admins.includes(app.globalData.user?.openid)) return
     this.setData({
       adminClass: e.currentTarget.dataset.class,
@@ -155,10 +156,8 @@ Page({
         icon: 'none'
       })
       return
-    }
-
-    // 翻到末尾重新拉取新数据
-    else if ((currentPage + 1) === (pageSize * (page - 1) - 3)) {
+    } else if ((currentPage + 1) === (pageSize * (page - 1) - 3)) {
+      // 翻到末尾重新拉取新数据
       this.onGetClassmateList(this.data.page)
     }
     if (currentPage < total) {
