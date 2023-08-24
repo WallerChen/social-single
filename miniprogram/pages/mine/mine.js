@@ -1,5 +1,3 @@
-import awx from '../../api/awx'
-
 import {
   getUserInfo,
   postUserInfoDraft,
@@ -140,7 +138,7 @@ Page({
   async addImageList() {
     // 最多9张
     const allowCnt = 9 - this.data.imageList.length
-    const chooseResult = await awx.chooseMedia({
+    const chooseResult = await wx.chooseMedia({
       count: allowCnt,
       mediaType: ['image'],
       sizeType: ['original', 'compressed'],
@@ -161,16 +159,26 @@ Page({
       const newImageList = [...this.data.imageList, ...imgList]
       this.setData({ imageList: newImageList })
 
-      // TODO: 同时更新用户信息
-      // const result = await publishUserInfo({
-      //   imageList: newImageList,
-      // });
+      // TODO: 同时保存草稿
+      const params = {
+        nickname: this.data.userInfo.nickname,
+        sex: this.data.userInfo.sex,
+        avatarUrl: this.data.userInfo.avatarUrl,
+        birthday: this.data.userInfo.birthday,
+        imageList: this.data.imageList,
+        desc: this.data.desc
+      }
 
-      wx.hideLoading()
+      const result = await postUserInfoDraft(params)
+      if (result.data.code !== 200) {
+        console.log('save draft error', result)
+        throw new Error(result.data)
+      }
     } catch (e) {
       console.error('addImageList err', e)
       wx.showToast({ title: '保存失败', icon: 'error' })
     }
+    wx.hideLoading()
   },
   deleteImageList(e) {
     const url = e.currentTarget.dataset.imageUrl
@@ -189,32 +197,38 @@ Page({
       desc: e.detail.value
     })
   },
-  modifyUserInfo(e) {
+  async modifyUserInfo(e) {
+    // 编辑头像
     this.setData({
       userInfo: {
         ...this.data.userInfo,
         ...e.detail
       }
     })
-  },
 
-  async save() {
-    // const isoString = new Date(this.data.userInfo.birthday).toISOString();
-    // console.log(isoString); // 输出：'2023-03-18T04:25:23.000Z'
-    // const offset = '+08:00';
-    // const isoStringWithOffset = isoString.slice(0, -1) + offset;
-    // console.log(isoStringWithOffset); // 输出：'2023-03-18T04:25:23.000+08:00'
-
+    // 保存
     const params = {
       nickname: this.data.userInfo.nickname,
       sex: this.data.userInfo.sex,
       avatarUrl: this.data.userInfo.avatarUrl,
       birthday: this.data.userInfo.birthday,
-      // birthday: new Date(this.data.userInfo.birthday).toLocaleDateString('zh-CN', {
-      //   year: 'numeric',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
-      //   month: '2-digit',
-      //   day: '2-digit'
-      // }),
+      imageList: this.data.imageList,
+      desc: this.data.desc
+    }
+
+    const result = await publishUserInfo(params)
+    if (result.data.code !== 200) {
+      console.log('save  error', result)
+      wx.showToast({ title: '保存失败', icon: 'error' })
+    }
+  },
+
+  async save() {
+    const params = {
+      nickname: this.data.userInfo.nickname,
+      sex: this.data.userInfo.sex,
+      avatarUrl: this.data.userInfo.avatarUrl,
+      birthday: this.data.userInfo.birthday,
       imageList: this.data.imageList,
       desc: this.data.desc
     }
