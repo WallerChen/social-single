@@ -41,7 +41,7 @@ Page({
   checkoutRegister() {
     const isRegister = wx.getStorageSync('isRegister');
     const classname = wx.getStorageSync('classname');
-    if (isRegister) {
+    if (isRegister && classname != "") {
       this.setData({ classname });
     }
     else {
