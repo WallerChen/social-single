@@ -1,19 +1,19 @@
-import { classMap, classItemList } from '../../constant/classInfo';
-import { getClassmateList } from '../../api/request';
-import { deepClone } from '../../utils/util';
+import { classMap, classItemList } from '../../constant/classInfo'
+import { getClassmateList } from '../../api/request'
+import { deepClone } from '../../utils/util'
 
-const app = getApp();
+const app = getApp()
 
-let startX = 0;
-let endX = 0;
-let shouldMove = true;
+let startX = 0
+let endX = 0
+let shouldMove = true
 
 const admins = [
   'o6orS5emZUHW5BGNYAGO2SP2P7hg',
   'o6orS5aPPXUXSFePhdLTy_Ygn-A8',
   'o6orS5ZvU2Us8IMFLPkO_WHV8_Io',
-  'o6orS5UyuvCbL7HCHE8c8gk-WjoM',
-];
+  'o6orS5UyuvCbL7HCHE8c8gk-WjoM'
+]
 
 Page({
   data: {
@@ -29,75 +29,72 @@ Page({
     pageIndex: 0,
     pageSize: 10,
     adminClass: null,
-    studentList: [],
+    studentList: []
   },
   onLoad() {
-    this.onGetClassmateList(this.data.page);
-    app.event.on('checkoutRegister', this.checkoutRegister, this);
+    this.onGetClassmateList(this.data.page)
+    app.event.on('checkoutRegister', this.checkoutRegister, this)
   },
   onUnload() {
-    app.event.off('checkoutRegister', this.checkoutRegister);
+    app.event.off('checkoutRegister', this.checkoutRegister)
   },
   checkoutRegister() {
-    const isRegister = wx.getStorageSync('isRegister');
-    const classname = wx.getStorageSync('classname');
+    const isRegister = wx.getStorageSync('isRegister')
+    const classname = wx.getStorageSync('classname')
     if (isRegister) {
-      this.setData({ classname });
-    }
-    else {
-      this.setData({ isShowInvite: true });
+      this.setData({ classname })
+    } else {
+      this.setData({ isShowInvite: true })
     }
   },
   async onGetClassmateList(page) {
     try {
-      const classmateList = await getClassmateList({ page });
-      this.setData({ page: page + 1 });
-      const studentList = this.data.studentList ?? [];
-      const cardData = classmateList?.data?.data?.list;
-      const total = classmateList?.data?.data?.total;
-      const clonedCardData = deepClone(cardData);
+      const classmateList = await getClassmateList({ page })
+      this.setData({ page: page + 1 })
+      const studentList = this.data.studentList ?? []
+      const cardData = classmateList?.data?.data?.list
+      const total = classmateList?.data?.data?.total
+      const clonedCardData = deepClone(cardData)
       for (const item of clonedCardData) {
         studentList.push(item)
       }
-      const finalPage = total / this.data.pageSize;
-      const finalShowPage = (this.data.pageIndex + 1 > finalPage) ? 0 : this.data.pageIndex + 1;
+      const finalPage = total / this.data.pageSize
+      const finalShowPage = (this.data.pageIndex + 1 > finalPage) ? 0 : this.data.pageIndex + 1
       this.setData({
         studentList,
         pageIndex: finalShowPage,
-        total,
-      });
-    }
-    catch (e) {
-      console.error(e);
+        total
+      })
+    } catch (e) {
+      console.error(e)
     }
   },
   hideInvite() {
-    this.setData({ isShowInvite: false });
+    this.setData({ isShowInvite: false })
   },
   onShowVisible() {
-    const app = getApp();
+    const app = getApp()
     for (const index in this.data.classItemList) {
       if (admins.includes(app.globalData.user?.openid)) {
         this.setData({
           [`classItemList[${index}].isShow`]: true,
-          [`classItemList[${index}].isLock`]: false,
-        });
-      }
-      else {
+          [`classItemList[${index}].isLock`]: false
+        })
+      } else {
         this.setData({
           [`classItemList[${index}].isShow`]: this.data.classItemList[index].title === app.globalData.user?.class,
-          [`classItemList[${index}].isLock`]: !(this.data.classItemList[index].title === app.globalData.user?.class),
-        });
+          [`classItemList[${index}].isLock`]: !(this.data.classItemList[index].title === app.globalData.user?.class)
+        })
       }
     }
     this.setData({
       visible: !app.globalData.user?.class,
-      scrollToView: classMap[app.globalData.user?.class] ?? '',
-    }, () => !this.data.visible && this.onGetClassmateList());
+      scrollToView: classMap[app.globalData.user?.class] ?? ''
+    }, () => !this.data.visible && this.onGetClassmateList())
   },
   getClassCard(e) {
-    const app = getApp();
-    if (!admins.includes(app.globalData.user?.openid)) return;
+    const app = getApp()
+    if (!admins.includes(app.globalData.user?.openid)) return
     this.setData({
       adminClass: e.currentTarget.dataset.class,
       currentPage: 0,
@@ -106,35 +103,33 @@ Page({
       prevList: [],
       nextList: [],
       total: 0,
-      studentList: [],
-    }, () => this.onGetClassmateList());
+      studentList: []
+    }, () => this.onGetClassmateList())
   },
   onPublicToast() {
-    wx.showToast({ title: '建设ing，小可爱们请等待~', icon: 'none' });
-    
+    wx.showToast({ title: '建设ing，小可爱们请等待~', icon: 'none' })
   },
   openModal() {
-    this.setData({ isShowModal: true });
+    this.setData({ isShowModal: true })
   },
   closeModal() {
-    this.setData({ isShowModal: false });
+    this.setData({ isShowModal: false })
   },
   // 翻页效果
   touchStart(e) {
-    startX = e.touches[0].pageX;
-    shouldMove = true;
+    startX = e.touches[0].pageX
+    shouldMove = true
   },
   touchMove(e) {
-    if (!shouldMove) return;
+    if (!shouldMove) return
 
-    endX = e.touches[0].pageX;
+    endX = e.touches[0].pageX
     if (startX - endX > 50) {
-      this.next();
+      this.next()
       shouldMove = false
-    }
-    else if (endX - startX > 50) {
-      this.prev();
-      shouldMove = false;
+    } else if (endX - startX > 50) {
+      this.prev()
+      shouldMove = false
     }
   },
   prev() {
@@ -143,33 +138,35 @@ Page({
       this.setData({
         ['nextList[' + currentPage + ']']: '',
         ['prevList[' + currentPage + ']']: 'prevAnimation',
-        currentPage,
-      });
+        currentPage
+      })
     }
   },
   next() {
-    const { page, currentPage, pageSize, total } = this.data;
+    const {
+      page, currentPage, pageSize, total
+    } = this.data
     // 数据全部已拉取
-    console.log('currentPage:',currentPage);
-    console.log('total:',total);
+    console.log('currentPage:', currentPage)
+    console.log('total:', total)
     if ((currentPage + 1) === total) {
       wx.showToast({
         title: '翻到尽头了哦～',
-        icon: 'none',
+        icon: 'none'
       })
-      return;
+      return
     }
-    
+
     // 翻到末尾重新拉取新数据
-    else if ((currentPage + 1) === (pageSize * (page - 1) -3)) {
-      this.onGetClassmateList(this.data.page);
+    else if ((currentPage + 1) === (pageSize * (page - 1) - 3)) {
+      this.onGetClassmateList(this.data.page)
     }
     if (currentPage < total) {
       this.setData({
         ['prevList[' + currentPage + ']']: '',
         ['nextList[' + currentPage + ']']: 'nextAnimation',
         currentPage: currentPage + 1
-      });
+      })
     }
   }
-});
+})
