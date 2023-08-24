@@ -1,50 +1,79 @@
-const USE_API = true
-// const USE_API = false
+const USE_WX_CLOUD_RUN = true
+// const USE_WX_CLOUD_RUN = false
 
 const API_SERVER = 'http://localhost:8100'
 const DEBUG_OPENID = 'o6orS5emZUHW5BGNYAGO2SP2P7hg'
 
-function cloudContainer(path, method, params = {}) {
-  if (USE_API) {
-    return new Promise((resolve, reject) => {
-      wx.request({
-        url: API_SERVER + path,
-        method,
-        data: params,
-        header: {
-          'X-Wx-Openid': DEBUG_OPENID
-        },
+const CLOUD_ENV = 'prod-3g8yxq6d2db91adb'
 
-        success: (res) => {
-          resolve(res)
-        },
-        fail: (err) => {
-          reject(err)
-        }
-      })
+function apiCall(path, method, params = {}) {
+  if (USE_WX_CLOUD_RUN) {
+    return wx.cloud.callContainer({
+      config: {
+        env: CLOUD_ENV
+      },
+      path,
+      method,
+      header: {
+        // 'X-WX-SERVICE': 'user-info-auth',
+        // 'X-WX-SERVICE': 'go-backend-test'
+        'X-WX-SERVICE': 'go-backend-debug'
+      },
+      data: params
     })
   }
 
-  return wx.cloud.callContainer({
-    config: {
-      env: 'prod-3g8yxq6d2db91adb'
-    },
-    path,
-    method,
-    header: {
-      // 'X-WX-SERVICE': 'user-info-auth',
-      'X-WX-SERVICE': 'go-backend-test'
-      // 'X-WX-OPENID': 'fasiehfias',
-      // 'X-WX-EXCLUDE-CREDENTIALS': 'openid' // 不附带用户unionid，openid，access—token
-    },
-    data: params
+  return new Promise((resolve, reject) => {
+    wx.request({
+      url: API_SERVER + path,
+      method,
+      data: params,
+      header: {
+        'X-Wx-Openid': DEBUG_OPENID
+      },
+
+      success: (res) => {
+        resolve(res)
+      },
+      fail: (err) => {
+        reject(err)
+      }
+    })
   })
 }
 
-export const uploadImage = function(tempFile, compressImg = true) {
-  // fileType: "image"
-  // size: 192997
-  // tempFilePath: "http://tmp/"
+function getRand(size) {
+  let str = ''
+  for (let i = 0; i < size; i++) {
+    str += Math.floor(Math.random() * 10)
+  }
+  return str
+}
+
+export const uploadImage = async function(tempFile, compressImg = true, filename = null) {
+  if (USE_WX_CLOUD_RUN) {
+    if (!filename) {
+      const ext = tempFile.tempFilePath.split('.').pop()
+      filename = `tmp/${getRand(5)}_${Date.now()}.${ext}`
+    }
+
+    // 辣鸡微信云，不支持上传文件
+    const res = await wx.cloud.uploadFile({
+      cloudPath: filename,
+      filePath: tempFile.tempFilePath,
+      config: {
+        env: CLOUD_ENV
+      }
+    })
+
+    // 微信COS 转 BOS
+    return apiCall('/api/v1/upload-from-cos', 'POST', {
+      filename,
+      compressImg: compressImg,
+      fileID: res.fileID,
+      deleteCos: true
+    })
+  }
 
   return new Promise((resolve, reject) => {
     wx.uploadFile({
@@ -52,14 +81,14 @@ export const uploadImage = function(tempFile, compressImg = true) {
       filePath: tempFile.tempFilePath,
       name: 'file',
       formData: {
-        // filename,
-        compressImg
+        filename,
+        compressImg: compressImg ? '1' : '0'// formdata 只有字符串
       },
       header: {
         'X-Wx-Openid': DEBUG_OPENID
       },
       success: (res) => {
-        // uploadFile 返回的是字符串，需要转换成对象
+      // uploadFile 返回的是字符串，需要转换成对象
         res.data = JSON.parse(res.data)
         resolve(res)
       },
@@ -68,21 +97,12 @@ export const uploadImage = function(tempFile, compressImg = true) {
       }
     })
   })
-
-  // cloud.uploadFile({
-  //     cloudPath: 'user-info/' + new Date().getTime() + '.png',
-  //     filePath: tempFile.tempFilePath,
-  //     success: res => {
-  //         // get resource ID
-  //         console.log(res.fileID)
-  //     }
-  // })
 }
 
-export const getClassmateList = (params) => cloudContainer('/api/v1/classmate/list', 'GET', params)
-export const getUserInfo = (params) => cloudContainer('/api/v1/user/info', 'GET', params)
-export const getUserRegister = (params) => cloudContainer('/api/v1/user/register', 'GET', params)
-export const postUserRegister = (params) => cloudContainer('/api/v1/user/register', 'POST', params)
-export const deleteUserInfoDraft = (params) => cloudContainer('/api/v1/user/info-draft', 'DELETE', params)
-export const postUserInfoDraft = (params) => cloudContainer('/api/v1/user/info-draft', 'POST', params)
-export const publishUserInfo = (params) => cloudContainer('/api/v1/user/info', 'POST', params)
+export const getClassmateList = (params) => apiCall('/api/v1/classmate/list', 'GET', params)
+export const getUserInfo = (params) => apiCall('/api/v1/user/info', 'GET', params)
+export const getUserRegister = (params) => apiCall('/api/v1/user/register', 'GET', params)
+export const postUserRegister = (params) => apiCall('/api/v1/user/register', 'POST', params)
+export const deleteUserInfoDraft = (params) => apiCall('/api/v1/user/info-draft', 'DELETE', params)
+export const postUserInfoDraft = (params) => apiCall('/api/v1/user/info-draft', 'POST', params)
+export const publishUserInfo = (params) => apiCall('/api/v1/user/info', 'POST', params)
