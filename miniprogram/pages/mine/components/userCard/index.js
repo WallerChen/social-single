@@ -24,16 +24,25 @@ Component({
     },
     // 编辑昵称
     editNickname(e) {
+      if (this.data.userInfo.nickname === e.detail.value) {
+        return
+      }
       this.triggerEvent('modify', { nickname: e.detail.value })
     },
     // 编辑头像
     async editAvatar() {
-      const chooseResult = await awx.chooseMedia({
-        count: 1,
-        mediaType: ['image'],
-        sizeType: ['original', 'compressed'],
-        sourceType: ['album', 'camera']
-      })
+      let chooseResult
+      try {
+        chooseResult = await awx.chooseMedia({
+          count: 1,
+          mediaType: ['image'],
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera']
+        })
+      } catch (error) {
+        // 取消
+        return
+      }
 
       try {
         wx.showLoading({ title: '保存中', mask: true })
