@@ -50,6 +50,19 @@ Page({
     }
   },
 
+  isSameArray(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+      return false
+    }
+
+    for (const index in arr1) {
+      if (arr1[index] !== arr2[index]) {
+        return false
+      }
+    }
+    return true
+  },
+
   isInfoModified() {
     let targetInfo = this.data.userInfoPublished
     if (this.data.hasDraft) {
@@ -59,10 +72,17 @@ Page({
     const draftKeys = ['desc', 'imageList']
 
     for (const key of draftKeys) {
-      console.log('if (targetInfo[key] !== this.data.userInfoEdit[key]) {', targetInfo[key], this.data.userInfoEdit[key])
       if (this.isEmpty(targetInfo[key]) && this.isEmpty(this.data.userInfoEdit[key])) {
         continue
       }
+
+      if (targetInfo[key] instanceof Array) {
+        if (!this.isSameArray(targetInfo[key], this.data.userInfoEdit[key])) {
+          return true
+        }
+        continue
+      }
+
       if (targetInfo[key] !== this.data.userInfoEdit[key]) {
         return true
       }
@@ -74,8 +94,7 @@ Page({
   async saveDraft() {
     const params = {
       imageList: this.data.userInfoEdit.imageList,
-      desc: this.data.userInfoEdit.desc,
-      hasDraft: true
+      desc: this.data.userInfoEdit.desc
     }
 
     const result = await postUserInfoDraft(params)
