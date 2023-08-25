@@ -19,10 +19,10 @@
       <text class="total-letter">{{maxWords}}</text>
     </view>
     <view class="upload-image">
-      <block wx:for="{{userInfoEdit.imageList}}" wx:key="value">
+      <block wx:for="{{userInfoEdit.imageList}}" wx:key="index">
         <view class="image-list-item">
           <image class="image-list-image" src="{{item}}" />
-          <image class="delete-image" catchtap="deleteImageList" data-image-url="{{item}}" src="/src/images/icon/delete.svg" ></image>
+          <image class="delete-image" catchtap="onDeleteImage" data-index="{{index}}" src="/src/images/icon/delete.svg" ></image>
         </view>
       </block>
       <view wx:if="{{!userInfoEdit.imageList || userInfoEdit.imageList.length < 3}}" class="add-image" catchtap="addImageList" />

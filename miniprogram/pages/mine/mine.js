@@ -212,14 +212,20 @@ Page({
     wx.hideLoading()
   },
 
-  async deleteImageList(e) {
-    const url = e.currentTarget.dataset.imageUrl
-    const newImageList = []
-    for (const value of this.data.userInfoEdit.imageList) {
-      if (value !== url) {
-        newImageList.push(value)
-      }
+  async onDeleteImage(e) {
+    const res = await wx.showModal({
+      title: '提示',
+      content: '确定要删除这张照片吗？'
+    })
+    if (!res.confirm) {
+      return
     }
+
+    const index = e.currentTarget.dataset.index
+
+    const newImageList = this.data.userInfoEdit.imageList
+    newImageList.splice(index, 1)
+
     this.setData({
       'userInfoEdit.imageList': newImageList,
       hasDraft: true
