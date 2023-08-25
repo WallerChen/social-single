@@ -279,6 +279,14 @@ Page({
 
   // 放弃之前保存的草稿
   async onDiscard() {
+    const res = await wx.showModal({
+      title: '提示',
+      content: '确定要放弃未发布改动？'
+    })
+    if (!res.confirm) {
+      return
+    }
+
     try {
       await deleteUserInfoDraft()
 
