@@ -56,11 +56,14 @@ Page({
   },
   async onGetClassmateList(page) {
     try {
-      const classmateList = await getClassmateList({ page, limit: this.data.pageSize })
+      const res = await getClassmateList({ page, limit: this.data.pageSize })
+      if (res.data.code !== 200) {
+        throw new Error(res.data.msg)
+      }
       this.setData({ page: page + 1 })
       const studentList = this.data.studentList
-      const cardData = classmateList.data.data.list
-      const total = classmateList.data.data.total
+      const cardData = res.data.data.list
+      const total = res.data.data.total
 
       const clonedCardData = deepClone(cardData)
       if (clonedCardData) {
@@ -76,7 +79,7 @@ Page({
         total
       })
     } catch (e) {
-      console.error(e)
+      console.log('onGetClassmateList err', e)
     }
   },
   hideInvite() {
