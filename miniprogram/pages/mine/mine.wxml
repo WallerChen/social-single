@@ -1,32 +1,31 @@
 <view class="mine-view">
   <view class="user-card">
-    <user-card userInfo="{{userInfo}}" bindshow="showSideBar" bindmodify="modifyUserInfo" />
+    <user-card userInfo="{{userInfoEdit}}" bindshow="showSideBar" bindmodify="onModifyUserInfo" />
   </view>
   <view class="into-card">
     <view class="into-head">
       <view>我的介绍</view>
-      <image class="edit-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/edit-icon.png" />
     </view>
     <view class="card-content">
-      <textarea class="card-content-textarea" maxlength="{{maxWords}}" value="{{desc}}" bindinput="descEdit" />
+      <textarea class="card-content-textarea" maxlength="{{maxWords}}" value="{{userInfoEdit.desc}}" bindinput="onDescEdit" />
     </view>
     <view class="buttons">
-      <view class="button-item" bindtap="save">保存</view>
-      <view class="button-item" bindtap="release">发布</view>
+      <view wx:if="{{hasDraft}}" class="button-item btn-danger" bindtap="onDiscard">放弃</view>
+      <view class="button-item btn-primary" bindtap="onPublish">发布</view>
     </view>
     <view class="letter-count">
-      <text class="current-letter">{{desc.length}}</text>
+      <text class="current-letter">{{userInfoEdit.desc.length}}</text>
       <text class="total-letter">/</text>
       <text class="total-letter">{{maxWords}}</text>
     </view>
     <view class="upload-image">
-      <block wx:for="{{imageList}}" wx:key="value">
+      <block wx:for="{{userInfoEdit.imageList}}" wx:key="value">
         <view class="image-list-item">
           <image class="image-list-image" src="{{item}}" />
           <image class="delete-image" catchtap="deleteImageList" data-image-url="{{item}}" src="/src/images/icon/delete.svg" ></image>
         </view>
       </block>
-      <view wx:if="{{!imageList || imageList.length < 3}}" class="add-image" catchtap="addImageList" />
+      <view wx:if="{{!userInfoEdit.imageList || userInfoEdit.imageList.length < 3}}" class="add-image" catchtap="addImageList" />
     </view>
     <view class="card-footer">
       <view class="line">
@@ -54,7 +53,6 @@
   <modal show="{{announceModal.show}}">
     <anounce bindcancel="hideSideBar" />
   </modal>
-  <delete-draft show="{{isShowDeleteDraft}}" bindondiscard="discardDraft" bindonrestore="restoreDraft" />
 
   <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
   <side-bar show="{{sideBar.show}}" bindonhide="hideSideBar">

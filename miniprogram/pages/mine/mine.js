@@ -5,23 +5,25 @@ import {
   publishUserInfo,
   uploadImage
 } from '../../api/request'
+import { deepClone } from '../../utils/util'
 
 const app = getApp()
 
 Page({
   data: {
-    userInfo: { // 用户信息
-    },
+
+    hasDraft: false,
+    userInfoPublished: {}, // 已发布
+    userInfoDraft: {}, // 草稿
+    userInfoEdit: {}, // 当前UI 编辑
+
     announceModal: { // 通知弹窗
       show: false
     },
     sideBar: { // 侧边栏
       show: false
     },
-    imageList: [], //  介绍配图
-    desc: '', // 描述
     maxWords: 500, // 最大字数
-    draftInfo: {},
     isShowInvite: false,
     isShowDeleteDraft: false
   },
@@ -29,54 +31,91 @@ Page({
     this.onGetUserInfo()
   },
 
-  onShowDraftInfo() {
-    const draftInfo = this.data.draftInfo
-    const avatarUrl = draftInfo?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-    const gender = draftInfo?.sex ?? ''
-    const nickname = draftInfo?.nickname ?? ''
-    const birthday = draftInfo?.birthday
-    const desc = draftInfo?.desc ?? ''
-    const imageList = draftInfo?.imageList ?? []
-    this.setData({
-      userInfo: {
-        ...this.data.userInfo, avatarUrl, nickname, gender, birthday
-      },
-      desc,
-      imageList
-    })
+  isEmpty(obj) {
+    if (!obj) {
+      return true
+    }
+    return Object.keys(obj).length === 0
   },
 
-  async onGetUserInfo(isDraft = false) {
-    try {
-      const userInfoResult = await getUserInfo()
-      const hasDraft = userInfoResult?.data?.data?.hasDraft ?? false
-      if (hasDraft) {
-        this.setData({
-          isShowDeleteDraft: true
-        })
-      }
-      const userInfo = userInfoResult?.data?.data
-      delete (userInfo, 'draftInfo')
-      const userInfoDraft = userInfoResult?.data?.data.draftInfo
+  async onHide() {
+    // 离开当前页面触发保存草稿
 
-      // const avatarUrl = userInfoResult?.data?.data?.avatarUrl ?? 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-      // const classname = userInfoResult?.data?.data?.class ?? '';
-      // const gender = userInfoResult?.data?.data?.sex ?? '';
-      // const nickname = userInfoResult?.data?.data?.nickname ?? '';
-      // const birthday = userInfoResult?.data?.data?.birthday;
-      // const desc = userInfoResult?.data?.data?.desc ?? '';
-      // const imageList = userInfoResult?.data?.data?.imageList ?? [];
-      this.setData({
-        // userInfo: { avatarUrl, classname, nickname, gender, birthday },
-        userInfo,
-        userInfoDraft,
-
-        desc: userInfo.desc,
-        imageList: userInfo.imageList || []
-      })
-    } catch (e) {
-      console.error(e)
+    // 头像和昵称不要草稿，照片墙和介绍会有草稿
+    // 判断是否有改动
+    if (this.isInfoModified()) {
+      this.setData({ hasDraft: true })
+      await this.saveDraft()
+      wx.showToast({ title: '已保存草稿' })
     }
+  },
+
+  isInfoModified() {
+    let targetInfo = this.data.userInfoPublished
+    if (this.data.hasDraft) {
+      targetInfo = this.data.userInfoDraft
+    }
+
+    const draftKeys = ['desc', 'imageList']
+
+    for (const key of draftKeys) {
+      console.log('if (targetInfo[key] !== this.data.userInfoEdit[key]) {', targetInfo[key], this.data.userInfoEdit[key])
+      if (this.isEmpty(targetInfo[key]) && this.isEmpty(this.data.userInfoEdit[key])) {
+        continue
+      }
+      if (targetInfo[key] !== this.data.userInfoEdit[key]) {
+        return true
+      }
+    }
+
+    return false
+  },
+
+  async saveDraft() {
+    const params = {
+      imageList: this.data.userInfoEdit.imageList,
+      desc: this.data.userInfoEdit.desc,
+      hasDraft: true
+    }
+
+    const result = await postUserInfoDraft(params)
+    if (result.data.code !== 200) {
+      throw new Error(result.data)
+    }
+
+    this.data.userInfoDraft = this.data.userInfoEdit
+  },
+
+  async onGetUserInfo() {
+    // 进入页面加载，如果有未保存草稿，优先恢复展示
+    let res
+    try {
+      res = await getUserInfo()
+    } catch (e) {
+      console.error('getUserInfo err', e)
+    }
+
+    const userInfo = res.data.data
+
+    const userInfoDraft = deepClone(userInfo.draftInfo)
+    userInfo.draftInfo = undefined
+
+    const userInfoEdit = deepClone(userInfo)
+
+    if (userInfo.hasDraft) {
+      wx.showToast({ title: '已恢复草稿' })
+      userInfoEdit.desc = userInfoDraft.desc
+      userInfoEdit.imageList = userInfoDraft.imageList
+    }
+
+    this.setData({
+      hasDraft: userInfo.hasDraft,
+      userInfoPublished: deepClone(userInfo),
+      userInfoDraft: deepClone(userInfoDraft),
+      userInfoEdit: deepClone(userInfoEdit),
+
+      imageList: userInfo.imageList || []
+    })
   },
 
   hideInvite() {
@@ -100,23 +139,6 @@ Page({
       }
     })
   },
-  restoreDraft() {
-    this.setData({
-      isShowDeleteDraft: false,
-      userInfo: { ...this.data.userInfo, ...this.data.userInfoDraft },
-      desc: this.data.userInfoDraft.desc,
-      imageList: this.data.userInfoDraft.imageList || []
-    })
-
-    // console.log("userInfo", this.data.userInfo);
-  },
-  async discardDraft() {
-    try {
-      await deleteUserInfoDraft()
-    } catch (e) {
-      console.error(e)
-    }
-  },
 
   showSideBar() {
     this.setData({
@@ -136,14 +158,24 @@ Page({
   },
 
   async addImageList() {
+    if (!this.data.userInfoEdit.imageList) {
+      this.data.userInfoEdit.imageList = []
+    }
     // 最多9张
-    const allowCnt = 9 - this.data.imageList.length
-    const chooseResult = await wx.chooseMedia({
-      count: allowCnt,
-      mediaType: ['image'],
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera']
-    })
+    const allowCnt = 9 - this.data.userInfoEdit.imageList.length
+
+    let chooseResult
+    try {
+      chooseResult = await wx.chooseMedia({
+        count: allowCnt,
+        mediaType: ['image'],
+        sizeType: ['original', 'compressed'],
+        sourceType: ['album', 'camera']
+      })
+    } catch (error) {
+      // cancel
+      return
+    }
 
     wx.showLoading({ title: '保存中', mask: true })
 
@@ -156,17 +188,11 @@ Page({
 
       const imgList = res.map((item) => item.data.data.url)
 
-      const newImageList = [...this.data.imageList, ...imgList]
-      this.setData({ imageList: newImageList })
-
-      // TODO: 同时保存草稿
+      const newImageList = [...this.data.userInfoEdit.imageList, ...imgList]
+      // 照片墙是保存草稿的
       const params = {
-        nickname: this.data.userInfo.nickname,
-        sex: this.data.userInfo.sex,
-        avatarUrl: this.data.userInfo.avatarUrl,
-        birthday: this.data.userInfo.birthday,
-        imageList: this.data.imageList,
-        desc: this.data.desc
+        imageList: newImageList,
+        desc: this.data.userInfoEdit.desc
       }
 
       const result = await postUserInfoDraft(params)
@@ -174,88 +200,99 @@ Page({
         console.log('save draft error', result)
         throw new Error(result.data)
       }
+
+      this.setData({
+        'userInfoEdit.imageList': newImageList,
+        hasDraft: true
+      })
     } catch (e) {
       console.error('addImageList err', e)
       wx.showToast({ title: '保存失败', icon: 'error' })
     }
     wx.hideLoading()
   },
-  deleteImageList(e) {
+
+  async deleteImageList(e) {
     const url = e.currentTarget.dataset.imageUrl
     const newImageList = []
-    for (const value of this.data.imageList) {
+    for (const value of this.data.userInfoEdit.imageList) {
       if (value !== url) {
         newImageList.push(value)
       }
     }
     this.setData({
-      imageList: newImageList
+      'userInfoEdit.imageList': newImageList,
+      hasDraft: true
     })
+
+    // 同时更新草稿
+    const params = {
+      imageList: this.data.userInfoEdit.imageList,
+      desc: this.data.userInfoEdit.desc
+    }
+
+    const result = await postUserInfoDraft(params)
+    if (result.data.code !== 200) {
+      console.log('update draft error', result)
+    }
   },
-  descEdit(e) {
+  onDescEdit(e) {
     this.setData({
-      desc: e.detail.value
+      'userInfoEdit.desc': e.detail.value,
+      hasDraft: true
     })
   },
-  async modifyUserInfo(e) {
+  async onModifyUserInfo(e) {
+    console.log('onModifyUserInfo', e.detail)
     // 编辑头像
     this.setData({
-      userInfo: {
-        ...this.data.userInfo,
+      userInfoEdit: {
+        ...this.data.userInfoEdit,
         ...e.detail
       }
     })
 
     // 保存
     const params = {
-      nickname: this.data.userInfo.nickname,
-      sex: this.data.userInfo.sex,
-      avatarUrl: this.data.userInfo.avatarUrl,
-      birthday: this.data.userInfo.birthday,
-      imageList: this.data.imageList,
-      desc: this.data.desc
+      nickname: this.data.userInfoEdit.nickname,
+      sex: this.data.userInfoEdit.sex,
+      avatarUrl: this.data.userInfoEdit.avatarUrl,
+      birthday: this.data.userInfoEdit.birthday,
+      imageList: this.data.userInfoPublished.imageList,
+      desc: this.data.userInfoPublished.desc
     }
 
     const result = await publishUserInfo(params)
+
     if (result.data.code !== 200) {
       console.log('save  error', result)
       wx.showToast({ title: '保存失败', icon: 'error' })
     }
+    this.data.userInfoPublished = deepClone(this.data.userInfoEdit)
   },
 
-  async save() {
-    const params = {
-      nickname: this.data.userInfo.nickname,
-      sex: this.data.userInfo.sex,
-      avatarUrl: this.data.userInfo.avatarUrl,
-      birthday: this.data.userInfo.birthday,
-      imageList: this.data.imageList,
-      desc: this.data.desc
-    }
+  // 放弃之前保存的草稿
+  async onDiscard() {
     try {
-      wx.showLoading({ title: '保存中', mask: true })
-      const result = await postUserInfoDraft(params)
-      console.log('postUserInfoDraft', result)
-      wx.hideLoading()
-      if (result.data.code !== 200) {
-        wx.showToast({ title: '保存失败', icon: 'error' })
-        return
-      }
+      await deleteUserInfoDraft()
 
-      wx.showToast({ title: '已存草稿', icon: 'success' })
-    } catch (e) {
-      wx.showToast({ title: '保存失败', icon: 'error' })
-      console.error(e)
+      this.setData({
+        hasDraft: false,
+        userInfoEdit: deepClone(this.data.userInfoPublished)
+      })
+    } catch (error) {
+      wx.showToast({ title: '放弃失败', icon: 'error' })
     }
   },
-  async release() {
+
+  async onPublish() {
     const params = {
-      nickname: this.data.userInfo.nickname,
-      sex: this.data.userInfo.sex,
-      avatarUrl: this.data.userInfo.avatarUrl,
-      birthday: this.data.userInfo.birthday,
-      imageList: this.data.imageList,
-      desc: this.data.desc
+      nickname: this.data.userInfoEdit.nickname,
+      sex: this.data.userInfoEdit.sex,
+      avatarUrl: this.data.userInfoEdit.avatarUrl,
+      birthday: this.data.userInfoEdit.birthday,
+      imageList: this.data.userInfoEdit.imageList,
+      desc: this.data.userInfoEdit.desc
     }
     try {
       wx.showLoading({ title: '发布中', mask: true })
@@ -269,6 +306,11 @@ Page({
       }
 
       await deleteUserInfoDraft()
+      this.setData({
+        hasDraft: false,
+        userInfoPublished: deepClone(this.data.userInfoEdit)
+      })
+
       wx.showToast({ title: '发布成功', icon: 'success' })
     } catch (e) {
       console.error(e)
