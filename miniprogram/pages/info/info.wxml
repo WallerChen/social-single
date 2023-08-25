@@ -1,4 +1,7 @@
 <view class="info-view">
+
+  <view class="greeting">Hi 同学你好~</view>
+
   <view class="course-view">
     <view class="course-panel course-select">
       <text>社群班</text>

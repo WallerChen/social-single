@@ -1,8 +1,16 @@
 .info-view {
+  padding-top: 180rpx;
   height: 100vh;
-  position: relative;
   overflow-y: scroll;
   background-color: #F1F3F8;
+  position: relative;
+}
+.info-view .greeting {
+  color: gray;
+  font-size: 50rpx;
+  position: absolute;
+  top: 100rpx;
+  left: 10rpx;
 }
 .info-view .course-view {
   width: 670rpx;
