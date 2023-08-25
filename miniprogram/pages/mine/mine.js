@@ -17,9 +17,7 @@ Page({
     userInfoDraft: {}, // 草稿
     userInfoEdit: {}, // 当前UI 编辑
 
-    announceModal: { // 通知弹窗
-      show: false
-    },
+    showConfirmPublish: false, // 确认发布
     sideBar: { // 侧边栏
       show: false
     },
@@ -140,39 +138,6 @@ Page({
   hideInvite() {
     this.setData({
       isShowInvite: false
-    })
-  },
-  showAnnounceModal() {
-    this.setData({
-      announceModal: {
-        ...this.data.announceModal,
-        show: true
-      }
-    })
-  },
-  hideAnnounceModal() {
-    this.setData({
-      announceModal: {
-        ...this.data.announceModal,
-        show: false
-      }
-    })
-  },
-
-  showSideBar() {
-    this.setData({
-      sideBar: {
-        ...this.data.sideBar,
-        show: true
-      }
-    })
-  },
-  hideSideBar() {
-    this.setData({
-      sideBar: {
-        ...this.data.sideBar,
-        show: false
-      }
     })
   },
 
@@ -319,6 +284,19 @@ Page({
   },
 
   async onPublish() {
+    this.setData({
+      showConfirmPublish: true
+    })
+  },
+  onCancelPublish() {
+    this.setData({
+      showConfirmPublish: false
+    })
+  },
+  async onConfirmPublish() {
+    this.setData({
+      showConfirmPublish: false
+    })
     const params = {
       nickname: this.data.userInfoEdit.nickname,
       sex: this.data.userInfoEdit.sex,

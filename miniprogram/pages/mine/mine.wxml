@@ -50,8 +50,8 @@
       <view>建议提出</view>
     </view>
   </view>
-  <modal show="{{announceModal.show}}">
-    <anounce bindcancel="hideSideBar" />
+  <modal show="{{showConfirmPublish}}">
+    <anounce bind:cancel="onCancelPublish"  bind:confirm="onConfirmPublish" />
   </modal>
 
   <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
