@@ -1,5 +1,5 @@
-const USE_WX_CLOUD_RUN = true
-// const USE_WX_CLOUD_RUN = false
+// const USE_WX_CLOUD_RUN = true
+const USE_WX_CLOUD_RUN = false
 
 const API_SERVER = 'http://localhost:8100'
 const DEBUG_OPENID = 'o6orS5emZUHW5BGNYAGO2SP2P7hg'
@@ -51,12 +51,12 @@ function getRand(size) {
 }
 
 export const uploadImage = async function(tempFile, compressImg = true, filename = null) {
-  if (USE_WX_CLOUD_RUN) {
-    if (!filename) {
-      const ext = tempFile.tempFilePath.split('.').pop()
-      filename = `tmp/${getRand(5)}_${Date.now()}.${ext}`
-    }
+  if (!filename) {
+    const ext = tempFile.tempFilePath.split('.').pop()
+    filename = `tmp/${getRand(5)}_${Date.now()}.${ext}`
+  }
 
+  if (USE_WX_CLOUD_RUN) {
     // 辣鸡微信云，不支持上传文件
     const res = await wx.cloud.uploadFile({
       cloudPath: filename,
