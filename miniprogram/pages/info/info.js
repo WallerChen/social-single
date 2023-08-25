@@ -17,6 +17,7 @@ const admins = [
 
 Page({
   data: {
+    total: 0,
     page: 1,
     classname: '',
     classItemList,
@@ -27,18 +28,24 @@ Page({
     nextList: [],
     currentPage: 0,
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 4,
     adminClass: null,
     studentList: []
   },
-  onLoad() {
-    this.onGetClassmateList(this.data.page)
+  async onLoad() {
     app.event.on('checkoutRegister', this.checkoutRegister, this)
+    this.onGetClassmateList(this.data.page)
   },
+
   onUnload() {
     app.event.off('checkoutRegister', this.checkoutRegister)
   },
   checkoutRegister() {
+    if (this.data.total === 0) {
+      // 还没获取，在灯云API 准备好后再获取一次
+      this.onGetClassmateList(this.data.page)
+    }
+
     const isRegister = wx.getStorageSync('isRegister')
     const classname = wx.getStorageSync('classname')
     if (isRegister) {
@@ -49,11 +56,11 @@ Page({
   },
   async onGetClassmateList(page) {
     try {
-      const classmateList = await getClassmateList({ page })
+      const classmateList = await getClassmateList({ page, limit: this.data.pageSize })
       this.setData({ page: page + 1 })
-      const studentList = this.data.studentList ?? []
-      const cardData = classmateList?.data?.data?.list
-      const total = classmateList?.data?.data?.total
+      const studentList = this.data.studentList
+      const cardData = classmateList.data.data.list
+      const total = classmateList.data.data.total
 
       const clonedCardData = deepClone(cardData)
       if (clonedCardData) {
@@ -100,7 +107,6 @@ Page({
       adminClass: e.currentTarget.dataset.class,
       currentPage: 0,
       pageIndex: 0,
-      pageSize: 10,
       prevList: [],
       nextList: [],
       total: 0,
@@ -148,15 +154,15 @@ Page({
       page, currentPage, pageSize, total
     } = this.data
     // 数据全部已拉取
-    console.log('currentPage:', currentPage)
-    console.log('total:', total)
+    console.log('page, currentPage, pageSize, total:', page, currentPage, pageSize, total)
+
     if ((currentPage + 1) === total) {
       wx.showToast({
         title: '翻到尽头了哦～',
         icon: 'none'
       })
       return
-    } else if ((currentPage + 1) === (pageSize * (page - 1) - 3)) {
+    } else if ((currentPage + 1) >= (pageSize * (page - 1) - 3)) {
       // 翻到末尾重新拉取新数据
       this.onGetClassmateList(this.data.page)
     }

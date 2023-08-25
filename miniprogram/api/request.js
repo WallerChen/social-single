@@ -1,7 +1,8 @@
 // const USE_WX_CLOUD_RUN = true
 const USE_WX_CLOUD_RUN = false
 
-const API_SERVER = 'http://localhost:8100'
+// const API_SERVER = 'http://192.168.6.227:8100'
+const API_SERVER = 'http://127.0.0.1:8100'
 const DEBUG_OPENID = 'o6orS5emZUHW5BGNYAGO2SP2P7hg'
 
 const CLOUD_ENV = 'prod-3g8yxq6d2db91adb'
@@ -99,6 +100,7 @@ export const uploadImage = async function(tempFile, compressImg = true, filename
   })
 }
 
+export const getServerLiveness = () => apiCall('/liveness', 'GET')
 export const getClassmateList = (params) => apiCall('/api/v1/classmate/list', 'GET', params)
 export const getUserInfo = (params) => apiCall('/api/v1/user/info', 'GET', params)
 export const getUserRegister = (params) => apiCall('/api/v1/user/register', 'GET', params)
