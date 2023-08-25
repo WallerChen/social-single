@@ -38,7 +38,7 @@
   <!-- <image class="hello-classmate-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/hello-classmate-bg.png" /> -->
   <image class="doves-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/doves-bg.png" />
   <modal show="{{isShowModal}}">
-    <detail desc="{{studentList[currentPage].desc ? studentList[currentPage].desc : ''}}" imageList="{{studentList[currentPage].image_list ? studentList[currentPage].image_list.split(','): []}}" avatarUrl="{{studentList[currentPage].avatarUrl ? studentList[currentPage].avatarUrl : ''}}" bindclose="closeModal" />
+    <detail desc="{{studentList[currentPage].desc }}" imageList="{{studentList[currentPage].imageList }}" avatarUrl="{{studentList[currentPage].avatarUrl }}" bindclose="closeModal" />
   </modal>
   <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
 </view>

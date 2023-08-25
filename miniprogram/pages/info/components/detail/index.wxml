@@ -1,11 +1,7 @@
 <view class="detail-view">
   <view class="header">
     <view>我的介绍</view>
-    <image
-      class="close-icon"
-      src="https://single-design.bj.bcebos.com/newHome/close.png"
-      bindtap="close"
-    />
+    <image class="close-icon" src="https://single-design.bj.bcebos.com/newHome/close.png" bindtap="close" />
   </view>
   <view class="content">
     <view class="desc">
@@ -13,19 +9,10 @@
     </view>
     <view class="images">
       <block wx:if="{{imageList.length}}">
-        <templete
-          wx:for="{{imageList}}"
-          data-image="{{item}}"
-          bindtap="previewImage"
-          wx:key="item"
-        >
-          <image src="{{item}}" />
-        </templete>
+        <image wx:for="{{imageList}}" data-image="{{item}}" bindtap="previewImage" wx:key="item" mode="aspectFill" class="photo" src="{{item}}" />
       </block>
       <block wx:else>
-        <templete data-image="{{avatarUrl}}" bindtap="previewImage">
-          <image class="photo" mode="aspectFill" src="{{avatarUrl}}" />
-        </templete>
+        <image data-image="{{avatarUrl}}" bindtap="previewImage" class="photo" mode="aspectFill" src="{{avatarUrl}}" />
       </block>
     </view>
   </view>
