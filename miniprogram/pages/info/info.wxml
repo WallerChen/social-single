@@ -1,7 +1,8 @@
 <view class="info-view">
 
-  <view class="greeting">Hi 同学你好~</view>
-
+  <image class="greeting" src="/src/images/info/greeting.png"></image>
+  <image class="doves-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/doves-bg.png" />
+  
   <view class="course-view">
     <view class="course-panel course-select">
       <text>社群班</text>
@@ -37,9 +38,7 @@
         <view class="content-back" />
       </view>
     </view>
-  </view>
-  <!-- <image class="hello-classmate-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/hello-classmate-bg.png" /> -->
-  <image class="doves-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/doves-bg.png" />
+  </view> 
   <modal show="{{isShowModal}}">
     <detail desc="{{studentList[currentPage].desc }}" imageList="{{studentList[currentPage].imageList }}" avatarUrl="{{studentList[currentPage].avatarUrl }}" bindclose="closeModal" />
   </modal>

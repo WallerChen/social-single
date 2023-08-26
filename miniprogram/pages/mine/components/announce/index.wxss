@@ -1,8 +1,15 @@
+.announce-view {
+  padding: 50rpx;
+  width: 580rpx;
+  box-sizing: border-box;
+}
+
 .announce-view>.content-title {
   position: relative;
   color: #90939B;
   padding: 0 0 60rpx;
   text-align: center;
+  font-size: 36rpx;
 }
 
 .announce-view>.content-title::after {
@@ -18,27 +25,38 @@
 .announce-view>.content-btns {
   display: flex;
   justify-content: space-around;
-  padding: 32rpx 0;
+  padding-top: 32rpx;
+  padding-bottom: 44rpx;
 }
 
 .announce-view>.content-btns .btn {
-  padding: 8rpx 40rpx;
-  border-radius: 40rpx;
-  font-size: 24rpx;
+  padding: 0;
+  width: 144rpx;
+  height: 58rpx;
+  /* background: linear-gradient(133deg, #A5D5FF 0%, #7D93FF 100%, #7D93FF 100%); */
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  box-sizing: border-box;
 }
 
 .announce-view>.content-btns .btn:nth-child(1) {
-  border: 1px solid #B2D8FF;
+  border: 2px solid #B2D8FF; 
   color: #B2D8FF;
 }
 
 .announce-view>.content-btns .btn:nth-child(2) {
-  padding: 10rpx 42rpx;
+  
   background: linear-gradient(to right, #A5D5FF, #7D93FF);
   color: #fff;
 }
 
 .announce-view>.tips {
+  position: absolute;
+  bottom: 31rpx;
+  right: 94rpx;
   font-size: 24rpx;
   display: flex;
   justify-content: flex-end;

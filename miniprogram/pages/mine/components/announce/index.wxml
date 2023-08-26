@@ -5,7 +5,7 @@
     <view class="btn" bindtap="confirm">确认</view>
   </view>
   <view class="tips">
-    <image class="tip-icon" src="https://single-student.bj.bcebos.com/vip.png"></image>
+    <image class="tip-icon" src="/src/images/icon/checked.svg"></image>
     <view>同步展示至公开班</view>
   </view>
 </view>
