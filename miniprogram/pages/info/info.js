@@ -32,6 +32,10 @@ Page({
     adminClass: null,
     studentList: []
   },
+  async onShow() {
+    const isRegister = wx.getStorageSync('isRegister')
+    this.setData({ isShowInvite: !isRegister })
+  },
   async onLoad() {
     app.event.on('checkoutRegister', this.checkoutRegister, this)
     this.onGetClassmateList(this.data.page)
@@ -42,7 +46,7 @@ Page({
   },
   checkoutRegister() {
     if (this.data.total === 0) {
-      // 还没获取，在灯云API 准备好后再获取一次
+      // 还没获取，在云API 准备好后再获取一次
       this.onGetClassmateList(this.data.page)
     }
 

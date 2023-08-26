@@ -25,7 +25,13 @@ Page({
     isShowInvite: false,
     isShowDeleteDraft: false
   },
-  onLoad() {
+  onShow() {
+    const isRegister = wx.getStorageSync('isRegister')
+    if (!isRegister) {
+      this.setData({ isShowInvite: true })
+      return
+    }
+
     this.onGetUserInfo()
   },
 

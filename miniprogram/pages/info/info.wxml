@@ -1,8 +1,6 @@
 <view class="info-view">
-
   <image class="greeting" src="/src/images/info/greeting.png"></image>
   <image class="doves-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/info/doves-bg.png" />
-  
   <view class="course-view">
     <view class="course-panel course-select">
       <text>社群班</text>
@@ -38,9 +36,11 @@
         <view class="content-back" />
       </view>
     </view>
-  </view> 
+  </view>
   <modal show="{{isShowModal}}">
     <detail desc="{{studentList[currentPage].desc }}" imageList="{{studentList[currentPage].imageList }}" avatarUrl="{{studentList[currentPage].avatarUrl }}" bindclose="closeModal" />
   </modal>
-  <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
+  <modal show="{{isShowInvite}}">
+    <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
+  </modal>
 </view>

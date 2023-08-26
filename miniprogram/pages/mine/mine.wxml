@@ -58,4 +58,8 @@
   <side-bar show="{{sideBar.show}}" bindonhide="hideSideBar">
     <sider />
   </side-bar>
+
+  <modal show="{{isShowInvite}}">
+    <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
+  </modal>
 </view>
