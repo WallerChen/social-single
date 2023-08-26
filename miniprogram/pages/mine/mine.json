@@ -9,5 +9,6 @@
     "invite": "../../components/invite/index",
     "modal": "../../components/modal/index",
     "side-bar": "../../components/sideBar/index"
-  }
+  },
+  "navigationStyle": "custom"
 }
