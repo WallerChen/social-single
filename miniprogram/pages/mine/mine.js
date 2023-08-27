@@ -291,7 +291,9 @@ Page({
       wx.showToast({ title: '放弃失败', icon: 'error' })
     }
   },
-
+  showNotImplement() {
+    wx.showToast({ title: '建设ing，小可爱们请等待~', icon: 'none' })
+  },
   async onPublish() {
     this.setData({
       showConfirmPublish: true

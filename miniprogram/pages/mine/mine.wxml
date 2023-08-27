@@ -29,23 +29,23 @@
     </view>
     <view class="card-footer">
       <view class="line">
-        <text class="line-text">破圈同学录</text>
+        <text class="line-text">单身同学录</text>
       </view>
     </view>
     <image class="dove-bg" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/dove-bg.png" />
   </view>
   <view class="footer-tab">
-    <view class="tab-item">
+    <view class="tab-item" bind:tap="showNotImplement">
       <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-tdjs-icon.png" />
       <view>团队介绍</view>
       <view class="line" />
     </view>
-    <view class="tab-item">
+    <view class="tab-item" bind:tap="showNotImplement">
       <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-sqgf-icon.png" />
       <view>社区规范</view>
       <view class="line" />
     </view>
-    <view class="tab-item">
+    <view class="tab-item" bind:tap="showNotImplement">
       <image class="tab-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/foot-jytc-icon.png" />
       <view>建议提出</view>
     </view>
