@@ -19,8 +19,8 @@ function apiCall(path, method, params = {}) {
       method,
       header: {
         // 'X-WX-SERVICE': 'user-info-auth',
-        // 'X-WX-SERVICE': 'go-backend-test'
-        'X-WX-SERVICE': 'go-backend-debug'
+        'X-WX-SERVICE': 'go-backend-test'
+        // 'X-WX-SERVICE': 'go-backend-debug'
       },
       data: params
     })

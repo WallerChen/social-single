@@ -3,8 +3,8 @@
   <view class="title">学生档案</view>
   <view class="intro">
     <view class="name">{{nickName}}</view>
-    <image wx:if="{{sex == '男'}}" class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
-    <image wx:else class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
+    <image wx:if="{{sex == '男'}}" class="gender-icon" src="/src/images/icon/sex-m.png"/>
+    <image wx:else class="gender-icon" src="/src/images/icon/sex-f.png"/>
   </view>
 
   <view class="img-container">
