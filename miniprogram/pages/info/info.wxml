@@ -15,7 +15,7 @@
             <text>{{item.title}}</text>
           </view>
         </view>
-        <view wx:else class="class-item {{item.isShow ? 'classroom-select' : ''}}">
+        <view wx:else class="class-item {{item.title === classname ? 'classroom-select' : ''}}">
           <view class="normal-class" data-class="{{item.value}}" catchtap="getClassCard">
             <text>{{item.title}}</text>
           </view>
