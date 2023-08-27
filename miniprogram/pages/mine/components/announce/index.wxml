@@ -4,7 +4,7 @@
     <view class="btn" bindtap="cancel">取消</view>
     <view class="btn" bindtap="confirm">确认</view>
   </view>
-  <view class="tips">
+  <view class="tips" wx:if="{{false}}">
     <image class="tip-icon" src="/src/images/icon/checked.svg"></image>
     <view>同步展示至公开班</view>
   </view>
