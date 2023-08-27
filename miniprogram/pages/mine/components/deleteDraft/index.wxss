@@ -1,0 +1,49 @@
+.delete-draft-view {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.delete-draft-view .layout {
+  width: 680rpx;
+  height: 400rpx;
+  border-radius: 50rpx;
+  background-color: #FFFFFF;
+}
+.delete-draft-view .layout .title {
+  width: 500rpx;
+  height: 39rpx;
+  font-size: 44rpx;
+  margin-top: 52rpx;
+  margin-left: 54rpx;
+}
+.delete-draft-view .layout .button-group {
+  margin-top: 150rpx;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.delete-draft-view .layout .button-group .button {
+  width: fit-content;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  box-sizing: border-box;
+  height: 58rpx;
+  border-radius: 32rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  background: linear-gradient(133deg, #A5D5FF 0%, #7D93FF 100%, #7D93FF 100%);
+}
+
+.delete-draft-view .layout .button-group .button-discard {
+  color: red;
+  background: #F2F7FD; 
+}

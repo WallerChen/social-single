@@ -37,7 +37,8 @@
     "disableUseStrict": false,
     "minifyWXML": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "condition": false
   },
   "appid": "wxc507b471992a7570",
   "projectname": "miniprogram-4",

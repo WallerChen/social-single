@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#F1F3F8",
+  "usingComponents": {
+    "user-card": "./components/userCard/index",
+    "anounce": "./components/announce/index",
+    "sider": "./components/sider/index",
+    "delete-draft": "./components/deleteDraft/index",
+    "invite": "../../components/invite/index",
+    "modal": "../../components/modal/index",
+    "side-bar": "../../components/sideBar/index"
+  },
+  "navigationStyle": "custom"
+}

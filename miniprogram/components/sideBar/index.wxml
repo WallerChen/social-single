@@ -1,0 +1,7 @@
+<view class="side-bar-view {{show ? 'mask' : ''}}" bindtap="hide">
+  <view class="side-bar-content {{show ? 'expand' : ''}}" catchtap="keepShow">
+    <view class="side-bar-slot">
+      <slot></slot>
+    </view>
+  </view>
+</view>

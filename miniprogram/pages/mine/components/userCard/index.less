@@ -1,0 +1,113 @@
+.user-card-view {
+  width: 670rpx;
+  height: 254rpx;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 74rpx;
+  padding: 48rpx 40rpx;
+  background: #FFFFFF;
+
+  .user-header {
+    display: flex;
+    position: relative;
+
+    .img-container {
+      width: 158rpx;
+      height: 158rpx;
+      border-radius: 50%;
+      border: 4rpx solid #A5D5FF;
+      // padding: 10rpx;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+      .avatar-image {
+        width: 100%;
+        height: 100%;
+        border: white 4rpx solid;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background: #A5D5FF;
+      }
+    }
+
+    .avatar-crown {
+      width: 44rpx;
+      height: 44rpx;
+      position: absolute;
+      top: -15rpx;
+      left: 125rpx;
+    }
+
+    .user-info {
+      width: 280rpx;
+      display: flex;
+      flex-direction: column;
+      margin-left: 20rpx;
+
+      .name {
+        margin-top: 23rpx;
+        font-size: 36rpx;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        color: #333333;
+
+        .name-textarea {
+          width: 250rpx;
+        }
+
+        .gender-male-icon,
+        .gender-female-icon {
+          width: 70rpx;
+          height: 70rpx;
+        }
+
+        .hide-gender-icon {
+          display: none;
+        }
+      }
+
+      .class {
+        margin-top: 22rpx;
+        font-size: 26rpx;
+        color: #90939B;
+      }
+    }
+  }
+
+  .change-mode {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 35rpx;
+    right: 32rpx;
+
+    .change-word {
+      color: #7B90FF;
+      font-size: 24rpx;
+    }
+
+    .change-icon {
+      width: 36rpx;
+      height: 36rpx;
+    }
+  }
+
+  .auth {
+    width: 144rpx;
+    height: 54rpx;
+    box-sizing: border-box;
+    top: 140rpx;
+    right: 30rpx;
+    border-radius: 32rpx;
+    padding-left: 25rpx;
+    padding-top: 11rpx;
+    position: absolute;
+    color: #FFFFFF;
+    font-size: 24rpx;
+    background: linear-gradient(to right, #A5D5FF, #7D93FF);
+  }
+}

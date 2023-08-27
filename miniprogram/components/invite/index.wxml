@@ -1,0 +1,7 @@
+<view wx:if="{{show}}" class="invite-view">
+  <view class="layout">
+    <view class="title">请输入邀请码</view>
+    <input class="input" value="{{inviteCode}}" bindinput="editInviteCode" />
+    <view class="button" bindtap="register" />
+  </view>
+</view>

@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "custom-modal" : "../customModal/index"
-  },
-  "component": true
-}

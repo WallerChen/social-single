@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "个人信息",
-  "usingComponents": {
-    "intercept": "/components/inviteIntercept/index",
-    "intercept_connect": "/components/inviteInterceptConnnect/index",
-    "avatar-and-nickname": "/components/avatarAndNickname/index"
-  }
-}

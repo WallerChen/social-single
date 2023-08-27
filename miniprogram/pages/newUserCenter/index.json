@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "个人信息",
-  "navigationBarBackgroundColor": "#F1F3F8",
-  "usingComponents": {
-    "user-card":"./components/userCard/index",
-    "modal":"../../components/modal/index"
-  }
-}

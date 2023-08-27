@@ -1,0 +1,22 @@
+<!-- pages/info/components/classmateInfo/index.wxml -->
+<view class="classmate-info-view">
+  <view class="title">学生档案</view>
+  <view class="intro">
+    <view class="name">{{nickName}}</view>
+    <image wx:if="{{sex == '男'}}" class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
+    <image wx:else class="gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
+  </view>
+
+  <view class="img-container">
+    <image class="avatar" mode="aspectFill" src="{{avatarUrl}}" />
+  </view>
+
+  <view class="self-intro">
+    <view class="title">自我介绍</view>
+    <view class="desc">{{desc}}</view>
+  </view>
+  <!-- <view class="footer">
+    <image class="footer-icon" src="https://single-design.bj.bcebos.com/newHome/xiaoxi.png" />
+    <image class="footer-icon" src="https://single-design.bj.bcebos.com/newHome/zhuanfa.png" />
+  </view> -->
+</view>
