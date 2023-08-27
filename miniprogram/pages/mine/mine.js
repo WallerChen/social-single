@@ -178,6 +178,9 @@ Page({
 
       const imgList = res.map((item) => item.data.data.url)
 
+      if (!this.data.userInfoEdit.imageList) {
+        this.data.userInfoEdit.imageList = []
+      }
       const newImageList = [...this.data.userInfoEdit.imageList, ...imgList]
       // 照片墙是保存草稿的
       const params = {
