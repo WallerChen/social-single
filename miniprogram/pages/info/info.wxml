@@ -10,19 +10,21 @@
     </view>
   </view>
   <view class="classroom-view">
-    <scroll-view class="classroom-list" scroll-x scroll-with-animation>
-      <block wx:for="{{classItemList}}" wx:key="value">
-        <view wx:if="{{item.isVip}}" class="class-item vip-class {{item.title === classname ? 'classroom-select' : ''}}">
-          <view data-class="{{item.value}}" catchtap="getClassCard">
-            <text>{{item.title}}</text>
+    <scroll-view scroll-x scroll-with-animation>
+
+      <view class="classroom-list">
+
+        <view wx:for="{{classItemList}}" wx:key="index" class="class-item {{item.title === classname ? 'classroom-select' : ''}}">
+
+
+          <view class="title" data-class="{{item.value}}" catchtap="getClassCard">
+            <text>{{item.title}} </text>
+            <image src="/src/images/icon/crown-bg.png" wx:if="{{item.isVip}}" class="vip-class"></image>
           </view>
         </view>
-        <view wx:else class="class-item {{item.title === classname ? 'classroom-select' : ''}}">
-          <view class="normal-class" data-class="{{item.value}}" catchtap="getClassCard">
-            <text>{{item.title}}</text>
-          </view>
-        </view>
-      </block>
+
+      </view>
+
     </scroll-view>
   </view>
   <view class="classmate-view">
