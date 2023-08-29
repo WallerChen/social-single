@@ -14,7 +14,7 @@
         <image wx:else  class="gender-female-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
       </view>
       <view class="class">
-        <span>{{userInfo.class || '暂无班级'}}</span>
+        <span>{{userInfo.className || '暂无班级'}}</span>
       </view>
     </view>
   </view>

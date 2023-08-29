@@ -26,9 +26,8 @@ Page({
     isShowDeleteDraft: false
   },
   onShow() {
-    const isRegister = wx.getStorageSync('isRegister')
-    if (!isRegister) {
-      this.setData({ isShowInvite: true })
+    this.setData({ isShowInvite: !app.globalData.user.registered })
+    if (!!app.globalData.user.registered){
       return
     }
 

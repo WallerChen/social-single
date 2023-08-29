@@ -8,7 +8,7 @@ App({
     employ: '',
     user: {}
   },
-  onLaunch: async function() {
+  onLaunch: async function () {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -26,7 +26,7 @@ App({
       })
     }, 1000)
 
-    for (;;) {
+    for (; ;) {
       // 一直循环，直到云API 可用
       try {
         // eslint-disable-next-line no-await-in-loop
@@ -42,9 +42,13 @@ App({
 
     const userRegisterResult = await getUserRegister()
     const registered = userRegisterResult.data.data.registered
-    const classname = userRegisterResult.data.data.class
-    wx.setStorageSync('isRegister', registered)
-    wx.setStorageSync('classname', classname)
+    const classId = userRegisterResult.data.data.classId
+    const openid = userRegisterResult.data.data.openid
+    this.globalData.user = {
+      openid,
+      classId: classId,
+      registered
+    }
     this.event.emit('checkoutRegister')
   }
 })

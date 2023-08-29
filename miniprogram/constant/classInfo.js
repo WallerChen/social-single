@@ -6,8 +6,12 @@ export const classItemList = [
   { title: '脱单五班', isVip: true, isLock: true, value: 'five' },
 ];
 
-export const classMap = () => {
-  const result = {};
-  Array.isArray(classItemList) && classItemList.forEach(({ title, value }) => result[title] = value);
-  return result;
-};
+export function getClassNameById(classId) {
+  const classItem = classItemList.find(({ value }) => value === classId);
+  return classItem?.title;
+}
+
+export function getClassIdByName(className) {
+  const classItem = classItemList.find(({ title }) => title === className);
+  return classItem?.value;
+}

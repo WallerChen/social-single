@@ -20,8 +20,15 @@ Component({
         if (result.data.code === 200) {
           wx.showToast({ title: '加入成功', icon: 'success' })
 
-          wx.setStorageSync('isRegister', true)
-          wx.setStorageSync('classname', result.data.data.class)
+          const registered = result.data.data.registered
+          const classId = result.data.data.classId
+          const openid = result.data.data.openid
+          this.globalData.user = {
+            openid,
+            classId: classId,
+            registered
+          }
+
           app.event.emit('checkoutRegister')
 
           this.hide()
