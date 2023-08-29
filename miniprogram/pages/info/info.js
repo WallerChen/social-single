@@ -1,4 +1,4 @@
-import { classMap, classItemList } from '../../constant/classInfo'
+import { classItemList } from '../../constant/classInfo'
 import { getClassmateList } from '../../api/request'
 import { deepClone } from '../../utils/util'
 
@@ -8,20 +8,14 @@ let startX = 0
 let endX = 0
 let shouldMove = true
 
-const admins = [
-  'o6orS5emZUHW5BGNYAGO2SP2P7hg',
-  'o6orS5aPPXUXSFePhdLTy_Ygn-A8',
-  'o6orS5ZvU2Us8IMFLPkO_WHV8_Io',
-  'o6orS5UyuvCbL7HCHE8c8gk-WjoM'
-]
+
 
 Page({
   data: {
     total: 0,
     page: 1,
-    classname: '',
+    classId: null,
     classItemList,
-    classMap,
     isShowInvite: false,
     isShowModal: false,
     prevList: [],
@@ -29,16 +23,18 @@ Page({
     currentPage: 0,
     pageIndex: 0,
     pageSize: 4,
-    adminClass: null,
     studentList: []
   },
   async onShow() {
-    const isRegister = wx.getStorageSync('isRegister')
+    let isRegister = !(app.globalData.user.registered === false)
     this.setData({ isShowInvite: !isRegister })
+    this.setData({
+      classId: app.globalData.user.classId,
+    })
   },
   async onLoad() {
     app.event.on('checkoutRegister', this.checkoutRegister, this)
-    this.onGetClassmateList(this.data.page)
+    this.onGetClassmateList()
   },
 
   onUnload() {
@@ -47,20 +43,25 @@ Page({
   checkoutRegister() {
     if (this.data.total === 0) {
       // 还没获取，在云API 准备好后再获取一次
-      this.onGetClassmateList(this.data.page)
+      this.onGetClassmateList()
     }
 
-    const isRegister = wx.getStorageSync('isRegister')
-    const classname = wx.getStorageSync('classname')
-    if (isRegister) {
-      this.setData({ classname })
-    } else {
-      this.setData({ isShowInvite: true })
+
+    if (app.globalData.user.registered) {
+      this.setData({ classId: app.globalData.user.classId })
     }
+    this.setData({ isShowInvite: !app.globalData.user.registered })
   },
-  async onGetClassmateList(page) {
+  async onGetClassmateList() {
+    let page = this.data.page
     try {
-      const res = await getClassmateList({ page, limit: this.data.pageSize })
+      let query = { page, limit: this.data.pageSize }
+
+      if (this.data.classId) {
+        query.classId = this.data.classId
+      }
+
+      const res = await getClassmateList(query)
       if (res.data.code !== 200) {
         throw new Error(res.data.msg)
       }
@@ -89,29 +90,15 @@ Page({
   hideInvite() {
     this.setData({ isShowInvite: false })
   },
-  onShowVisible() {
-    for (const index in this.data.classItemList) {
-      if (admins.includes(app.globalData.user?.openid)) {
-        this.setData({
-          [`classItemList[${index}].isShow`]: true,
-          [`classItemList[${index}].isLock`]: false
-        })
-      } else {
-        this.setData({
-          [`classItemList[${index}].isShow`]: this.data.classItemList[index].title === app.globalData.user?.class,
-          [`classItemList[${index}].isLock`]: !(this.data.classItemList[index].title === app.globalData.user?.class)
-        })
-      }
-    }
-    this.setData({
-      visible: !app.globalData.user?.class,
-      scrollToView: classMap[app.globalData.user?.class] ?? ''
-    }, () => !this.data.visible && this.onGetClassmateList())
-  },
   getClassCard(e) {
-    if (!admins.includes(app.globalData.user?.openid)) return
+    if (!app.globalData.user.isAdmin) {
+      return
+    }
+
+
     this.setData({
-      adminClass: e.currentTarget.dataset.class,
+      classId: e.currentTarget.dataset.classId,
+      page: 1,
       currentPage: 0,
       pageIndex: 0,
       prevList: [],
@@ -171,7 +158,7 @@ Page({
       return
     } else if ((currentPage + 1) >= (pageSize * (page - 1) - 3)) {
       // 翻到末尾重新拉取新数据
-      this.onGetClassmateList(this.data.page)
+      this.onGetClassmateList()
     }
     if (currentPage < total) {
       this.setData({

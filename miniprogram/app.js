@@ -44,7 +44,9 @@ App({
     const registered = userRegisterResult.data.data.registered
     const classId = userRegisterResult.data.data.classId
     const openid = userRegisterResult.data.data.openid
+    const isAdmin = userRegisterResult.data.data.isAdmin
     this.globalData.user = {
+      isAdmin,
       openid,
       classId: classId,
       registered
