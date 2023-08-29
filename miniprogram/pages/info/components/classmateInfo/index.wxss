@@ -29,6 +29,10 @@
 
 .classmate-info-view>.intro>.name {
   color: #959490;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 220rpx;
 }
 
 .classmate-info-view>.intro>.gender-icon {
