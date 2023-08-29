@@ -8,7 +8,7 @@
     <image class="avatar-crown" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/crown-bg.png" />
     <view class="user-info">
       <view class="name">
-        <input class="name-textarea" value="{{userInfo.nickname}}" bindblur="editNickname" />
+        <input class="name-textarea" value="{{userInfo.nickname}}" bindblur="editNickname" placeholder="你的昵称~" />
 
         <image wx:if="{{userInfo.sex == '男'}}"class="gender-male-icon hide-gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
         <image wx:else  class="gender-female-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
