@@ -2,6 +2,33 @@ import Event from './utils/eventBus'
 import { getUserRegister } from './api/request'
 import * as request from './api/request'
 
+
+function showLoadingAfter(title, ms) {
+  return setTimeout(() => {
+    wx.hideLoading()
+    wx.showLoading({
+      title: title,
+      mask: true
+    })
+  }, ms)
+}
+
+function prepareMsgSequence() {
+  let timerList = []
+  timerList.push(showLoadingAfter('获取同学录中...', 1000))
+  timerList.push(showLoadingAfter('仍在努力中...', 5000))
+  timerList.push(showLoadingAfter('有点久哈...', 10000))
+  timerList.push(showLoadingAfter('很快就好了...', 15000))
+  timerList.push(showLoadingAfter('再稍微等一下...', 20000))
+  return timerList
+}
+
+function clearMsgSequence(timerList) {
+  for (let i = 0; i < timerList.length; i++) {
+    clearTimeout(timerList[i])
+  }
+}
+
 App({
   event: new Event(),
   globalData: {
@@ -19,19 +46,15 @@ App({
     }
 
     // 1 秒后还没准备好就显示loading
-    const timer = setTimeout(() => {
-      wx.showLoading({
-        title: '获取同学录中...',
-        mask: true
-      })
-    }, 1000)
+    prepareMsgSequence()
+
 
     for (; ;) {
       // 一直循环，直到云API 可用
       try {
         // eslint-disable-next-line no-await-in-loop
         await request.getServerLiveness()
-        clearTimeout(timer)
+        clearMsgSequence()
         wx.hideLoading()
 
         break
