@@ -27,7 +27,7 @@ Page({
   },
   onShow() {
     this.setData({ isShowInvite: !app.globalData.user.registered })
-    if (!!app.globalData.user.registered){
+    if (!app.globalData.user.registered) {
       return
     }
 

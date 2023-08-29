@@ -2,7 +2,6 @@ import Event from './utils/eventBus'
 import { getUserRegister } from './api/request'
 import * as request from './api/request'
 
-
 function showLoadingAfter(title, ms) {
   return setTimeout(() => {
     wx.hideLoading()
@@ -14,7 +13,7 @@ function showLoadingAfter(title, ms) {
 }
 
 function prepareMsgSequence() {
-  let timerList = []
+  const timerList = []
   timerList.push(showLoadingAfter('获取同学录中...', 1000))
   timerList.push(showLoadingAfter('仍在努力中...', 5000))
   timerList.push(showLoadingAfter('有点久哈...', 10000))
@@ -35,7 +34,7 @@ App({
     employ: '',
     user: {}
   },
-  onLaunch: async function () {
+  onLaunch: async function() {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -46,15 +45,14 @@ App({
     }
 
     // 1 秒后还没准备好就显示loading
-    prepareMsgSequence()
-
+    const timerList = prepareMsgSequence()
 
     for (; ;) {
       // 一直循环，直到云API 可用
       try {
         // eslint-disable-next-line no-await-in-loop
         await request.getServerLiveness()
-        clearMsgSequence()
+        clearMsgSequence(timerList)
         wx.hideLoading()
 
         break

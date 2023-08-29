@@ -24,7 +24,7 @@ Component({
           const classId = result.data.data.classId
           const openid = result.data.data.openid
           const isAdmin = result.data.data.isAdmin
-          this.globalData.user = {
+          app.globalData.user = {
             isAdmin,
             openid,
             classId,
