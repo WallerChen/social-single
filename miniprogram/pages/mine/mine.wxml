@@ -7,7 +7,7 @@
       <view class="title">我的介绍</view>
     </view>
     <view class="card-content">
-      <textarea class="card-content-textarea" maxlength="{{maxWords}}" value="{{userInfoEdit.desc}}" bindinput="onDescEdit" />
+      <textarea placeholder="来点自我介绍吧~"  class="card-content-textarea" maxlength="{{maxWords}}" value="{{userInfoEdit.desc}}" bindinput="onDescEdit" />
     </view>
     <view class="buttons">
       <view wx:if="{{hasDraft}}" class="button-item btn-danger" bindtap="onDiscard">放弃</view>
