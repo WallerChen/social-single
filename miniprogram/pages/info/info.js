@@ -8,8 +8,6 @@ let startX = 0
 let endX = 0
 let shouldMove = true
 
-
-
 Page({
   data: {
     total: 0,
@@ -26,10 +24,10 @@ Page({
     studentList: []
   },
   async onShow() {
-    let isRegister = !(app.globalData.user.registered === false)
+    const isRegister = !(app.globalData.user.registered === false)
     this.setData({ isShowInvite: !isRegister })
     this.setData({
-      classId: app.globalData.user.classId,
+      classId: app.globalData.user.classId
     })
   },
   async onLoad() {
@@ -46,16 +44,15 @@ Page({
       this.onGetClassmateList()
     }
 
-
     if (app.globalData.user.registered) {
       this.setData({ classId: app.globalData.user.classId })
     }
     this.setData({ isShowInvite: !app.globalData.user.registered })
   },
   async onGetClassmateList() {
-    let page = this.data.page
+    const page = this.data.page
     try {
-      let query = { page, limit: this.data.pageSize }
+      const query = { page, limit: this.data.pageSize }
 
       if (this.data.classId) {
         query.classId = this.data.classId
@@ -94,7 +91,6 @@ Page({
     if (!app.globalData.user.isAdmin) {
       return
     }
-
 
     this.setData({
       classId: e.currentTarget.dataset.classId,

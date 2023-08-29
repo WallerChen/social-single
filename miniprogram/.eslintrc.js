@@ -21,7 +21,7 @@ module.exports = {
     requirePlugin: false
   },
 
-  parser: '@babel/eslint-parser',
+  // parser: '@babel/eslint-parser',
   parserOptions: {
     requireConfigFile: false,
     presets: [
