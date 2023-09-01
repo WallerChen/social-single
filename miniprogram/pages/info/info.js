@@ -134,14 +134,16 @@ Page({
     }
   },
   prev() {
-    if (this.data.currentPage > 0) {
-      const currentPage = this.data.currentPage - 1
-      this.setData({
-        ['nextList[' + currentPage + ']']: '',
-        ['prevList[' + currentPage + ']']: 'prevAnimation',
-        currentPage
-      })
-    }
+    // 暂时不允许向前滑动
+
+    // if (this.data.currentPage > 0) {
+    //   const currentPage = this.data.currentPage - 1
+    //   this.setData({
+    //     ['nextList[' + currentPage + ']']: '',
+    //     ['prevList[' + currentPage + ']']: 'prevAnimation',
+    //     currentPage
+    //   })
+    // }
   },
   next() {
     const {
