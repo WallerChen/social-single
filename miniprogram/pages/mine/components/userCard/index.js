@@ -10,7 +10,7 @@ Component({
         nickname: String,
         className: String,
         avatarUrl: String,
-        gender: String
+        sex: String
       }
     }
   },

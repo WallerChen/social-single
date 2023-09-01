@@ -8,9 +8,8 @@
       <view class="name">
         <input class="name-textarea" value="{{userInfo.nickname}}" bindblur="editNickname" placeholder="你的昵称~" />
 
-        <image wx:if="{{sex == 'male'}}" class="gender-icon" src="/src/images/icon/sex-m.svg" />
+        <image wx:if="{{userInfo.sex == 'male'}}" class="gender-icon" src="/src/images/icon/sex-m.svg" />
         <image wx:else class="gender-icon" src="/src/images/icon/sex-f.svg" />
-
       </view>
       <view class="class">
         <span>{{userInfo.className || '暂无班级'}}</span>
