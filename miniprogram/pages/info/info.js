@@ -24,15 +24,17 @@ Page({
     studentList: []
   },
   async onShow() {
-    const isRegister = !(app.globalData.user.registered === false)
-    this.setData({ isShowInvite: !isRegister })
-    this.setData({
-      classId: app.globalData.user.classId
-    })
+    // 仅当 app.globalData.user.registered 全等于 false 猜显示邀请框，因为要等待赋值
+    const isShowInvite = app.globalData.user.registered === false
+    const isRegister = app.globalData.user.registered === true
+    this.setData({ isShowInvite: isShowInvite })
+    if (isRegister) {
+      this.setData({ classId: app.globalData.user.classId })
+    }
   },
   async onLoad() {
     app.event.on('checkoutRegister', this.checkoutRegister, this)
-    this.onGetClassmateList()
+    // this.onGetClassmateList()
   },
 
   onUnload() {
@@ -47,7 +49,9 @@ Page({
     if (app.globalData.user.registered) {
       this.setData({ classId: app.globalData.user.classId })
     }
-    this.setData({ isShowInvite: !app.globalData.user.registered })
+
+    const isShowInvite = app.globalData.user.registered === false
+    this.setData({ isShowInvite: isShowInvite })
   },
   async onGetClassmateList() {
     const page = this.data.page

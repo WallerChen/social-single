@@ -18,6 +18,7 @@ Component({
       try {
         const result = await postUserRegister({ inviteCode: this.data.inviteCode })
         if (result.data.code === 200) {
+          // TODO: 提示为欢迎来到脱单二班?
           wx.showToast({ title: '加入成功', icon: 'success' })
 
           const registered = result.data.data.registered

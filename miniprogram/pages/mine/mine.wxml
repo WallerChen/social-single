@@ -7,7 +7,7 @@
       <view class="title">我的介绍</view>
     </view>
     <view class="card-content">
-      <textarea placeholder="来点自我介绍吧~"  class="card-content-textarea" maxlength="{{maxWords}}" value="{{userInfoEdit.desc}}" bindinput="onDescEdit" />
+      <textarea placeholder="来点自我介绍吧~" class="card-content-textarea" maxlength="{{maxWords}}" value="{{userInfoEdit.desc}}" bindinput="onDescEdit" />
     </view>
     <view class="buttons">
       <view wx:if="{{hasDraft}}" class="button-item btn-danger" bindtap="onDiscard">放弃</view>
@@ -22,7 +22,7 @@
       <block wx:for="{{userInfoEdit.imageList}}" wx:key="index">
         <view class="image-list-item">
           <image class="image-list-image" src="{{item}}" />
-          <image class="delete-image" catchtap="onDeleteImage" data-index="{{index}}" src="/src/images/icon/delete.svg" ></image>
+          <image class="delete-image" catchtap="onDeleteImage" data-index="{{index}}" src="/src/images/icon/delete.svg"></image>
         </view>
       </block>
       <view wx:if="{{!userInfoEdit.imageList || userInfoEdit.imageList.length < 3}}" class="add-image" catchtap="addImageList" />
@@ -51,15 +51,53 @@
     </view>
   </view>
   <modal show="{{showConfirmPublish}}">
-    <anounce bind:cancel="onCancelPublish"  bind:confirm="onConfirmPublish" />
+    <anounce bind:cancel="onCancelPublish" bind:confirm="onConfirmPublish" />
   </modal>
 
-  <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
+  <!-- <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
   <side-bar show="{{sideBar.show}}" bindonhide="hideSideBar">
     <sider />
-  </side-bar>
+  </side-bar> -->
 
   <modal show="{{isShowInvite}}">
     <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
   </modal>
+
+
+  <modal show="{{isShowBaseInfo}}">
+    <view class="first-info">
+
+      <view wx:if="{{infoStep==1}}">
+        <view class="title">我是...</view>
+        <view class="option {{ baseInfoSex=='male' ?'male' :''  }}" data-type="baseInfoSex" data-val="male" bind:tap="onSetBaseInfo" >♂男生</view>
+        <view class="option {{ baseInfoSex=='female' ?'female' :''  }}" data-type="baseInfoSex" data-val="female" bind:tap="onSetBaseInfo" >♀女生</view>
+
+      </view>
+
+      <view wx:if="{{infoStep==2}}">
+        <view class="title">我叫...</view>
+        <input type="nickname" class="nickname option" model:value="{{baseInfoNickname}}" bindinput="updateNextBtnShow" />
+      </view>
+
+      <view wx:if="{{infoStep==3}}">
+        <view class="title">爆个照吧...</view>
+        <view class="img-container">
+          <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onSelectFirstAvatar">
+          <image open-type="chooseAvatar" class="avatar-image" src="{{baseInfoAvatar}}" />
+          </button>
+        </view>
+      </view>
+
+      <view class="footer">
+        <view wx:if="{{infoStep!=1}}" bind:tap="onInfoPrev" class="btn-prev"> 上一步 </view>
+        <view wx:else></view>
+
+        <view wx:if="{{showNextBtn}}" bind:tap="onInfoNext" class="btn-next"> 好啦 </view>
+        <view wx:else ></view>
+
+      </view>
+    </view>
+  </modal>
+
+
 </view>

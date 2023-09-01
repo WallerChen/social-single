@@ -13,6 +13,7 @@ Page({
   data: {
 
     hasDraft: false,
+    userInfoReady: false, // 标记是否已获取用户信息，避免进入页面后重复获取
     userInfoPublished: {}, // 已发布
     userInfoDraft: {}, // 草稿
     userInfoEdit: {}, // 当前UI 编辑
@@ -23,15 +24,129 @@ Page({
     },
     maxWords: 500, // 最大字数
     isShowInvite: false,
-    isShowDeleteDraft: false
+    isShowDeleteDraft: false,
+
+    // 首次填写用户资料
+    isShowBaseInfo: false,
+    infoStep: 1,
+    showNextBtn: false,
+    baseInfoSex: '',
+    baseInfoNickname: '',
+    baseInfoAvatar: ''
+
   },
-  onShow() {
-    this.setData({ isShowInvite: !app.globalData.user.registered })
-    if (!app.globalData.user.registered) {
+
+  async onShow() {
+    // 仅当 app.globalData.user.registered 全等于 false 猜显示邀请框，因为要等待赋值
+    const isShowInvite = app.globalData.user.registered === false
+    const isRegister = app.globalData.user.registered === true
+    this.setData({ isShowInvite: isShowInvite })
+    if (isRegister) {
+      await this.onGetUserInfo()
+      // 判断用户有没有基础资料
+      if (!this.data.userInfoPublished.sex) {
+        this.setData({ isShowBaseInfo: true })
+      }
+    }
+  },
+  async onLoad() {
+    app.event.on('checkoutRegister', this.checkoutRegister, this)
+    // this.onGetUserInfo()
+  },
+
+  onUnload() {
+    app.event.off('checkoutRegister', this.checkoutRegister)
+  },
+  async checkoutRegister() {
+    const isShowInvite = app.globalData.user.registered === false
+    this.setData({ isShowInvite: isShowInvite })
+    if (isShowInvite) {
+      // 未填邀请码先填邀请码，接着再问用户资料
       return
     }
 
-    this.onGetUserInfo()
+    if (!this.data.userInfoReady) {
+      // 还没获取，在云API 准备好后再获取一次
+      await this.onGetUserInfo()
+      // 判断用户有没有基础资料
+      if (!this.data.userInfoPublished.sex) {
+        this.setData({ isShowBaseInfo: true })
+      }
+    }
+  },
+
+  onSelectFirstAvatar(e) {
+    console.log('onSelectFirstAvatar', e)
+
+    this.setData({
+      baseInfoAvatar: e.detail.avatarUrl
+    })
+
+    this.updateNextBtnShow()
+  },
+  onInfoPrev() {
+    this.setData({
+      infoStep: this.data.infoStep - 1
+    })
+    this.updateNextBtnShow()
+  },
+  async onInfoNext() {
+    if (this.data.infoStep === 3) {
+      // 提交资料
+      console.log('baseInfoSex', this.data.baseInfoSex)
+      console.log('baseInfoNickname', this.data.baseInfoNickname)
+      console.log('baseInfoAvatar', this.data.baseInfoAvatar)
+
+      wx.showLoading({ title: '确认中...', mask: true })
+      try {
+        await this.setUserBaseInfo(this.data.baseInfoSex, this.data.baseInfoNickname, this.data.baseInfoAvatar)
+        wx.hideLoading()
+      } catch (error) {
+        console.log('setUserBaseInfo err', error)
+        wx.hideLoading()
+        wx.showToast({ title: '失败了呢' })
+        return
+      }
+
+      this.setData({
+        isShowBaseInfo: false
+      })
+      return
+    }
+
+    this.setData({
+      infoStep: this.data.infoStep + 1
+    })
+    this.updateNextBtnShow()
+  },
+
+  shouldShowNextBtn() {
+    switch (this.data.infoStep) {
+      case 1:
+        return false
+
+      case 2:
+        return !!this.data.baseInfoNickname
+
+      case 3:
+        return !!this.data.baseInfoAvatar
+
+      default:
+        return false
+    }
+  },
+  updateNextBtnShow() {
+    this.setData({
+      showNextBtn: this.shouldShowNextBtn()
+    })
+  },
+  onSetBaseInfo(e) {
+    const data = e.currentTarget.dataset
+    console.log('onSetBaseInfo', data)
+    this.setData({
+      [data.type]: data.val
+    })
+    this.onInfoNext()
   },
 
   isEmpty(obj) {
@@ -108,6 +223,20 @@ Page({
     this.data.userInfoDraft = this.data.userInfoEdit
   },
 
+  // 设置用户初始信息
+  async setUserBaseInfo(sex, nickname, avatar) {
+    const res = await getUserInfo()
+
+    const userInfo = res.data.data
+    userInfo.sex = sex
+    userInfo.avatarUrl = avatar
+    userInfo.nickname = nickname
+
+    const result = await publishUserInfo(userInfo)
+    console.log('saving publishUserInfo result', result)
+
+    await this.onGetUserInfo()// 重新载入用户信息
+  },
   async onGetUserInfo() {
     // 进入页面加载，如果有未保存草稿，优先恢复展示
     let res
@@ -116,7 +245,6 @@ Page({
     } catch (e) {
       console.error('getUserInfo err', e)
     }
-
     const userInfo = res.data.data
 
     const userInfoDraft = deepClone(userInfo.draftInfo)
@@ -138,12 +266,16 @@ Page({
 
       imageList: userInfo.imageList || []
     })
+    this.data.userInfoReady = true
   },
 
   hideInvite() {
-    this.setData({
-      isShowInvite: false
-    })
+    this.setData({ isShowInvite: false })
+
+    // 判断用户有没有基础资料
+    if (!this.data.userInfoPublished.sex) {
+      this.setData({ isShowBaseInfo: true })
+    }
   },
 
   async addImageList() {
