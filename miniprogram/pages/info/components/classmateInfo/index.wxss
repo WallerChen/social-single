@@ -36,8 +36,8 @@
 }
 
 .classmate-info-view>.intro>.gender-icon {
-  width: 64rpx;
-  height: 64rpx;
+  width: 42rpx;
+  height: 42rpx;
 }
 
 .classmate-info-view .img-container {
