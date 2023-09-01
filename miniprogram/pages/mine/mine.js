@@ -7,6 +7,7 @@ import {
 } from '../../api/request'
 import * as request from '../../api/request'
 import { deepClone } from '../../utils/util'
+import { getClassNameById } from '../../constant/classInfo'
 
 const app = getApp()
 
@@ -127,6 +128,7 @@ Page({
         return false
 
       case 2:
+        // 微信获取昵称 bindinput 偶尔失灵
         return !!this.data.baseInfoNickname
 
       case 3:
@@ -251,6 +253,8 @@ Page({
       console.error('getUserInfo err', e)
     }
     const userInfo = res.data.data
+
+    userInfo.className = getClassNameById(userInfo.classId)
 
     const userInfoDraft = deepClone(userInfo.draftInfo)
     userInfo.draftInfo = undefined
