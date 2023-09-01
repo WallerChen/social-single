@@ -5,6 +5,7 @@ import {
   publishUserInfo,
   uploadImage
 } from '../../api/request'
+import * as request from '../../api/request'
 import { deepClone } from '../../utils/util'
 
 const app = getApp()
@@ -226,6 +227,10 @@ Page({
   // 设置用户初始信息
   async setUserBaseInfo(sex, nickname, avatar) {
     const res = await getUserInfo()
+
+    // 上传用户头像
+    const res2 = await request.uploadImage({ tempFilePath: avatar })
+    avatar = res2.data.data.url
 
     const userInfo = res.data.data
     userInfo.sex = sex
