@@ -2,15 +2,13 @@
 <view class="classmate-info-view">
   <view class="title">学生档案</view>
   <view class="intro">
-    <view class="name">{{nickName}}超级长超级长超级长超级长</view>
-    <image wx:if="{{sex == '男'}}" class="gender-icon" src="/src/images/icon/sex-m.png"/>
-    <image wx:else class="gender-icon" src="/src/images/icon/sex-f.png"/>
+    <view class="name">{{nickName}}</view>
+    <image wx:if="{{sex == 'male'}}" class="gender-icon" src="/src/images/icon/sex-m.png" />
+    <image wx:else class="gender-icon" src="/src/images/icon/sex-f.png" />
   </view>
-
   <view class="img-container">
     <image class="avatar" mode="aspectFill" src="{{avatarUrl}}" />
   </view>
-
   <view class="self-intro">
     <view class="title">自我介绍</view>
     <view class="desc">{{desc}}</view>

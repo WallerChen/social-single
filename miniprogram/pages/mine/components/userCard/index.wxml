@@ -1,17 +1,16 @@
 <view class="user-card-view">
   <view class="user-header">
-
     <view class="img-container">
       <image class="avatar-image" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" catchtap="editAvatar" />
     </view>
-
     <image class="avatar-crown" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/crown-bg.png" />
     <view class="user-info">
       <view class="name">
         <input class="name-textarea" value="{{userInfo.nickname}}" bindblur="editNickname" placeholder="你的昵称~" />
 
-        <image wx:if="{{userInfo.sex == '男'}}"class="gender-male-icon hide-gender-icon" src="https://single-design.bj.bcebos.com/newHome/sex-m.png" />
-        <image wx:else  class="gender-female-icon" src="https://single-design.bj.bcebos.com/newHome/sex-f.png" />
+        <image wx:if="{{sex == 'male'}}" class="gender-icon" src="/src/images/icon/sex-m.png" />
+        <image wx:else class="gender-icon" src="/src/images/icon/sex-f.png" />
+
       </view>
       <view class="class">
         <span>{{userInfo.className || '暂无班级'}}</span>
