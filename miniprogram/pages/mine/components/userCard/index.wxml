@@ -1,13 +1,15 @@
 <view class="user-card-view">
   <view class="user-header">
     <view class="img-container">
-      <image class="avatar-image" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" catchtap="editAvatar" />
+      <view class="box">
+        <image class="avatar" mode="aspectFill" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" catchtap="editAvatar" />
+      </view>
     </view>
+
     <image class="avatar-crown" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/crown-bg.png" />
     <view class="user-info">
       <view class="name">
         <input class="name-textarea" value="{{userInfo.nickname}}" bindblur="editNickname" placeholder="你的昵称~" />
-
         <image wx:if="{{userInfo.sex == 'male'}}" class="gender-icon" src="/src/images/icon/sex-m.svg" />
         <image wx:else class="gender-icon" src="/src/images/icon/sex-f.svg" />
       </view>

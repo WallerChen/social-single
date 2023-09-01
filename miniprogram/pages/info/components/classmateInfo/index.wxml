@@ -7,7 +7,9 @@
     <image wx:else class="gender-icon" src="/src/images/icon/sex-f.svg" />
   </view>
   <view class="img-container">
-    <image class="avatar" mode="aspectFill" src="{{avatarUrl}}" />
+    <view class="box">
+      <image class="avatar" mode="aspectFill" src="{{avatarUrl}}" />
+    </view>
   </view>
   <view class="self-intro">
     <view class="title">自我介绍</view>

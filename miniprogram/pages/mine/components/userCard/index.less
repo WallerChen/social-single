@@ -14,31 +14,33 @@
     .img-container {
       width: 158rpx;
       height: 158rpx;
-      border-radius: 50%;
-      border: 4rpx solid #A5D5FF;
-      // padding: 10rpx;
+      background: linear-gradient(180deg, #B2D8FF 0%, #7B90FF 100%);
       box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-
-      .avatar-image {
+      padding: 4rpx;
+      border-radius: 50%;
+    
+      .box {
         width: 100%;
         height: 100%;
-        border: white 4rpx solid;
-        box-sizing: border-box;
+        background: white;
         border-radius: 50%;
-        background: rgb(226, 226, 226);
+        overflow: hidden;
+        padding: 4rpx;
+        box-sizing: border-box;
+    
+        .avatar {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
       }
     }
-
     .avatar-crown {
       width: 44rpx;
       height: 44rpx;
       position: absolute;
-      top: -15rpx;
-      left: 125rpx;
+      top: -12rpx;
+      left: 120rpx;
     }
 
     .user-info {
@@ -61,6 +63,7 @@
         .gender-icon {
           width: 42rpx;
           height: 42rpx;
+          opacity: 60%;
         }
 
         .hide-gender-icon {
