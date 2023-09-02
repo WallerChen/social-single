@@ -44,6 +44,14 @@ App({
       })
     }
 
+    // 如果有新的版本强制更新版本
+    if (wx.getUpdateManager) {
+      const updateManager = wx.getUpdateManager()
+      updateManager.onUpdateReady(() => {
+        updateManager.applyUpdate()
+      })
+    }
+
     // 1 秒后还没准备好就显示loading
     const timerList = prepareMsgSequence()
 
