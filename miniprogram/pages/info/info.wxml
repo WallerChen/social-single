@@ -10,19 +10,20 @@
     </view>
   </view>
   <view class="classroom-view">
-    <scroll-view class="classroom-list" scroll-x scroll-with-animation>
-      <block wx:for="{{classItemList}}" wx:key="value">
-        <view wx:if="{{item.isVip}}" class="class-item vip-class {{item.title === classname ? 'classroom-select' : ''}}">
-          <view data-class="{{item.value}}" catchtap="getClassCard">
-            <text>{{item.title}}</text>
+    <scroll-view scroll-x scroll-with-animation>
+
+      <view class="classroom-list">
+
+        <view wx:for="{{classItemList}}" wx:key="index" class="class-item">
+
+          <view class="title" data-class-id="{{item.value}}" catchtap="getClassCard">
+            <text  class="{{item.value === classId ? 'classroom-select' : ''}}" >{{ item.title }} </text>
+            <image src="/src/images/icon/crown-bg.png" wx:if="{{item.isVip}}" class="vip-class"></image>
           </view>
         </view>
-        <view wx:else class="class-item {{item.isShow ? 'classroom-select' : ''}}">
-          <view class="normal-class" data-class="{{item.value}}" catchtap="getClassCard">
-            <text>{{item.title}}</text>
-          </view>
-        </view>
-      </block>
+
+      </view>
+
     </scroll-view>
   </view>
   <view class="classmate-view">
@@ -30,7 +31,7 @@
       <view class="book-pages">
         <block wx:for="{{studentList}}" wx:key="item">
           <view class="book-page {{nextList[index]}} {{prevList[index]}}" style="z-index:{{total - index}}" catchtap="openModal">
-            <classmateInfo nickName="{{item.nickname ? item.nickname : ''}}" avatarUrl="{{item.avatarUrl ? item.avatarUrl : ''}}" desc="{{item.desc ? item.desc : ''}}" sex="{{item.sex ? item.sex : ''}}" />
+            <classmateInfo nickName="{{item.nickname}}" avatarUrl="{{item.avatarUrl}}" desc="{{item.desc}}" sex="{{item.sex}}" />
           </view>
         </block>
         <view class="content-back" />

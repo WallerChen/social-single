@@ -29,11 +29,15 @@
 
 .classmate-info-view>.intro>.name {
   color: #959490;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 220rpx;
 }
 
 .classmate-info-view>.intro>.gender-icon {
-  width: 64rpx;
-  height: 64rpx;
+  width: 42rpx;
+  height: 42rpx;
 }
 
 .classmate-info-view .img-container {
@@ -43,25 +47,35 @@
   width: 194rpx;
   height: 194rpx;
   border-radius: 40rpx;
-  border: 4rpx solid #B2D8FF;
+  background: linear-gradient(180deg, #B2D8FF 0%, #7B90FF 100%);
   box-sizing: border-box;
+  padding: 4rpx;
+
+  .box {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 36rpx;
+    overflow: hidden;
+    padding: 4rpx;
+    box-sizing: border-box;
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 32rpx;
+    }
+  }
 }
 
-.classmate-info-view .avatar {
-  border-radius: 40rpx;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  border: 4rpx solid white;
-}
 
-.classmate-info-view>.self-intro .desc{
+.classmate-info-view>.self-intro .desc {
   margin-top: 40rpx;
   width: 500rpx;
   height: 350rpx;
 
-  overflow : hidden;
-    
+  overflow: hidden;
+
   line-height: 60rpx;
 
   font-size: 28rpx;

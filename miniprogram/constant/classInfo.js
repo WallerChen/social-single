@@ -1,13 +1,24 @@
+// TODO: 这些配置应该从返回，而不是写在前端
 export const classItemList = [
-  { title: '脱单一班', isVip: true, isLock: true, value: 'one' },
-  { title: '脱单二班', isVip: false, isLock: true, value: 'two' },
-  { title: '脱单三班', isVip: false, isLock: true, value: 'three' },
-  { title: '脱单四班', isVip: true, isLock: true, value: 'four' },
-  { title: '脱单五班', isVip: true, isLock: true, value: 'five' },
-];
+  {
+    title: '脱单一班', isVip: true, isLock: true, value: 'one'
+  }, {
+    title: '脱单二班', isVip: false, isLock: true, value: 'two'
+  }, {
+    title: '脱单三班', isVip: false, isLock: true, value: 'three'
+  }, {
+    title: '脱单四班', isVip: true, isLock: true, value: 'four'
+  }, {
+    title: '脱单五班', isVip: true, isLock: true, value: 'five'
+  }
+]
 
-export const classMap = () => {
-  const result = {};
-  Array.isArray(classItemList) && classItemList.forEach(({ title, value }) => result[title] = value);
-  return result;
-};
+export function getClassNameById(classId) {
+  const classItem = classItemList.find(({ value }) => value === classId)
+  return classItem?.title
+}
+
+export function getClassIdByName(className) {
+  const classItem = classItemList.find(({ title }) => title === className)
+  return classItem?.value
+}

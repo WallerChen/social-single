@@ -8,9 +8,9 @@ Component({
       type: Object,
       value: {
         nickname: String,
-        class: String,
+        className: String,
         avatarUrl: String,
-        gender: String
+        sex: String
       }
     }
   },

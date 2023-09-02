@@ -1,5 +1,14 @@
 {
   "dependencies": {
     "lottie-miniprogram": "^1.0.12"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.22.11",
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "less": "^4.1.1",
+    "lint-staged": "^10.5.3",
+    "miniprogram-ci": "^1.8.12"
   }
 }

@@ -2,3 +2,4 @@ node_modules
 miniprogram/pages/mine/mine.wxss
 miniprogram/pages/mine/components/userCard/index.wxss
 miniprogram/pages/info/info.wxss
+miniprogram/pages/info/components/classmateInfo/index.wxss

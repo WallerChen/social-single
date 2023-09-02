@@ -2,6 +2,32 @@ import Event from './utils/eventBus'
 import { getUserRegister } from './api/request'
 import * as request from './api/request'
 
+function showLoadingAfter(title, ms) {
+  return setTimeout(() => {
+    wx.hideLoading()
+    wx.showLoading({
+      title: title,
+      mask: true
+    })
+  }, ms)
+}
+
+function prepareMsgSequence() {
+  const timerList = []
+  timerList.push(showLoadingAfter('获取同学录中...', 1000))
+  timerList.push(showLoadingAfter('仍在努力中...', 5000))
+  timerList.push(showLoadingAfter('有点久哈...', 10000))
+  timerList.push(showLoadingAfter('很快就好了...', 15000))
+  timerList.push(showLoadingAfter('再稍微等一下...', 20000))
+  return timerList
+}
+
+function clearMsgSequence(timerList) {
+  for (let i = 0; i < timerList.length; i++) {
+    clearTimeout(timerList[i])
+  }
+}
+
 App({
   event: new Event(),
   globalData: {
@@ -18,20 +44,23 @@ App({
       })
     }
 
-    // 1 秒后还没准备好就显示loading
-    const timer = setTimeout(() => {
-      wx.showLoading({
-        title: '获取同学录中...',
-        mask: true
+    // 如果有新的版本强制更新版本
+    if (wx.getUpdateManager) {
+      const updateManager = wx.getUpdateManager()
+      updateManager.onUpdateReady(() => {
+        updateManager.applyUpdate()
       })
-    }, 1000)
+    }
 
-    for (;;) {
+    // 1 秒后还没准备好就显示loading
+    const timerList = prepareMsgSequence()
+
+    for (; ;) {
       // 一直循环，直到云API 可用
       try {
         // eslint-disable-next-line no-await-in-loop
         await request.getServerLiveness()
-        clearTimeout(timer)
+        clearMsgSequence(timerList)
         wx.hideLoading()
 
         break
@@ -42,9 +71,15 @@ App({
 
     const userRegisterResult = await getUserRegister()
     const registered = userRegisterResult.data.data.registered
-    const classname = userRegisterResult.data.data.class
-    wx.setStorageSync('isRegister', registered)
-    wx.setStorageSync('classname', classname)
+    const classId = userRegisterResult.data.data.classId
+    const openid = userRegisterResult.data.data.openid
+    const isAdmin = userRegisterResult.data.data.isAdmin
+    this.globalData.user = {
+      isAdmin,
+      openid,
+      classId: classId,
+      registered
+    }
     this.event.emit('checkoutRegister')
   }
 })

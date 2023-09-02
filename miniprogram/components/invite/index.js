@@ -18,10 +18,20 @@ Component({
       try {
         const result = await postUserRegister({ inviteCode: this.data.inviteCode })
         if (result.data.code === 200) {
+          // TODO: 提示为欢迎来到脱单二班?
           wx.showToast({ title: '加入成功', icon: 'success' })
 
-          wx.setStorageSync('isRegister', true)
-          wx.setStorageSync('classname', result.data.data.class)
+          const registered = result.data.data.registered
+          const classId = result.data.data.classId
+          const openid = result.data.data.openid
+          const isAdmin = result.data.data.isAdmin
+          app.globalData.user = {
+            isAdmin,
+            openid,
+            classId,
+            registered
+          }
+
           app.event.emit('checkoutRegister')
 
           this.hide()
