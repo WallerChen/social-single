@@ -1,7 +1,18 @@
 <view wx:if="{{show}}" class="invite-view">
   <view class="layout">
-    <view class="title">请输入邀请码</view>
-    <input class="input" value="{{inviteCode}}" bindinput="editInviteCode" />
-    <view class="button" bindtap="register" />
+    <block wx:if="{{!showQr}}">
+      <view class="title">
+        <text class="main">请输入邀请码</text>
+        <text class="hint" bindtap="onShowAdminQr">无邀请码？</text>
+      </view>
+      <input class="input" value="{{inviteCode}}" bindinput="editInviteCode" />
+      <view class="button" bindtap="onRegister" />
+    </block>
+
+    <block wx:else>
+      <image class="close-icon" src="/src/images/icon/close.png" bindtap="onCloseAdminQr" />
+      <image mode="aspectFit" show-menu-by-longpress class="wxqr" src="/src/images/info/wx_qr_shizi.jpeg" />
+      <view class="qr-hint">添加群主，加入社群</view>
+    </block>
   </view>
 </view>

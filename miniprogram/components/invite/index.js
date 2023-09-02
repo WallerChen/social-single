@@ -6,7 +6,10 @@ Component({
   properties: {
     show: Boolean
   },
-  data: { inviteCode: '' },
+  data: {
+    inviteCode: '',
+    showQr: false
+  },
   methods: {
     hide() {
       this.triggerEvent('onhide')
@@ -14,7 +17,13 @@ Component({
     editInviteCode(e) {
       this.setData({ inviteCode: e.detail.value })
     },
-    async register() {
+    onCloseAdminQr() {
+      this.setData({ showQr: false })
+    },
+    onShowAdminQr() {
+      this.setData({ showQr: true })
+    },
+    async onRegister() {
       try {
         const result = await postUserRegister({ inviteCode: this.data.inviteCode })
         if (result.data.code === 200) {
