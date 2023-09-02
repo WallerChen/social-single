@@ -33,6 +33,11 @@ Page({
     }
   },
   async onLoad() {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
+
     app.event.on('checkoutRegister', this.checkoutRegister, this)
     // this.onGetClassmateList()
   },
