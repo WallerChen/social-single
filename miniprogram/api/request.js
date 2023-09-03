@@ -1,10 +1,9 @@
 const USE_WX_CLOUD_RUN = true
 // const USE_WX_CLOUD_RUN = false
 
-// const API_SERVER = 'http://192.168.6.227:8100'
 const API_SERVER = 'http://127.0.0.1:8100'
+// const API_SERVER = 'http://192.168.6.227:8100'
 // const API_SERVER = 'http://192.168.8.236:8100'
-// const DEBUG_OPENID = 'o6orS5emZUHW5BGNYAGO2SP2P7hg'
 const DEBUG_OPENID = 'o6orS5YktKqMOeqS0oXIPO_h--dI'
 
 const CLOUD_ENV = 'prod-3g8yxq6d2db91adb'
@@ -110,3 +109,4 @@ export const postUserRegister = (params) => apiCall('/api/v1/user/register', 'PO
 export const deleteUserInfoDraft = (params) => apiCall('/api/v1/user/info-draft', 'DELETE', params)
 export const postUserInfoDraft = (params) => apiCall('/api/v1/user/info-draft', 'POST', params)
 export const publishUserInfo = (params) => apiCall('/api/v1/user/info', 'POST', params)
+export const getShareUserInfo = (params) => apiCall('/api/v1/classmate/share', 'GET', params)

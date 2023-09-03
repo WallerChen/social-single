@@ -1,5 +1,6 @@
 import { classItemList } from '../../constant/classInfo'
 import { getClassmateList } from '../../api/request'
+import * as request from '../../api/request'
 import { deepClone } from '../../utils/util'
 
 const app = getApp()
@@ -15,12 +16,13 @@ Page({
     classId: null,
     classItemList,
     isShowInvite: false,
-    isShowModal: false,
+    isShowDetail: false,
     prevList: [],
     nextList: [],
     currentPage: 0,
     pageIndex: 0,
     pageSize: 4,
+    isShowShare: false,
     studentList: []
   },
   async onShow() {
@@ -30,6 +32,7 @@ Page({
     this.setData({ isShowInvite: isShowInvite })
     if (isRegister) {
       this.setData({ classId: app.globalData.user.classId })
+      this.showShareUser()
     }
   },
   async onLoad() {
@@ -39,9 +42,31 @@ Page({
     })
 
     app.event.on('checkoutRegister', this.checkoutRegister, this)
-    // this.onGetClassmateList()
   },
 
+  // 展示用户分享的信息页
+  async showShareUser() {
+    if (app.globalData.shareUserId) {
+      const res = await request.getShareUserInfo({ id: app.globalData.shareUserId })
+      console.log('share', app.globalData.shareUserId, res)
+      app.globalData.shareUserId = 0
+
+      this.setData({
+        isShowShare: true,
+        shareUserInfo: res.data.data.userInfo
+      })
+    }
+  },
+  onShareAppMessage(e) {
+    if (this.data.isShowDetail) {
+      const info = this.data.studentList[this.data.currentPage]
+      console.log('studentList', info)
+      return {
+        title: '给你分享一位优秀的宝子~',
+        path: 'pages/info/info?shareUserId=' + info.id
+      }
+    }
+  },
   onUnload() {
     app.event.off('checkoutRegister', this.checkoutRegister)
   },
@@ -53,6 +78,7 @@ Page({
 
     if (app.globalData.user.registered) {
       this.setData({ classId: app.globalData.user.classId })
+      this.showShareUser()
     }
 
     const isShowInvite = app.globalData.user.registered === false
@@ -115,11 +141,14 @@ Page({
   onPublicToast() {
     wx.showToast({ title: '建设ing，小可爱们请等待~', icon: 'none' })
   },
-  openModal() {
-    this.setData({ isShowModal: true })
+  onCloseShare() {
+    this.setData({ isShowShare: false })
   },
-  closeModal() {
-    this.setData({ isShowModal: false })
+  onCloseDetail() {
+    this.setData({ isShowDetail: false })
+  },
+  onShowDetail() {
+    this.setData({ isShowDetail: true })
   },
   // 翻页效果
   touchStart(e) {

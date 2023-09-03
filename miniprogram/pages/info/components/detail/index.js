@@ -1,8 +1,6 @@
 Component({
   properties: {
-    desc: String,
-    imageList: Array,
-    avatarUrl: String
+    userInfo: Object
   },
   methods: {
     previewImage(e) {
