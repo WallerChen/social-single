@@ -1,5 +1,12 @@
 node_modules
+*.wxss
+
 miniprogram/pages/mine/mine.wxss
 miniprogram/pages/mine/components/userCard/index.wxss
 miniprogram/pages/info/info.wxss
 miniprogram/pages/info/components/classmateInfo/index.wxss
+miniprogram/components/invite/index.wxss
+miniprogram/pages/mine/components/deleteDraft/index.wxss
+miniprogram/pages/info/components/detail/index.wxss
+miniprogram/components/modal/index.wxss
+

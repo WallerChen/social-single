@@ -1,5 +1,6 @@
 import { classItemList } from '../../constant/classInfo'
 import { getClassmateList } from '../../api/request'
+import * as request from '../../api/request'
 import { deepClone } from '../../utils/util'
 
 const app = getApp()
@@ -15,42 +16,90 @@ Page({
     classId: null,
     classItemList,
     isShowInvite: false,
-    isShowModal: false,
+    isShowDetail: false,
     prevList: [],
     nextList: [],
     currentPage: 0,
     pageIndex: 0,
     pageSize: 4,
+    isShowShare: false,
+    shareUserInfo: {},
     studentList: []
   },
-  async onShow() {
+  async onShow(options) {
+    console.log('info onShow', options)
     // 仅当 app.globalData.user.registered 全等于 false 猜显示邀请框，因为要等待赋值
     const isShowInvite = app.globalData.user.registered === false
     const isRegister = app.globalData.user.registered === true
     this.setData({ isShowInvite: isShowInvite })
     if (isRegister) {
       this.setData({ classId: app.globalData.user.classId })
+      this.showShareUser()
+    }
+
+    if (isRegister && this.data.total === 0) {
+      this.onGetClassmateList()
     }
   },
-  async onLoad() {
+  async onLoad(options) {
+    // 小程序热启动，在这里获取query比较合适，每次哦都会onload，且不会影响挂后台重进
+    console.log('info onLoad', options)
+
+    this.data.shareUserId = options.shareUserId
+
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
+
     app.event.on('checkoutRegister', this.checkoutRegister, this)
-    // this.onGetClassmateList()
   },
 
+  // 展示用户分享的信息页
+  async showShareUser() {
+    console.log('showShareUser', this.data.shareUserId)
+    if (this.data.shareUserId) {
+      const res = await request.getShareUserInfo({ id: this.data.shareUserId })
+      console.log('share', this.data.shareUserId, res)
+      this.data.shareUserId = 0
+
+      this.setData({
+        isShowShare: true,
+        shareUserInfo: res.data.data.userInfo
+      })
+    }
+  },
+  onShareAppMessage(e) {
+    if (this.data.isShowDetail) {
+      const info = this.data.studentList[this.data.currentPage]
+      console.log('studentList', info)
+      return {
+        title: '给你分享一位优秀的宝子~',
+        path: 'pages/info/info?shareUserId=' + info.id
+      }
+    }
+    return {
+      title: '同学录',
+      path: 'pages/info/info'
+    }
+  },
   onUnload() {
     app.event.off('checkoutRegister', this.checkoutRegister)
   },
   checkoutRegister() {
-    if (this.data.total === 0) {
+    const isShowInvite = app.globalData.user.registered === false
+    const isRegister = app.globalData.user.registered === true
+
+    if (isRegister && this.data.total === 0) {
       // 还没获取，在云API 准备好后再获取一次
       this.onGetClassmateList()
     }
 
-    if (app.globalData.user.registered) {
+    if (isRegister) {
       this.setData({ classId: app.globalData.user.classId })
+      this.showShareUser()
     }
 
-    const isShowInvite = app.globalData.user.registered === false
     this.setData({ isShowInvite: isShowInvite })
   },
   async onGetClassmateList() {
@@ -110,11 +159,14 @@ Page({
   onPublicToast() {
     wx.showToast({ title: '建设ing，小可爱们请等待~', icon: 'none' })
   },
-  openModal() {
-    this.setData({ isShowModal: true })
+  onCloseShare() {
+    this.setData({ isShowShare: false })
   },
-  closeModal() {
-    this.setData({ isShowModal: false })
+  onCloseDetail() {
+    this.setData({ isShowDetail: false })
+  },
+  onShowDetail() {
+    this.setData({ isShowDetail: true })
   },
   // 翻页效果
   touchStart(e) {

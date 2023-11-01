@@ -1,18 +1,27 @@
 <view class="detail-view">
+  <image class="close-icon" src="/src/images/icon/close.png" bindtap="close" />
+
+
   <view class="header">
     <view class="title">我的介绍</view>
-    <image class="close-icon" src="/src/images/icon/close.png" bindtap="close" />
   </view>
+
+  <view class="profile">
+    <image wx:if="{{userInfo.sex == 'male'}}" class="gender-icon" src="/src/images/icon/sex-m.svg" />
+    <image wx:if="{{userInfo.sex == 'female'}}" class="gender-icon" src="/src/images/icon/sex-f.svg" />
+    <view class="nickname">{{userInfo.nickname}}</view>
+  </view>
+
   <view class="content">
     <view class="desc">
-      <text>{{desc}}</text>
+      <text>{{userInfo.desc}}</text>
     </view>
     <view class="image-list">
-      <block wx:if="{{imageList.length}}">
-        <image wx:for="{{imageList}}" data-image="{{item}}" bindtap="previewImage" wx:key="item" mode="aspectFill" class="photo" src="{{item}}" />
+      <block wx:if="{{userInfo.imageList && userInfo.imageList.length}}">
+        <image wx:for="{{userInfo.imageList}}" data-image="{{item}}" bindtap="previewImage" wx:key="item" mode="aspectFill" class="photo" src="{{item}}" />
       </block>
       <block wx:else>
-        <image data-image="{{avatarUrl}}" bindtap="previewImage" class="photo" mode="aspectFill" src="{{avatarUrl}}" />
+        <image data-image="{{userInfo.avatarUrl}}" bindtap="previewImage" class="photo" mode="aspectFill" src="{{userInfo.avatarUrl}}" />
       </block>
     </view>
   </view>

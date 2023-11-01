@@ -34,7 +34,25 @@ App({
     employ: '',
     user: {}
   },
-  onLaunch: async function() {
+
+  onShow(options) {
+    // 小程序挂后台，点分享卡片再进来会触发onshow
+    // 热启动都会触发app onShow所以应该放到对应页面onLoad 判断
+    console.log('app onShow', options)
+    // 1007 单人聊天会话中的小程序消息卡片
+    // 1008 群聊会话中的小程序消息卡片
+    // 1044 带 shareTicket 的小程序消息卡片
+
+    // if (e.scene === 1044) {
+    // 通过分享进来的
+    // if ( options.query.shareUserId) {
+    // if (e.shareTicket && e.query.shareUserId) {
+    // const shareUserId = e.query.shareUserId
+    // this.globalData.shareUserId = shareUserId
+    // }
+    // }
+  },
+  onLaunch: async function(options) {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {

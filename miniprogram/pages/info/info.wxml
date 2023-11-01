@@ -30,7 +30,7 @@
     <view class="classmate-book" bindtouchstart="touchStart" bindtouchmove="touchMove">
       <view class="book-pages">
         <block wx:for="{{studentList}}" wx:key="item">
-          <view class="book-page {{nextList[index]}} {{prevList[index]}}" style="z-index:{{total - index}}" catchtap="openModal">
+          <view class="book-page {{nextList[index]}} {{prevList[index]}}" style="z-index:{{total - index}}" catchtap="onShowDetail">
             <classmateInfo nickName="{{item.nickname}}" avatarUrl="{{item.avatarUrl}}" desc="{{item.desc}}" sex="{{item.sex}}" />
           </view>
         </block>
@@ -38,8 +38,11 @@
       </view>
     </view>
   </view>
-  <modal show="{{isShowModal}}">
-    <detail desc="{{studentList[currentPage].desc }}" imageList="{{studentList[currentPage].imageList }}" avatarUrl="{{studentList[currentPage].avatarUrl }}" bindclose="closeModal" />
+  <modal show="{{isShowDetail}}">
+    <detail userInfo="{{studentList[currentPage]}}" bindclose="onCloseDetail" />
+  </modal>
+  <modal show="{{isShowShare}}">
+    <detail userInfo="{{shareUserInfo}}" bindclose="onCloseShare" />
   </modal>
   <modal show="{{isShowInvite}}">
     <invite show="{{isShowInvite}}" bindonhide="hideInvite" />
