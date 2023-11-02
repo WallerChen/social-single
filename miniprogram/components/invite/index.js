@@ -26,14 +26,14 @@ Component({
     async onRegister() {
       try {
         const result = await postUserRegister({ inviteCode: this.data.inviteCode })
-        if (result.data.code === 200) {
+        if (result.code === 200) {
           // TODO: 提示为欢迎来到脱单二班?
           wx.showToast({ title: '加入成功', icon: 'success' })
 
-          const registered = result.data.data.registered
-          const classId = result.data.data.classId
-          const openid = result.data.data.openid
-          const isAdmin = result.data.data.isAdmin
+          const registered = result.data.registered
+          const classId = result.data.classId
+          const openid = result.data.openid
+          const isAdmin = result.data.isAdmin
           app.globalData.user = {
             isAdmin,
             openid,

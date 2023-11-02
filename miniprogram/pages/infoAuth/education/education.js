@@ -1,11 +1,12 @@
-import * as request from '../../../util/request'
-import * as util from '../../../util/util'
+import * as request from '../../../api/request'
+import * as util from '../../../utils/util'
 
 const app = getApp()
 
 Page({
 
   data: {
+    BOS_ADDR: request.BOS_ADDR,
     bachelor: '',
     master: '',
     doctor: '',
@@ -24,7 +25,7 @@ Page({
       const imgList = educationImages.split('\n')
       for (const img of imgList) {
         if (img) {
-          this.data.images.push({ url: request.BOS_ADDR + img, cloud: true })
+          this.data.images.push({ filepath: img, url: request.BOS_ADDR + img, cloud: true })
         }
       }
 
@@ -97,29 +98,30 @@ Page({
     }
 
     // 未修改的图片不触发上传文件
-    const wxFileList = this.data.images.filter((img) => img.cloud).map((img) => ({ filepath: img.url }))
+    const wxFileList = this.data.images.filter((img) => img.cloud).map((img) => ({ filepath: img.filepath }))
     const localImgList = this.data.images.filter((img) => !img.cloud)
 
     for (let i = 0; i < localImgList.length; i++) {
       const img = localImgList[i].url
 
       wx.showLoading({ title: `上传中(${i + 1}/${localImgList.length})...` })
-      const res = await request.uploadOneFile(img, util.getFilename(img), { compressImg: '1' })
+      // eslint-disable-next-line no-await-in-loop
+      const res = await request.uploadImage({ tempFilePath: img })
       console.log('res', i, res)
-      if (res.data.code !== 200) {
+      if (res.code !== 200) {
         wx.hideLoading()
         wx.showToast({
           icon: 'error',
-          title: res.data.msg
+          title: res.msg
         })
         return
       }
-      wxFileList.push(res.data.data)
+      wxFileList.push(res.data)
     }
     console.log('wxFileList', wxFileList)
     wx.hideLoading()
 
-    const res = await request.APICall('POST', '/api/student/education', {
+    const res = await request.APICall('POST', '/api/v1/info-auth/education', {
       wxFileList: wxFileList,
       bachelor: this.data.bachelor,
       master: this.data.master,

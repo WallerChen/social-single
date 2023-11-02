@@ -1,11 +1,12 @@
-import * as request from '../../../util/request'
-import * as util from '../../../util/util'
+import * as request from '../../../api/request'
+import * as util from '../../../utils/util'
 
 const app = getApp()
 
 Page({
 
   data: {
+    BOS_ADDR: request.BOS_ADDR,
     company: '',
     authStep: 0,
     images: []// { url:'', cloud: false } // cloud: 是否是云端图片
@@ -22,7 +23,7 @@ Page({
       const imgList = jobImages.split('\n')
       for (const img of imgList) {
         if (img) {
-          this.data.images.push({ url: request.BOS_ADDR + img, cloud: true })
+          this.data.images.push({ filepath: img, url: request.BOS_ADDR + img, cloud: true })
         }
       }
       this.setData({
@@ -94,29 +95,30 @@ Page({
       return
     }
 
-    const wxFileList = this.data.images.filter((img) => img.cloud).map((img) => ({ filepath: img.url }))
+    const wxFileList = this.data.images.filter((img) => img.cloud).map((img) => ({ filepath: img.filepath }))
     const localImgList = this.data.images.filter((img) => !img.cloud)
 
     for (let i = 0; i < localImgList.length; i++) {
       const img = localImgList[i].url
 
       wx.showLoading({ title: `上传中(${i + 1}/${localImgList.length})...` })
-      const res = await request.uploadOneFile(img, util.getFilename(img), { compressImg: '1' })
+      // eslint-disable-next-line no-await-in-loop
+      const res = await request.uploadImage({ tempFilePath: img })
       console.log('res', i, res)
-      if (res.data.code !== 200) {
+      if (res.code !== 200) {
         wx.hideLoading()
         wx.showToast({
           icon: 'error',
-          title: res.data.msg
+          title: res.msg
         })
         return
       }
-      wxFileList.push(res.data.data)
+      wxFileList.push(res.data)
     }
     console.log('wxFileList', wxFileList)
     wx.hideLoading()
 
-    const res = await request.APICall('POST', '/api/student/job', {
+    const res = await request.APICall('POST', '/api/v1/info-auth/job', {
       wxFileList: wxFileList,
       company: this.data.company
     })

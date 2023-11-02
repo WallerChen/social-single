@@ -1,4 +1,4 @@
-import * as request from '../../util/request'
+import * as request from '../../api/request'
 
 const app = getApp()
 
@@ -25,7 +25,7 @@ Page({
 
   async onShow() {
     // 重新新加载获取学生信息
-    const res = await request.APICall('GET', '/api/student/info')
+    const res = await request.APICall('GET', '/api/v1/info-auth/detail')
     console.log('GET student info', res)
     const studentInfo = res.data
     app.globalData.studentInfo = studentInfo

@@ -12,7 +12,7 @@
   </view>
   <view class="row">
     <text>证件号</text>
-    <input model:value="{{idNum}}" placeholder-class="placeholder" placeholder="请输入您的真实证件号" />
+    <input model:value="{{idCard}}" placeholder-class="placeholder" placeholder="请输入您的真实证件号" />
   </view>
 </view>
 <view bindtap="onConfirm" hover-class="hover-class" class="confirm">确 认</view>

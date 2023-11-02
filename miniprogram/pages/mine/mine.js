@@ -223,7 +223,7 @@ Page({
     }
 
     const result = await postUserInfoDraft(params)
-    if (result.data.code !== 200) {
+    if (result.code !== 200) {
       throw new Error(result.data)
     }
 
@@ -236,9 +236,9 @@ Page({
 
     // 上传用户头像
     const res2 = await request.uploadImage({ tempFilePath: avatar })
-    avatar = res2.data.data.url
+    avatar = res2.data.url
 
-    const userInfo = res.data.data
+    const userInfo = res.data
     userInfo.sex = sex
     userInfo.avatarUrl = avatar
     userInfo.nickname = nickname
@@ -256,7 +256,7 @@ Page({
     } catch (e) {
       console.error('getUserInfo err', e)
     }
-    const userInfo = res.data.data
+    const userInfo = res.data
 
     userInfo.className = getClassNameById(userInfo.classId)
 
@@ -320,7 +320,7 @@ Page({
       const res = await Promise.all(promiseList)
       console.log('uploadImage', res)
 
-      const imgList = res.map((item) => item.data.data.url)
+      const imgList = res.map((item) => item.data.url)
 
       if (!this.data.userInfoEdit.imageList) {
         this.data.userInfoEdit.imageList = []
@@ -333,7 +333,7 @@ Page({
       }
 
       const result = await postUserInfoDraft(params)
-      if (result.data.code !== 200) {
+      if (result.code !== 200) {
         console.log('save draft error', result)
         throw new Error(result.data)
       }
@@ -375,7 +375,7 @@ Page({
     }
 
     const result = await postUserInfoDraft(params)
-    if (result.data.code !== 200) {
+    if (result.code !== 200) {
       console.log('update draft error', result)
     }
   },
@@ -407,7 +407,7 @@ Page({
 
     const result = await publishUserInfo(params)
 
-    if (result.data.code !== 200) {
+    if (result.code !== 200) {
       console.log('save  error', result)
       wx.showToast({ title: '保存失败', icon: 'error' })
     }
@@ -466,7 +466,7 @@ Page({
       const result = await publishUserInfo(params)
       console.log('publishUserInfo', result)
       wx.hideLoading()
-      if (result.data.code !== 200) {
+      if (result.code !== 200) {
         wx.showToast({ title: '发布失败', icon: 'error' })
         return
       }

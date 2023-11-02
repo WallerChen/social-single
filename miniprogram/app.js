@@ -88,10 +88,10 @@ App({
     }
 
     const userRegisterResult = await getUserRegister()
-    const registered = userRegisterResult.data.data.registered
-    const classId = userRegisterResult.data.data.classId
-    const openid = userRegisterResult.data.data.openid
-    const isAdmin = userRegisterResult.data.data.isAdmin
+    const registered = userRegisterResult.data.registered
+    const classId = userRegisterResult.data.classId
+    const openid = userRegisterResult.data.openid
+    const isAdmin = userRegisterResult.data.isAdmin
     this.globalData.user = {
       isAdmin,
       openid,

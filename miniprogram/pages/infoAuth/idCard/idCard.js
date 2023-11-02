@@ -1,10 +1,10 @@
-import * as request from '../../../util/request'
+import * as request from '../../../api/request'
 
 Page({
 
   data: {
     name: '',
-    idNum: ''
+    idCard: ''
   },
 
   onLoad(options) {
@@ -16,8 +16,8 @@ Page({
   },
 
   async onConfirm() {
-    if (this.data.idNum.length !== 18 && this.data.idNum.length != 15) {
-      console.log('this.data.idNo.length', this.data.idNum.length)
+    if (this.data.idCard.length !== 18 && this.data.idCard.length !== 15) {
+      console.log('this.data.idNo.length', this.data.idCard.length)
       wx.showToast({
         icon: 'error',
         title: '请输入有效身份证号码'
@@ -29,15 +29,22 @@ Page({
       wx.showLoading({
         title: '验证中...'
       })
-      const res = await request.APICall('POST', '/api/student/idcard', {
+      const res = await request.APICall('POST', '/api/v1/info-auth/id-card', {
         name: this.data.name,
-        idNum: this.data.idNum
+        idCard: this.data.idCard
       })
       wx.hideLoading()
       console.log('POST idcard', res)
-      const data = res.data
 
-      if (data.respCode == '0000') {
+      if (res.code !== 200) {
+        wx.showToast({
+          icon: 'fail',
+          title: res.msg
+        })
+        return
+      }
+
+      if (res.data.respCode === '0000') {
         wx.showToast({
           icon: 'success',
           title: '实名验证成功'
@@ -48,7 +55,7 @@ Page({
       wx.showModal({
         showCancel: false,
         title: '实名认证失败',
-        content: `${data.respMsg}, 错误码: ${data.respCode}`
+        content: `${res.data.respMsg}, 错误码: ${res.data.respCode}`
       })
     } catch (error) {
       wx.hideLoading()

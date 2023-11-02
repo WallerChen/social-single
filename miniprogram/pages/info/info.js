@@ -65,7 +65,7 @@ Page({
 
       this.setData({
         isShowShare: true,
-        shareUserInfo: res.data.data.userInfo
+        shareUserInfo: res.data.userInfo
       })
     }
   },
@@ -112,13 +112,13 @@ Page({
       }
 
       const res = await getClassmateList(query)
-      if (res.data.code !== 200) {
-        throw new Error(res.data.msg)
+      if (res.code !== 200) {
+        throw new Error(res.msg)
       }
       this.setData({ page: page + 1 })
       const studentList = this.data.studentList
-      const cardData = res.data.data.list
-      const total = res.data.data.total
+      const cardData = res.data.list
+      const total = res.data.total
 
       const clonedCardData = deepClone(cardData)
       if (clonedCardData) {
