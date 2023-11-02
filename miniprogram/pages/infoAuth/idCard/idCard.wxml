@@ -1,0 +1,18 @@
+<image class="bg-bird" src="/assets/images/bird.png"></image>
+<view class="hint">为了保障平台所有用户的真实/安全性，请完成实名认证</view>
+<view class="card">
+  <view class="title">认证方式</view>
+  <view class="select">
+    <text class="value">大陆居民身份证</text>
+    <text class="option">更换▼</text>
+  </view>
+  <view class="row">
+    <text>姓名</text>
+    <input model:value="{{name}}" placeholder-class="placeholder" placeholder="请输入您的真实姓名" />
+  </view>
+  <view class="row">
+    <text>证件号</text>
+    <input model:value="{{idNum}}" placeholder-class="placeholder" placeholder="请输入您的真实证件号" />
+  </view>
+</view>
+<view bindtap="onConfirm" hover-class="hover-class" class="confirm">确 认</view>

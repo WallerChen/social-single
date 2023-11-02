@@ -121,7 +121,11 @@ Page({
     })
     this.updateNextBtnShow()
   },
-
+  onInfoAuth() {
+    wx.navigateTo({
+      url: '/pages/infoAuth/infoAuth'
+    })
+  },
   shouldShowNextBtn() {
     switch (this.data.infoStep) {
       case 1:

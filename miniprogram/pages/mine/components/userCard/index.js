@@ -29,6 +29,9 @@ Component({
       }
       this.triggerEvent('modify', { nickname: e.detail.value })
     },
+    onInfoAuth() {
+      this.triggerEvent('infoAuth')
+    },
     // 编辑头像
     async editAvatar() {
       let chooseResult

@@ -1,0 +1,170 @@
+page {
+  background: linear-gradient(180deg, #F1F3F8 0%, #F9FAFF 100%);
+}
+
+.bg-bird {
+  position: absolute;
+  top: 40rpx;
+  right: 0;
+  width: 206rpx;
+  height: 151rpx;
+  margin-left: auto;
+  margin-right: 3rpx;
+}
+
+.header {
+  margin-top: 40rpx;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+
+  // border: 1px solid black;
+  margin-left: 33rpx;
+
+  .txt1 {
+    font-size: 36rpx;
+    font-weight: 600;
+    color: #1C110E;
+    line-height: 42rpx;
+  }
+
+  .badges {
+    margin-top: 33rpx;
+    display: flex;
+    flex-direction: row;
+    // border: 1px solid black;
+    font-size: 24rpx;
+    font-weight: 500;
+
+    color: #7B90FF;
+
+    .badge {
+      box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0, 0, 0, 0.08);
+      margin-right: 16rpx;
+      width: 144rpx;
+      height: 54rpx;
+      background: #FFFFFF;
+      border-radius: 32rpx;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text {
+        position: absolute;
+      }
+
+      .svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+// 渐变border 要使用svg 来实现
+.gradiant-badge {
+  // margin-right: 16rpx;
+  width: 144rpx;
+  height: 54rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #7B90FF;
+
+  text {
+    position: absolute;
+  }
+
+  .svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.menu {
+  margin-top: 40rpx;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.item {
+  width: 670rpx;
+  height: 174rpx;
+  background: #FFFFFF;
+  box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0, 0, 0, 0.06);
+  border-radius: 41rpx;
+  margin-bottom: 32rpx;
+
+  box-sizing: border-box;
+  padding: 24rpx;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+
+  image {
+    width: 80rpx;
+    height: 80rpx;
+    flex-shrink: 0;
+  }
+
+  .right {
+    margin-left: 24rpx;
+    padding-right: 16rpx;
+    width: 100%;
+
+    .row {
+      // border: 1px solid black;
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        // border: 1px solid black;
+        font-size: 36rpx;
+        font-weight: 400;
+        color: #333333;
+      }
+
+      .badge {
+        background: linear-gradient(133deg, #A5D5FF 0%, #7D93FF 100%, #7D93FF 100%);
+        box-shadow: 0rpx 2rpx 10rpx 0rpx rgba(0, 0, 0, 0.08);
+        border-radius: 32rpx;
+        width: 144rpx;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 24rpx;
+        font-weight: 600;
+        color: #FFFFFF;
+        padding: 10rpx 24rpx;
+
+        &.bad {
+          color: red;
+          background: white;
+          border: 1px solid red;
+        }
+      }
+    }
+
+    .desc {
+      margin-top: 16rpx;
+      font-size: 28rpx;
+      font-weight: 400;
+      color: #90939B;
+    }
+  }
+}
+
+.hint {
+  font-size: 26rpx;
+  color: #999999;
+  margin: 40rpx 24rpx auto 24rpx;
+}
+
+.hover-class {
+  transform: scale(0.98);
+}

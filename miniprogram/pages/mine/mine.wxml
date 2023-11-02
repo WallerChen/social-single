@@ -1,6 +1,6 @@
 <view class="mine-view">
   <view class="user-card">
-    <user-card userInfo="{{userInfoEdit}}" bindshow="showSideBar" bindmodify="onModifyUserInfo" />
+    <user-card userInfo="{{userInfoEdit}}" bindshow="showSideBar" bindmodify="onModifyUserInfo" bind:infoAuth="onInfoAuth" />
   </view>
   <view class="into-card">
     <view class="into-head">
