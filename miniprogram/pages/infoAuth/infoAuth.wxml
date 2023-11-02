@@ -1,0 +1,35 @@
+<image class="bg-bird" src="/assets/images/bird.png"></image>
+<view class="header">
+  <view class="txt1">为什么要认证？</view>
+  <view class="badges">
+    <view class="badge">
+      <text>更真实</text>
+    </view>
+    <view class="badge">
+      <text>更靠谱</text>
+    </view>
+    <view class="badge">
+      <text>更优质</text>
+    </view>
+  </view>
+</view>
+<view class="menu">
+  <!-- 身份证验证不允许二次修改 -->
+  <view class="item" wx:for="{{menu}}" wx:key="index" hover-class="{{(item.authStep==2 && index==0)?'' :'hover-class'}}" data-index="{{index}}" bindtap="{{(item.authStep==2 && index==0)?'' :'onAuthClick'}}">
+    <image src="/assets/images/idcard.png"></image>
+    <view class="right">
+      <view class="row">
+        <view class="title">{{item.title}}</view>
+        <view wx:if="{{item.authStep==2}}" class="gradiant-badge">
+          <text>已验证</text>
+          <image class="svg" src="/assets/images/badge.svg"></image>
+        </view>
+        <view wx:elif="{{item.authStep==3}}" class="badge bad">已驳回</view>
+        <view wx:elif="{{item.authStep==1}}" class="badge">审核中</view>
+        <view wx:else class="badge">立即认证</view>
+      </view>
+      <view class="desc">{{item.desc}}</view>
+    </view>
+  </view>
+</view>
+<view class="hint">为了尽可能保证平台所有用户的真实性，我们要求用户必须至少完成一项认证后，方可在平台交友。</view>

@@ -1,7 +1,11 @@
 {
   "pages": [
     "pages/info/info",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/infoAuth/infoAuth",
+    "pages/infoAuth/idCard/idCard",
+    "pages/infoAuth/job/job",
+    "pages/infoAuth/education/education"
   ],
   "window": {
     "backgroundColor": "#F1F3F8",

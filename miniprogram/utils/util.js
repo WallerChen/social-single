@@ -103,3 +103,87 @@ export function deepClone(obj) {
   }
   return newObj
 }
+
+export function versionCompare(v1, v2) {
+  v1 = v1.split('.')
+  v2 = v2.split('.')
+  const len = Math.max(v1.length, v2.length)
+
+  while (v1.length < len) {
+    v1.push('0')
+  }
+  while (v2.length < len) {
+    v2.push('0')
+  }
+
+  for (let i = 0; i < len; i++) {
+    const num1 = parseInt(v1[i], 10)
+    const num2 = parseInt(v2[i], 10)
+
+    if (num1 > num2) {
+      return 1
+    } else if (num1 < num2) {
+      return -1
+    }
+  }
+
+  return 0
+}
+
+// 根据基础库版本选择
+export const chooseMedia = versionCompare(wx.getSystemInfoSync().SDKVersion, '2.21.4') >= 0 ? wx.chooseMedia : wx.chooseImage
+
+// 相机拍照
+export function chooseCamera(count = 1) {
+  return new Promise((resolve, reject) => {
+    chooseMedia({
+      count: count,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['camera'],
+      mediaType: ['image'],
+      success: async(res) => {
+        const fileList = res.tempFiles.map((item) => item.path || item.tempFilePath)
+        resolve(fileList)
+      },
+      fail: () => { reject() }
+    })
+  })
+}
+
+// 选择相册
+export function chooseAlbum(count = 1) {
+  return new Promise((resolve, reject) => {
+    chooseMedia({
+      count: count,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album'],
+      mediaType: ['image'],
+      success: async(res) => {
+        const fileList = res.tempFiles.map((item) => item.path || item.tempFilePath)
+        resolve(fileList)
+      },
+      fail: () => { reject() }
+    })
+  })
+}
+
+// 聊天记录选择
+export function chooseMessageFile(count = 1) {
+  return new Promise((resolve, reject) => {
+    wx.chooseMessageFile({
+      type: 'image',
+      count: count,
+      success: async(res) => {
+        resolve(res.tempFiles[0].path)
+        const fileList = res.tempFiles.map((item) => item.path)
+        resolve(fileList)
+      },
+      fail: () => { reject() }
+    })
+  })
+}
+
+export function getFilename(url) {
+  const filename = url.substring(url.lastIndexOf('/') + 1)
+  return filename
+}

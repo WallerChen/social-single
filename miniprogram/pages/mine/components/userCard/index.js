@@ -29,6 +29,9 @@ Component({
       }
       this.triggerEvent('modify', { nickname: e.detail.value })
     },
+    onInfoAuth() {
+      this.triggerEvent('infoAuth')
+    },
     // 编辑头像
     async editAvatar() {
       let chooseResult
@@ -50,7 +53,7 @@ Component({
         const res = await request.uploadImage(chooseResult.tempFiles[0], true)
         console.log('uploadImage', res)
 
-        const avatarUrl = res.data.data.url
+        const avatarUrl = res.data.url
         this.triggerEvent('modify', { avatarUrl })
         wx.hideLoading()
 

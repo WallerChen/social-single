@@ -18,9 +18,11 @@
       </view>
     </view>
   </view>
-  <!-- <view class="change-mode">
+
+<!-- 临时隐藏脱单模式 -->
+  <view class="change-mode"  style="opacity: 0;">
     <view class="change-word" bindtap="showSider">脱单模式</view>
     <image class="change-icon" src="https://single-design.bj.bcebos.com/yutong/source/images/mine/switch-icon.png" bindtap="showSider" />
   </view>
-  <view class="auth">我的认证</view> -->
+  <view class="auth" bindtap="onInfoAuth">我的认证</view>
 </view>
