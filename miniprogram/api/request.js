@@ -1,5 +1,5 @@
-// const USE_WX_CLOUD_RUN = true
-const USE_WX_CLOUD_RUN = false
+const USE_WX_CLOUD_RUN = true
+// const USE_WX_CLOUD_RUN = false
 
 const API_SERVER = 'http://127.0.0.1:8100'
 // const API_SERVER = 'http://192.168.6.227:8100'
@@ -8,7 +8,7 @@ const DEBUG_OPENID = 'o6orS5YktKqMOeqS0oXIPO_h--dI'
 
 const CLOUD_ENV = 'prod-3g8yxq6d2db91adb'
 
-export const BOS_ADDR = "https://single-student.bj.bcebos.com/"
+export const BOS_ADDR = 'https://single-student.bj.bcebos.com/'
 
 export async function APICall(method, path, params = {}) {
   let res
@@ -20,8 +20,8 @@ export async function APICall(method, path, params = {}) {
       path,
       method,
       header: {
-        // 'X-WX-SERVICE': 'go-backend'
-        'X-WX-SERVICE': 'go-backend-test'
+        'X-WX-SERVICE': 'go-backend'
+        // 'X-WX-SERVICE': 'go-backend-test'
         // 'X-WX-SERVICE': 'go-backend-debug'
       },
       data: params
