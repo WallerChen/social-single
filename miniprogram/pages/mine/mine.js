@@ -257,9 +257,7 @@ Page({
       console.error('getUserInfo err', e)
     }
     const userInfo = res.data
-
-    userInfo.className = getClassNameById(userInfo.classId)
-
+    userInfo.className = getClassNameById(userInfo.class_id)
     const userInfoDraft = deepClone(userInfo.draftInfo)
     userInfo.draftInfo = undefined
 

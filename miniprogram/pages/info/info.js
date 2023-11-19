@@ -186,16 +186,15 @@ Page({
     }
   },
   prev() {
-    // 暂时不允许向前滑动
-
-    // if (this.data.currentPage > 0) {
-    //   const currentPage = this.data.currentPage - 1
-    //   this.setData({
-    //     ['nextList[' + currentPage + ']']: '',
-    //     ['prevList[' + currentPage + ']']: 'prevAnimation',
-    //     currentPage
-    //   })
-    // }
+    // 暂时放开，因为重新进入小程序也会刷新页面看到之前的内容，除非全是信息流，和探探一样
+     if (this.data.currentPage > 0) {
+       const currentPage = this.data.currentPage - 1
+       this.setData({
+         ['nextList[' + currentPage + ']']: '',
+         ['prevList[' + currentPage + ']']: 'prevAnimation',
+         currentPage
+       })
+     }
   },
   next() {
     const {
@@ -206,7 +205,7 @@ Page({
 
     if ((currentPage + 1) === total) {
       wx.showToast({
-        title: '翻到尽头了哦～',
+        title: '明天中午12点解锁更多哦～',
         icon: 'none'
       })
       return
