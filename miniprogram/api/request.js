@@ -1,14 +1,14 @@
 const USE_WX_CLOUD_RUN = true
-//const USE_WX_CLOUD_RUN = false
+// const USE_WX_CLOUD_RUN = false
 
-//const API_SERVER = 'http://127.0.0.1:8100'
+const API_SERVER = 'http://127.0.0.1:8100'
 // const API_SERVER = 'http://192.168.6.227:8100'
 // const API_SERVER = 'http://192.168.8.236:8100'
 const DEBUG_OPENID = 'o6orS5YktKqMOeqS0oXIPO_h--dI'
 
 const CLOUD_ENV = 'prod-3g8yxq6d2db91adb'
 
-export const BOS_ADDR = "https://single-student.bj.bcebos.com/"
+export const BOS_ADDR = 'https://single-student.bj.bcebos.com/'
 
 export async function APICall(method, path, params = {}) {
   let res
@@ -20,8 +20,8 @@ export async function APICall(method, path, params = {}) {
       path,
       method,
       header: {
-        // 'X-WX-SERVICE': 'go-backend'
-        'X-WX-SERVICE': 'go-backend-test'
+        'X-WX-SERVICE': 'go-backend'
+        // 'X-WX-SERVICE': 'go-backend-test'
         // 'X-WX-SERVICE': 'go-backend-debug'
       },
       data: params
@@ -102,7 +102,7 @@ export async function uploadImage(tempFile, compressImg = true, filename = null)
           'X-Wx-Openid': DEBUG_OPENID
         },
         success: (resp) => {
-        // uploadFile 返回的是字符串，需要转换成对象
+          // uploadFile 返回的是字符串，需要转换成对象
           resp.data = JSON.parse(resp.data)
           resolve(resp)
         },
