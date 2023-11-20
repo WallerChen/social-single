@@ -4,6 +4,8 @@ const USE_WX_CLOUD_RUN = true
 const API_SERVER = 'http://127.0.0.1:8100'
 // const API_SERVER = 'http://192.168.6.227:8100'
 // const API_SERVER = 'http://192.168.8.236:8100'
+
+
 const DEBUG_OPENID = 'o6orS5YktKqMOeqS0oXIPO_h--dI'
 
 const CLOUD_ENV = 'prod-3g8yxq6d2db91adb'

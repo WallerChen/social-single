@@ -5,7 +5,8 @@
     "pages/infoAuth/infoAuth",
     "pages/infoAuth/idCard/idCard",
     "pages/infoAuth/job/job",
-    "pages/infoAuth/education/education"
+    "pages/infoAuth/education/education",
+    "pages/cp-board/cp-board"
   ],
   "window": {
     "backgroundColor": "#F1F3F8",
@@ -24,6 +25,12 @@
         "text": "资料",
         "iconPath": "src/images/info/infoTabBarNoSelected.png",
         "selectedIconPath": "src/images/info/infoTabBarSelected.png"
+      },
+      {
+        "pagePath": "pages/cp-board/cp-board",
+        "text": "桃花榜",
+        "iconPath": "src/images/icon/cp-board.png",
+        "selectedIconPath": "src/images/icon/cp-board.png"
       },
       {
         "pagePath": "pages/mine/mine",
