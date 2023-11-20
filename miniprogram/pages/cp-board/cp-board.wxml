@@ -41,9 +41,9 @@
         <view class="desc">
           <view class="title">佟年-童颜夫妇</view>
           <view class="tag">
-            <!-- background-image 不支持本地资源 -->
-            <view>最受欢迎夫妇</view>
+            <!-- css 的 background-image 不支持本地资源, 所以只能这样做 -->
             <image mode="aspectFit" src="/src/images/icon/heart-tag.png"> </image>
+            <view>最受欢迎夫妇</view>
           </view>
         </view>
         <view class="paginator"> 1/15 </view>
