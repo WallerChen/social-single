@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "lottie-miniprogram": "^1.0.12"
+    "lottie-miniprogram": "^1.0.12",
+    "mp-html": "^2.4.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.11",

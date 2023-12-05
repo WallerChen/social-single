@@ -6,7 +6,9 @@
     "pages/infoAuth/idCard/idCard",
     "pages/infoAuth/job/job",
     "pages/infoAuth/education/education",
-    "pages/cp-board/cp-board"
+    "pages/cp-board/cp-board",
+    "pages/activity/activity",
+    "pages/activity/detail"
   ],
   "window": {
     "backgroundColor": "#F1F3F8",
@@ -25,6 +27,12 @@
         "text": "资料",
         "iconPath": "src/images/info/infoTabBarNoSelected.png",
         "selectedIconPath": "src/images/info/infoTabBarSelected.png"
+      },
+      {
+        "pagePath": "pages/activity/activity",
+        "text": "活动",
+        "iconPath": "src/images/icon/cp-board.png",
+        "selectedIconPath": "src/images/icon/cp-board.png"
       },
       {
         "pagePath": "pages/cp-board/cp-board",
