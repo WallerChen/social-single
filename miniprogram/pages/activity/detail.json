@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "mp-html": "mp-html"
+    "mp-html": "/components/mp-html/index"
 
   }
 }
