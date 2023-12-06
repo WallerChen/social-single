@@ -1,28 +1,45 @@
-<view class="filter">
-  <view class="dropdown">
-    <text data-index="0" bindtap="onShowDropdown">筛选条件1 ▼</text>
-    <view class="dropdown-list" style="transform: scaleY({{showDropdown[0]}});">
-      <view class="item" data-menu="0" data-item="0" bindtap="onSelectItem">条件A</view>
-      <view class="item" data-menu="0" data-item="1" bindtap="onSelectItem">条件B</view>
+<view class="fix-head">
+    <view class="header">
+        <view class="txt1">Hi 同学你好~</view>
+        <view class="txt2">脱单活动</view>
     </view>
-  </view>
-  <view class="dropdown">
-    <text data-index="1" bindtap="onShowDropdown">筛选条件2 ▼</text>
-    <view class="dropdown-list" style="transform: scaleY({{showDropdown[1]}});">
-      <view class="item" data-menu="1" data-item="0" bindtap="onSelectItem">条件A</view>
-      <view class="item" data-menu="1" data-item="1" bindtap="onSelectItem">条件B</view>
+
+    <view class="filter">
+        <view class="dropdown">
+            <text data-index="0" bindtap="onShowDropdown">筛选条件1 ▼</text>
+            <view class="dropdown-list" style="transform: scaleY({{showDropdown[0]}});">
+                <view class="item" data-menu="0" data-item="0" bindtap="onSelectItem">条件A</view>
+                <view class="item" data-menu="0" data-item="1" bindtap="onSelectItem">条件B</view>
+            </view>
+        </view>
+        <view class="dropdown">
+            <text data-index="1" bindtap="onShowDropdown">筛选条件2 ▼</text>
+            <view class="dropdown-list" style="transform: scaleY({{showDropdown[1]}});">
+                <view class="item" data-menu="1" data-item="0" bindtap="onSelectItem">条件A</view>
+                <view class="item" data-menu="1" data-item="1" bindtap="onSelectItem">条件B</view>
+            </view>
+        </view>
     </view>
-  </view>
 </view>
 
 <view class="activity-list">
-  <view
-    wx:for="{{activityList}}"
-    bind:tap="onActivityClick"
-    data-id="{{item.id}}"
-    class="activity-item"
-  >
-    <view>{{item.title}}</view>
-    <view>{{item.brief}}</view>
-  </view>
+    <view wx:for="{{activityList}}" bind:tap="onActivityClick" data-id="{{item.id}}" class="activity-item">
+
+        <image class="cover" mode="aspectFill" src="{{item.coverImg}}"></image>
+
+        <view class="right">
+            <view class="body">
+                <view class="title">
+                    <view class="txt1">{{item.title}}</view>
+                    <view class="txt2">活动简介</view>
+                </view>
+                <view class="btn-join">报名</view>
+            </view>
+            <view class="brief">{{item.brief}}</view>
+        </view>
+
+
+
+
+    </view>
 </view>

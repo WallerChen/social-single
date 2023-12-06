@@ -4,15 +4,17 @@ Page({
 
   data: {
     showDropdown: [0, 0],
-    activityList: []
+    activityList: [],
+    total: 0
 
   },
 
-  async   onLoad() {
+  async onLoad() {
     const res = await request.APICall('GET', '/api/v1/activityList')
     console.log('activityList', res)
     this.setData({
-      activityList: res.data.rows
+      activityList: res.data.rows,
+      total: res.data.total
     })
   },
   onShowDropdown(e) {

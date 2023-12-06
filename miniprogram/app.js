@@ -52,6 +52,10 @@ App({
     // }
     // }
   },
+
+  delay: (ms) => new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  }),
   onLaunch: async function(options) {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -83,7 +87,9 @@ App({
 
         break
       } catch (error) {
-        console.log('cloud API not ready, retry', error)
+        console.log('API not ready, retry', error)
+        // eslint-disable-next-line no-await-in-loop
+        await this.delay(500)
       }
     }
 

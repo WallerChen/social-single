@@ -1,35 +1,67 @@
 <view class="header">
-    <image mode="aspectFill" src="/assets/images/placehoolder.jpg" class="header-img"></image>
+  <image mode="aspectFill" src="/assets/images/placehoolder.jpg" class="header-img"></image>
 
-    <view class="header-txt">
-        <view class="title">{{activity.title}}</view>
-        <view class="time">{{activityTime}}</view>
-        <view class="fee">人均 ￥{{activity.price}}</view>
-        <view class="location"> {{activity.locationTxt}}</view>
+  <view class="header-txt">
+    <view class="title">
+      <image mode="aspectFit" src="/assets/images/activity/dot-left.png"></image>
+      <text> {{activity.title}}</text>
+      <image mode="aspectFit" src="/assets/images/activity/dot-right.png"></image>
     </view>
+
+    <view class="item-row">
+      <image src="/assets/images/activity/time.png"></image>
+      <text> {{activity.timeStart}}</text>
+    </view>
+    <view class="item-row">
+      <image src="/assets/images/activity/money.png"></image>
+      <text> 人均 ￥{{activity.price/100}}</text>
+    </view>
+    <view class="item-row">
+      <image src="/assets/images/activity/money.png"></image>
+      <text> {{activity.location}}</text>
+    </view>
+  </view>
 </view>
 
 <view class="visitor">
-    <view>432个人看过，快来报名吧～</view>
+  <view>432个人看过，快来报名吧～</view>
+  <view class="row">
+    <view class="user-list">
+      <view class="user" wx:for="{{[1,2,4,5,6,7,8]}}">
+        <view class="avatar">
+          <image src="/assets/images/idcard.png"></image>
+        </view>
+        <text>包子</text>
+      </view>
+    </view>
+
+    <image src="/assets/images/activity/right.png" class="right-icon"></image>
+  </view>
 </view>
 
 <view class="detail">
-    <view class="title" >活动详情1</view>
-    <view class="content">
-    <mp-html content="{{activity.content}}" tag-style="{{tagStyle}}"/>
-    </view>
+  <view class="title">
+    <image src="/assets/images/activity/banner.png"></image>
+    <text>活动详情</text>
+  </view>
+  <view class="content">
+    <mp-html content="{{activity.content}}" tag-style="{{tagStyle}}" />
+  </view>
 </view>
 
-
 <view class="footer">
-    <view class="like">
-        点赞
+  <view class="action">
+    <view class="item">
+      <image class="icon" src="/assets/images/activity/like.png"></image>
+      <text>点赞</text>
     </view>
-    <view class="share">
-        转发
+    <view class="item">
+      <image class="icon" src="/assets/images/activity/share.png"></image>
+      <text>转发</text>
     </view>
+  </view>
 
-    <view class="pay">
-        立即上车
-    </view>
+  <view class="pay">
+    立即上车
+  </view>
 </view>

@@ -30,9 +30,7 @@
       },
       {
         "pagePath": "pages/activity/activity",
-        "text": "活动",
-        "iconPath": "src/images/icon/cp-board.png",
-        "selectedIconPath": "src/images/icon/cp-board.png"
+        "text": "活动"
       },
       {
         "pagePath": "pages/cp-board/cp-board",
