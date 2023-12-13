@@ -5,6 +5,8 @@ Component({
     avatarUrl: String,
     desc: String,
     sex: String,
+    index: String,
+    total: String,
   },
   data: {
 
