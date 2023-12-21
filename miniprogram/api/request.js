@@ -20,8 +20,8 @@ export async function APICall(method, path, params = {}) {
       path,
       method,
       header: {
-        // 'X-WX-SERVICE': 'go-backend'
-        'X-WX-SERVICE': 'go-backend-test'
+        'X-WX-SERVICE': 'go-backend'
+        //'X-WX-SERVICE': 'go-backend-test'
         // 'X-WX-SERVICE': 'go-backend-debug'
       },
       data: params
