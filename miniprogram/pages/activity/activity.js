@@ -33,9 +33,24 @@ Page({
   },
 
   onActivityClick(e) {
-    const id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/activity/detail?id=${id}`
+    // const id = e.currentTarget.dataset.id
+    const qjlPath = e.currentTarget.dataset.qjlPath
+    if (!qjlPath) {
+      wx.showModal({
+        title: '提示',
+        content: '未设置群接龙活动，请告诉管理员设置一下先',
+        showCancel: false
+      })
+      return
+    }
+
+    wx.navigateToMiniProgram({
+      appId: 'wx974b793334f3667b',
+      path: qjlPath
+      //  `pro/pages/seq-detail/detail-read/detail-read?hotPointValue=1655ac7262651500c19bedf3fd2841a7&actId=2312030010954924&inviteUid=100942443&fromShare=1&groupId=PsX7Vq5_bsx0P7m_7943d37a`,
     })
+    // wx.navigateTo({
+    //   url: `/pages/activity/detail?id=${id}`
+    // })
   }
 })

@@ -23,7 +23,7 @@
 </view>
 
 <view class="activity-list">
-    <view wx:for="{{activityList}}" bind:tap="onActivityClick" data-id="{{item.id}}" class="activity-item">
+    <view wx:for="{{activityList}}" bind:tap="onActivityClick" data-id="{{item.id}}" data-qjl-path="{{item.qjlPath}}" class="activity-item">
 
         <image class="cover" mode="aspectFill" src="{{item.coverImg}}"></image>
 
@@ -33,7 +33,7 @@
                     <view class="txt1">{{item.title}}</view>
                     <view class="txt2">活动简介</view>
                 </view>
-                <view class="btn-join">报名</view>
+                <view class="btn-join" wx:if="{{item.qjlPath}}">报名</view>
             </view>
             <view class="brief">{{item.brief}}</view>
         </view>
