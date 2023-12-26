@@ -15,7 +15,13 @@
     <view class="title">自我介绍</view>
     <view class="desc">{{desc}}</view>
   </view>
-  <!-- <view class="footer">
+
+  <view class="page-info">
+    <view class="page">今日解锁{{index}}/{{total}}</view>
+  </view>
+
+  <!--
+   <view class="footer">
     <image class="footer-icon" src="https://single-design.bj.bcebos.com/newHome/xiaoxi.png" />
     <image class="footer-icon" src="https://single-design.bj.bcebos.com/newHome/zhuanfa.png" />
   </view> -->
