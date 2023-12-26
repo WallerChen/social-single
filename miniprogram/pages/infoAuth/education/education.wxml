@@ -4,7 +4,7 @@
   <view class="title">认证方式</view>
   <view class="select">
     <text class="value">学历证书/学位证书</text>
-    <text class="option">更换▼</text>
+    <!-- <text class="option">更换▼</text> -->
   </view>
   <view>
     <view class="row">
