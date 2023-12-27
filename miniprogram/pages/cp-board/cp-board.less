@@ -118,7 +118,7 @@
   .cp-info {
     position: absolute;
     // top: calc(980rpx - 50rpx);
-    top: calc(980rpx - 95rpx);
+    bottom: 0;
     display: flex;
     align-items: center;
     padding-top: 10rpx;
@@ -126,13 +126,20 @@
     // background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 50%);
 
     background: rgba(49, 49, 49, 0.28);
+    // background: greenyellow;
 
     padding-left: 40rpx;
     width: 100%;
     box-sizing: border-box;
   }
 
+  .cp-info .avatar {
+    //   border: 1px solid black;
+    display: flex;
+  }
+
   .cp-info .avatar image {
+    display: block; // 避免image底部多余padding
     width: 68rpx;
     height: 68rpx;
     border: 2rpx solid;
@@ -156,12 +163,13 @@
     border-radius: 19rpx;
     opacity: 0.3;
     padding-top: 2rpx;
-    padding-bottom: 2rpx;
+    padding-bottom: 4rpx;
     padding-left: 16rpx;
     padding-right: 16rpx;
   }
 
   .cp-info .desc {
+    // border: 1px solid black;
     // background-color: white;
     padding-left: 11rpx;
     box-sizing: border-box;
@@ -220,7 +228,7 @@
     padding-bottom: 50rpx;
     background: #FFFFFF;
 
-    .para{
+    .para {
       margin-top: 1.2rem;
       line-height: 1.6rem;
     }
