@@ -25,24 +25,26 @@
       {
         "pagePath": "pages/info/info",
         "text": "资料",
-        "iconPath": "src/images/info/infoTabBarNoSelected.png",
-        "selectedIconPath": "src/images/info/infoTabBarSelected.png"
+        "iconPath": "src/images/tabbar/off/info.png",
+        "selectedIconPath": "src/images/tabbar/on/info.png"
       },
       {
         "pagePath": "pages/activity/activity",
-        "text": "活动"
+        "text": "活动",
+        "iconPath": "src/images/tabbar/off/activity.png",
+        "selectedIconPath": "src/images/tabbar/on/activity.png"
       },
       {
         "pagePath": "pages/cp-board/cp-board",
         "text": "桃花榜",
-        "iconPath": "src/images/icon/cp-board.png",
-        "selectedIconPath": "src/images/icon/cp-board.png"
+        "iconPath": "src/images/tabbar/off/info.png",
+        "selectedIconPath": "src/images/tabbar/on/info.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "src/images/mine/mineTabBarNoSelected.png",
-        "selectedIconPath": "src/images/mine/mineTabBarSelected.png"
+        "iconPath": "src/images/tabbar/off/mine.png",
+        "selectedIconPath": "src/images/tabbar/on/mine.png"
       }
     ]
   }
