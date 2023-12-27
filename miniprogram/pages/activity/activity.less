@@ -94,7 +94,8 @@ page {
 }
 
 .activity-list {
-    margin-top: 50rpx;
+    // margin-top: 50rpx;
+    margin-top: 20rpx;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,7 +105,7 @@ page {
     padding-bottom: 100rpx;
 
     .activity-item {
-        margin-top: 50rpx;
+        margin-top: 30rpx;
         width: 662rpx;
         height: 280rpx;
         background: #FFFFFF;
@@ -167,10 +168,16 @@ page {
                     align-items: center;
                     justify-content: center;
                     font-weight: bold;
+
+                    &.btn-expired {
+                        color: #b9bec6;
+                        background: #e3e9f0;
+                    }
                 }
+
             }
 
-            .brief { 
+            .brief {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
