@@ -1,4 +1,3 @@
-
 Page({
 
   /**
@@ -6,17 +5,22 @@ Page({
    */
   data: {
     tab: 1,
+    lockContent: true
   },
 
   onTab(e) {
-    console.log("e", e);
+    console.log('e', e)
 
-    let index = e.currentTarget.dataset.index;
+    const index = e.currentTarget.dataset.index
     this.setData({
       tab: index
 
     })
-
+  },
+  onUnlock(e) {
+    this.setData({
+      lockContent: false
+    })
   }
 
 })
