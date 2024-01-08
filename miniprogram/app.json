@@ -37,8 +37,8 @@
       {
         "pagePath": "pages/cp-board/cp-board",
         "text": "桃花榜",
-        "iconPath": "src/images/tabbar/off/info.png",
-        "selectedIconPath": "src/images/tabbar/on/info.png"
+        "iconPath": "src/images/tabbar/off/cp-board.png",
+        "selectedIconPath": "src/images/tabbar/on/cp-board.png"
       },
       {
         "pagePath": "pages/mine/mine",
