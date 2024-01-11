@@ -9,7 +9,7 @@ export const classItemList = [
   }, {
     title: '脱单四班', isVip: true, isLock: true, value: 'four'
   }, {
-    title: '脱单五班', isVip: true, isLock: true, value: 'five'
+    title: '脱单五班', isVip: false, isLock: true, value: 'five'
   }
 ]
 
