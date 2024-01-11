@@ -16,9 +16,10 @@ function prepareMsgSequence() {
   const timerList = []
   timerList.push(showLoadingAfter('获取同学录中...', 1000))
   timerList.push(showLoadingAfter('仍在努力中...', 5000))
-  timerList.push(showLoadingAfter('有点久哈...', 10000))
-  timerList.push(showLoadingAfter('很快就好了...', 15000))
-  timerList.push(showLoadingAfter('再稍微等一下...', 20000))
+  timerList.push(showLoadingAfter('再稍微等一下...', 15000))
+  timerList.push(showLoadingAfter('估计是冷启动了..', 5000))
+  timerList.push(showLoadingAfter('有点久哈...', 5000))
+  timerList.push(showLoadingAfter('太冷了吧这也...', 15000))
   return timerList
 }
 
@@ -52,6 +53,10 @@ App({
     // }
     // }
   },
+
+  delay: (ms) => new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  }),
   onLaunch: async function(options) {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -83,7 +88,9 @@ App({
 
         break
       } catch (error) {
-        console.log('cloud API not ready, retry', error)
+        console.log('API not ready, retry', error)
+        // eslint-disable-next-line no-await-in-loop
+        await this.delay(500)
       }
     }
 

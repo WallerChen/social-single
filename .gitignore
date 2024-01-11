@@ -2,3 +2,4 @@ node_modules
 *.wxss
 
 project.private.config.json
+miniprogram/pages/activity/activity.wxss

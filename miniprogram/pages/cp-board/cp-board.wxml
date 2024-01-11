@@ -1,0 +1,104 @@
+<view class="page">
+    <image class="icon-heart" src="/src/images/icon/heart.png"></image>
+
+    <view class="fix-head">
+        <image class="icon-pigeon" src="/src/images/icon/pigeon.png"></image>
+
+        <text class="slogan">桃花榜·桃花朵朵开～</text>
+    </view>
+
+    <view class="body">
+        <view class="tab-list">
+            <view bind:tap="onTab" data-index="{{0}}" class="tab {{tab==0 ?'selected' :''}} new-msg">
+                <view class="txt">关注</view>
+                <view class="indicator-selected"></view>
+                <view class="indicator-new-msg"></view>
+            </view>
+
+            <view bind:tap="onTab" data-index="{{1}}" class="tab {{tab==1 ?'selected' :''}}">
+                <view class="txt">真爱推荐</view>
+                <view class="indicator-selected"></view>
+                <view class="indicator-new-msg"></view>
+            </view>
+            <view bind:tap="onTab" data-index="{{2}}" class="tab {{tab==2 ?'selected' :''}}">
+                <view class="txt">魅力CP</view>
+                <view class="indicator-selected"></view>
+                <view class="indicator-new-msg"></view>
+            </view>
+            <view bind:tap="onTab" data-index="{{3}}" class="tab {{tab==3 ?'selected' :''}}">
+                <view class="txt">闪耀挚友</view>
+                <view class="indicator-selected"></view>
+                <view class="indicator-new-msg"></view>
+            </view>
+        </view>
+
+        <view class="main">
+            <view class="cp-photo">
+                <image src="/cp-data/test.jpg" mode="aspectFill"> </image>
+
+                <view class="cp-info">
+                    <view class="avatar">
+                        <image src="/cp-data/1.png" mode="aspectFill"></image>
+                        <image src="/cp-data/2.png" mode="aspectFill"></image>
+                    </view>
+                    <view class="desc">
+                        <view class="title">对话养生少女</view>
+                        <view class="tag">
+                            <!-- css 的 background-image 不支持本地资源, 所以只能这样做 -->
+                            <image mode="aspectFit" src="/src/images/icon/heart-tag.png"> </image>
+                            <view>最受欢迎夫妇</view>
+                        </view>
+                    </view>
+                    <view class="paginator"> 1/15 </view>
+                </view>
+            </view>
+        </view>
+        <view class="content">
+            <view class="title">认识16天见面8次，我们决定在一起</view>
+
+            <view class="desc">
+                <view class="para">
+                    在这个社群了解到了不少脱单技巧，无论男生女生的分享都很棒，现在想把桃花传递下去，回馈大家～
+                </view>
+                <view class="para">其中部分内容可能比较直男/直女，但决定坚持真实的原则，大家可以有选择地参考😉</view>
+
+
+                <view class="para">• 第一次相遇的场景</view>
+                <view class="para">那是在一个周三的晚上，在男友公司附近的商场一起约了晚饭，我先到达目的地，坐在店外等候，随即男友过来找到我，我们简单打了招呼，直奔饭店。这就是我们第一次见面的场景。</view>
+                <view class="para">当时轻微社恐的我对于陌生人社交还是有些困难的，好在男友一直在活跃气氛，认真听我说话，让我逐渐轻松起来。</view>
+                <view class="para">整体来说，初次见面的状态是舒服的，也一直有话聊。</view>
+                <block wx:if="{{!lockContent}}">
+                    <view class="para">• 对对方的第一印象</view>
+                    <view class="para">女生：他整体穿搭干净清爽，还穿了蓝色条纹衬衫，我本人比较喜欢衬衫，有戳到我，真人比照片好看，真的直男拍照一律很糙，懂得认真倾听，绅士有礼貌。</view>
+                    <view class="para">男生：刚开始跟她说话的时候她眼神有些躲闪，我意识到她说自己有些社恐不是假的。聊天中感受到她是一个内心有点社恐但落落大方、知书达理的女孩子，能够勇敢与别人畅谈。第一次见面还没结束，我就已经开始计划第二次见面了，当时想，这个女孩子有点可爱。</view>
+
+
+                    <view class="para">• 前期接触过程中谁更主动</view>
+                    <view class="para">我觉得是男友比较主动，基本都是他在不停约我，主动安排活动，但根据男友反馈，我能给到具体回应，并且也不断在通过各种话题去了解他，也算是一种主动。</view>
+
+                    <view class="para">• 回忆一下表白的场景</view>
+                    <view class="para">周五的一个晚上，我正处于痛经期，不想出门，男友想来找我，要给我送饭啥的（据后来男友反馈当时就是心机想找各种理由来见我）。我一开始是拒绝的，因为本身身体不舒服就不想见人，后来男友说就只是把饭送给我就走，我又不忍心让他就站外面，于是后来决定带他回家。</view>
+                    <view class="para">当时有跟电子闺蜜们一直在更新我的感情线，有姐妹提议：都带回家了，总要有个身份，你去暗示他，叫他买束花带来。我想想好像也对，加上自己当时已经有想和对方贴贴的冲动了，觉得可以在一起试试，并且把剩下的话题：消费观、婚姻观等一起聊了。于是下午发信息给他，让他来的时候带束花，我想要。一直上班的他没看到信息，再看到的时候已经下午很晚了，但是我俩算心有灵犀，他早在中午就订了花，觉得第一次上门得带花给我。</view>
+                    <view class="para">那个时候他还没打算表白，但是在他看到我要花的时候就悟了。</view>
+                    <view class="para">于是晚上见面，我们一起吃完饭，把剩下的话题聊完后，拥抱了一下下，顺势牵手～ 然后他补仪式：拿花单膝跪地表白啦。</view>
+
+                    <view class="para">• 现在你们的相处模式</view>
+                    <view class="para">互相尊重、共同成长，各自独立又彼此依赖，遇事有商有量，既可以一起吃喝玩乐，又可以一起泡图书馆学习的队友型相处模式。</view>
+
+                    <view class="para">• 给渴望爱情的单身群友们一点建议吧～</view>
+                    <view class="para">请实地行动起来，永远不会有入室抢劫的爱情。保持自己正向的能量场，这样才能吸引到同频共振的那个人。如果有可能，在等待那个人到来的时间里让自己变得充盈丰满，做一个心智成熟的人，学会爱与被爱。</view>
+
+
+
+                </block>
+
+                <view wx:else class="locking-layer">
+                    <view class="btn-unlock" bind:tap="onUnlock">
+                        <view>填写资料加入我们～</view>
+                        <view>可解锁大家的完整脱单秘籍</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
