@@ -1,3 +1,5 @@
+const app = getApp()
+
 Page({
 
   /**
@@ -8,9 +10,12 @@ Page({
     lockContent: true
   },
 
+  onShow(e) {
+    this.setData({
+      lockContent: !app.globalData.user.registered
+    })
+  },
   onTab(e) {
-    console.log('e', e)
-
     const index = e.currentTarget.dataset.index
     this.setData({
       tab: index
@@ -18,9 +23,15 @@ Page({
     })
   },
   onUnlock(e) {
-    this.setData({
-      lockContent: false
-    })
+    // this.setData({
+    //   lockContent: false
+    // })
+
+    if (!app.globalData.user.registered) {
+      wx.switchTab({
+        url: '/pages/mine/mine'
+      })
+    }
   }
 
 })

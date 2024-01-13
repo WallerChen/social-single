@@ -4,7 +4,7 @@
       <view class="title">
         <text class="main">请输入邀请码</text>
         <text class="hint" bindtap="onShowAdminQr">无邀请码？</text>
-        <image class="close-icon" src="/src/images/icon/close.png" bindtap="onCloseAdminQr" />
+        <image class="close-icon" src="/src/images/icon/close.png" bindtap="hide" />
       </view>
 
       <view class="seperator"></view>
