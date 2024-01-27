@@ -2,33 +2,41 @@ import Event from './utils/eventBus'
 import { getUserRegister } from './api/request'
 import * as request from './api/request'
 
-function showLoadingAfter(title, ms) {
-  return setTimeout(() => {
-    wx.hideLoading()
-    wx.showLoading({
-      title: title,
-      mask: true
-    })
+const waitMsgList = [
+  ['获取同学录中...', 2000],
+  ['仍在努力中...', 5000],
+  ['再稍微等一下...', 5000],
+  ['有点久哈...', 5000],
+  ['服务器在努力启动了...', 10000],
+  ['估计是冷启动了..', 5000],
+  ['太冷了吧这也...', 15000]
+]
+
+let msgTimer = null
+function startWaitMsg(index = 0) {
+  const title = waitMsgList[index][0]
+  const ms = waitMsgList[index][1]
+
+  wx.hideLoading()
+  wx.showLoading({
+    title: title,
+    mask: true
+  })
+  msgTimer = setTimeout(() => {
+    if (index >= waitMsgList.length) {
+      return
+    }
+    startWaitMsg(index + 1)
   }, ms)
 }
 
-function prepareMsgSequence() {
-  const timerList = []
-  timerList.push(showLoadingAfter('获取同学录中...', 1000))
-  timerList.push(showLoadingAfter('仍在努力中...', 5000))
-  timerList.push(showLoadingAfter('再稍微等一下...', 15000))
-  timerList.push(showLoadingAfter('估计是冷启动了..', 5000))
-  timerList.push(showLoadingAfter('有点久哈...', 5000))
-  timerList.push(showLoadingAfter('太冷了吧这也...', 15000))
-  return timerList
-}
-
-function clearMsgSequence(timerList) {
-  for (let i = 0; i < timerList.length; i++) {
-    clearTimeout(timerList[i])
+function stopWaitMsg() {
+  if (msgTimer) {
+    wx.hideLoading()
+    clearTimeout(msgTimer)
+    msgTimer = null
   }
 }
-
 App({
   event: new Event(),
   globalData: {
@@ -76,16 +84,17 @@ App({
     }
 
     // 1 秒后还没准备好就显示loading
-    const timerList = prepareMsgSequence()
+    const startMsgTimer = setTimeout(() => {
+      startWaitMsg()
+    }, 1500)
 
     for (; ;) {
       // 一直循环，直到云API 可用
       try {
         // eslint-disable-next-line no-await-in-loop
         await request.getServerLiveness()
-        clearMsgSequence(timerList)
-        wx.hideLoading()
-
+        stopWaitMsg()
+        clearTimeout(startMsgTimer)
         break
       } catch (error) {
         console.log('API not ready, retry', error)
