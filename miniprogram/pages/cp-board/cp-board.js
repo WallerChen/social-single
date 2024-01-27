@@ -1,26 +1,78 @@
+const app = getApp()
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-    tab: 1,
-    lockContent: true
+    tab: 0,
+    lockContent: true,
+    cpPhoto: [
+      '/cp-data/cp1/cover.jpg',
+      '/cp-data/cp2/cover.jpg'
+    ]
+  },
+  onLoad() {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
+  },
+
+  onSub() {
+    wx.requestSubscribeMessage({
+      tmplIds: [
+        'merClK981fy5JZrRb1n6zKlyAkkK6ym1Lnbglpc4wug'
+      ],
+      success(res) {
+        console.log('success', res)
+
+        // TODO: 告诉后端订阅成功
+      },
+      fail(err) {
+        console.log('error', err)
+      }
+    })
   },
 
   onTab(e) {
     console.log('e', e)
 
     const index = e.currentTarget.dataset.index
+
+    if (index) {
+      if (!app.globalData.user.registered) {
+        wx.switchTab({
+          url: '/pages/mine/mine'
+        })
+      }
+    }
+
     this.setData({
       tab: index
-
     })
   },
   onUnlock(e) {
-    this.setData({
-      lockContent: false
-    })
-  }
+    // this.setData({
+    //   lockContent: false
+    // })
 
+    if (!app.globalData.user.registered) {
+      wx.switchTab({
+        url: '/pages/mine/mine'
+      })
+    }
+  },
+  onPreviewImg(e) {
+    // 什么垃圾小程序，包内图片不支持预览
+    const { image } = e.currentTarget.dataset
+    wx.previewImage({
+      urls: [image],
+      current: image
+    })
+  },
+  onShareAppMessage(e) {
+    return {
+      title: '桃花榜 - 对话养生少女',
+      path: 'pages/cp-board/cp-board'
+    }
+  }
 })

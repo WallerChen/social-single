@@ -8,15 +8,21 @@
     </view>
 
     <view class="body">
-        <view class="tab-list">
-            <view bind:tap="onTab" data-index="{{0}}" class="tab {{tab==0 ?'selected' :''}} new-msg">
-                <view class="txt">关注</view>
+        <scroll-view scroll-x enable-flex class="tab-list" >
+            <view bind:tap="onTab" data-index="{{0}}" class="tab {{tab==0 ?'selected' :''}}">
+                <view class="txt">对话养生少女</view>
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
             </view>
 
             <view bind:tap="onTab" data-index="{{1}}" class="tab {{tab==1 ?'selected' :''}}">
-                <view class="txt">真爱推荐</view>
+                <view class="txt">荷尔蒙效应褪去，依然爱着真实的彼此</view>
+                <view class="indicator-selected"></view>
+                <view class="indicator-new-msg"></view>
+            </view>
+
+            <view class="tab">
+                <view bind:tap="onSub" class="txt">更多CP故事等你们来创造~</view>
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
             </view>
@@ -29,17 +35,18 @@
                 <view class="txt">闪耀挚友</view>
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
-            </view>
-        </view>
+            </view> -->
+        </scroll-view>
 
         <view class="main">
             <view class="cp-photo">
-                <image src="/cp-data/test.jpg" mode="aspectFill"> </image>
+
+                <image src="{{ cpPhoto[tab] }}" mode="aspectFill"> </image>
 
                 <view class="cp-info">
                     <view class="avatar">
-                        <image src="/cp-data/1.png" mode="aspectFill"></image>
-                        <image src="/cp-data/2.png" mode="aspectFill"></image>
+                        <image src="/cp-data/cp{{tab+1}}/avatar-m.jpg" mode="aspectFill"></image>
+                        <image src="/cp-data/cp{{tab+1}}/avatar-f.jpg" mode="aspectFill"></image>
                     </view>
                     <view class="desc">
                         <view class="title">对话养生少女</view>
@@ -53,43 +60,42 @@
                 </view>
             </view>
         </view>
-        <view class="content">
-            <view class="title">认识16天见面8次，我们决定在一起</view>
 
+        <!-- 因为样式还没定下来，调整的可能性极大，所以都写在同一个页面先 -->
+        <!-- 第一个故事 -->
+        <view class="content" wx:if="{{tab==0 }}">
+            <view class="title">认识16天见面8次，我们决定在一起</view>
             <view class="desc">
                 <view class="para">
                     在这个社群了解到了不少脱单技巧，无论男生女生的分享都很棒，现在想把桃花传递下去，回馈大家～
                 </view>
                 <view class="para">其中部分内容可能比较直男/直女，但决定坚持真实的原则，大家可以有选择地参考😉</view>
 
-
-                <view class="para">• 第一次相遇的场景</view>
+                <view class="para bold">🥰第一次相遇的场景</view>
                 <view class="para">那是在一个周三的晚上，在男友公司附近的商场一起约了晚饭，我先到达目的地，坐在店外等候，随即男友过来找到我，我们简单打了招呼，直奔饭店。这就是我们第一次见面的场景。</view>
                 <view class="para">当时轻微社恐的我对于陌生人社交还是有些困难的，好在男友一直在活跃气氛，认真听我说话，让我逐渐轻松起来。</view>
                 <view class="para">整体来说，初次见面的状态是舒服的，也一直有话聊。</view>
                 <block wx:if="{{!lockContent}}">
-                    <view class="para">• 对对方的第一印象</view>
+                    <view class="para bold">❤️对对方的第一印象</view>
                     <view class="para">女生：他整体穿搭干净清爽，还穿了蓝色条纹衬衫，我本人比较喜欢衬衫，有戳到我，真人比照片好看，真的直男拍照一律很糙，懂得认真倾听，绅士有礼貌。</view>
                     <view class="para">男生：刚开始跟她说话的时候她眼神有些躲闪，我意识到她说自己有些社恐不是假的。聊天中感受到她是一个内心有点社恐但落落大方、知书达理的女孩子，能够勇敢与别人畅谈。第一次见面还没结束，我就已经开始计划第二次见面了，当时想，这个女孩子有点可爱。</view>
 
 
-                    <view class="para">• 前期接触过程中谁更主动</view>
+                    <view class="para bold">👀前期接触过程中谁更主动</view>
                     <view class="para">我觉得是男友比较主动，基本都是他在不停约我，主动安排活动，但根据男友反馈，我能给到具体回应，并且也不断在通过各种话题去了解他，也算是一种主动。</view>
 
-                    <view class="para">• 回忆一下表白的场景</view>
+                    <view class="para bold">👩‍❤️‍💋‍👨回忆一下表白的场景</view>
                     <view class="para">周五的一个晚上，我正处于痛经期，不想出门，男友想来找我，要给我送饭啥的（据后来男友反馈当时就是心机想找各种理由来见我）。我一开始是拒绝的，因为本身身体不舒服就不想见人，后来男友说就只是把饭送给我就走，我又不忍心让他就站外面，于是后来决定带他回家。</view>
                     <view class="para">当时有跟电子闺蜜们一直在更新我的感情线，有姐妹提议：都带回家了，总要有个身份，你去暗示他，叫他买束花带来。我想想好像也对，加上自己当时已经有想和对方贴贴的冲动了，觉得可以在一起试试，并且把剩下的话题：消费观、婚姻观等一起聊了。于是下午发信息给他，让他来的时候带束花，我想要。一直上班的他没看到信息，再看到的时候已经下午很晚了，但是我俩算心有灵犀，他早在中午就订了花，觉得第一次上门得带花给我。</view>
                     <view class="para">那个时候他还没打算表白，但是在他看到我要花的时候就悟了。</view>
                     <view class="para">于是晚上见面，我们一起吃完饭，把剩下的话题聊完后，拥抱了一下下，顺势牵手～ 然后他补仪式：拿花单膝跪地表白啦。</view>
 
-                    <view class="para">• 现在你们的相处模式</view>
+                    <view class="para bold">📝现在你们的相处模式</view>
                     <view class="para">互相尊重、共同成长，各自独立又彼此依赖，遇事有商有量，既可以一起吃喝玩乐，又可以一起泡图书馆学习的队友型相处模式。</view>
 
-                    <view class="para">• 给渴望爱情的单身群友们一点建议吧～</view>
+                    <view class="para bold">🌸脱单秘籍</view>
                     <view class="para">请实地行动起来，永远不会有入室抢劫的爱情。保持自己正向的能量场，这样才能吸引到同频共振的那个人。如果有可能，在等待那个人到来的时间里让自己变得充盈丰满，做一个心智成熟的人，学会爱与被爱。</view>
-
-
-
+                    <view class="para">其他更多的我想可以参考我们群内分享的脱单感悟文档啦~</view>
                 </block>
 
                 <view wx:else class="locking-layer">
@@ -99,6 +105,68 @@
                     </view>
                 </view>
             </view>
+        </view>
+
+        <!-- 第二个故事 -->
+        <view class="content" wx:if="{{tab==1}}">
+            <view class="title">“两颗包罗万象的恒星在极小的概率下遇见，慢慢靠近盘旋，成为了双星系统，一起螺旋前行。”💓</view>
+            <view class="desc">
+
+                <view class="para">
+                    我朋友的男朋友是他的朋友（有点绕），加了微信之后发现很聊得来，真的体会到什么是聊天打字打得手指头都疼，我们属于是两个“哈哈哈哈哈”党碰上了。我记得第一次见面，第一印象也是这个男孩子很有礼貌，很健谈。
+                </view>
+
+                <view class="para">
+                    🌟结果我们认识8天就在一起了（现在想想实在是太疯狂啦）
+                </view>
+
+                <view class="para">
+                    那天我们一起吃完饭然后遛弯，在公园里一个长椅上坐下，他问我觉得两个人是什么关系呀；我说你觉得呢？然后他就表白辽，我们就在一起啦😉！
+                </view>
+
+                <view class="para">
+                    <image mode="widthFix" src="/cp-data/cp2/img1.jpg"></image>
+                </view>
+
+                <view class="para">
+                    在一起后至今的感觉都非常好！哈哈哈！依然会有很多crush的瞬间，有时候看他认真跟我说话的样子就会一阵心动🤩 两个人在一块相处，每一天都很开心很轻松，他真是又有人格魅力长得又帅哈哈哈哈哈哈
+                </view>
+
+                <view class="para">
+                    （脱单组委会看到这里已经脑补出姐妹的星星眼和爽朗笑声）
+                </view>
+
+                <view class="para">
+                    <image mode="widthFix" src="/cp-data/cp2/img2.jpg"></image>
+                </view>
+                <view class="para">
+                    <image mode="widthFix" src="/cp-data/cp2/img3.jpg"></image>
+                </view>
+                <view class="para">
+                    （一起长胖）
+                </view>
+
+                <view class="para bold">
+                    🌸脱单秘籍
+                </view>
+
+                <view class="para">
+                    想分享的是要真诚地打直球。我们从陌生到熟悉，最终走到一起，是在慢慢感受一个看见、理解、接纳的过程。就像两颗包容万象的恒星，在宇宙的浩瀚中，极小的概率下我们相遇，然后慢慢靠近、盘旋，变成双星系统，一起螺旋前行，创造共同经历，适应新轨道。然后过不了多久，系统就稳定啦～
+                </view>
+
+                <view class="para">
+                    在褪去了荷尔蒙带来的光晕之后，我们发现依然爱着最真实的彼此，这才是踏踏实实的安心。
+                </view>
+
+                <view class="para">
+                    Tips：男女思维真的不一样，两个人要多沟通！遇到问题的思路是“两个人一起面对问题、解决问题”，而不是互相较劲。
+                </view>
+
+                <view class="para">
+                    希望大家新的一年都能做更好的自己，温柔且坚定，祝福大家未来的每个决定都有最好的结果～！❤️
+                </view>
+            </view>
+
         </view>
     </view>
 </view>

@@ -6,6 +6,12 @@
   position: relative;
 }
 
+.body{
+    width: 100%;
+    // border: 1px red solid;
+    box-sizing: border-box;
+}
+
 .fix-head {
   // border: solid;
   position: fixed;
@@ -44,14 +50,20 @@
   font-size: 36rpx;
   color: #90939B;
 }
-
+ 
 .tab-list {
+    // border: 1px blueviolet solid;
+    width: 700rpx;
+
   position: absolute;
+  height: 50rpx;
   top: 200rpx;
   left: 26rpx;
   display: flex;
+  flex-direction: row;
 
   .tab {
+    flex-shrink: 0;
     padding-top: 6rpx;
     padding-right: 10rpx;
     font-size: 28rpx;
@@ -238,6 +250,13 @@
       padding-right: 40rpx;
       margin-top: 1.2rem;
       line-height: 1.6rem;
+    }
+    .bold{
+        font-weight: bold;
+    }
+
+    image{
+        width: 100%;
     }
   }
 }
