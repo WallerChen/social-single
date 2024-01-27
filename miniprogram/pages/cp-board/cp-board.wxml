@@ -26,7 +26,7 @@
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
             </view>
-            <view bind:tap="onTab" data-index="{{2}}" class="tab {{tab==2 ?'selected' :''}}">
+            <!-- <view bind:tap="onTab" data-index="{{2}}" class="tab {{tab==2 ?'selected' :''}}">
                 <view class="txt">魅力CP</view>
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
@@ -35,7 +35,7 @@
                 <view class="txt">闪耀挚友</view>
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
-            </view> -->
+            </view>  -->
         </scroll-view>
 
         <view class="main">
