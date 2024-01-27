@@ -49,14 +49,14 @@
                         <image src="/cp-data/cp{{tab+1}}/avatar-f.jpg" mode="aspectFill"></image>
                     </view>
                     <view class="desc">
-                        <view class="title">对话养生少女</view>
+                        <!-- <view class="title">对话养生少女</view> -->
                         <view class="tag">
                             <!-- css 的 background-image 不支持本地资源, 所以只能这样做 -->
-                            <image mode="aspectFit" src="/src/images/icon/heart-tag.png"> </image>
-                            <view>最受欢迎夫妇</view>
+                            <!-- <image mode="aspectFit" src="/src/images/icon/heart-tag.png"> </image>
+                            <view>最受欢迎夫妇</view> -->
                         </view>
                     </view>
-                    <view class="paginator"> 1/15 </view>
+                    <!-- <view class="paginator"> 1/15 </view> -->
                 </view>
             </view>
         </view>

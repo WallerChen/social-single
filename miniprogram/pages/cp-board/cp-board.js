@@ -8,6 +8,10 @@ Page({
     cpPhoto: [
       '/cp-data/cp1/cover.jpg',
       '/cp-data/cp2/cover.jpg'
+    ],
+    shareTitle: [
+      '桃花榜 - 对话养生少女',
+      '桃花榜 - 荷尔蒙下的真实'
     ]
   },
   onLoad() {
@@ -50,11 +54,14 @@ Page({
       tab: index
     })
   },
+  onShow() {
+    if (app.globalData.user.registered) {
+      this.setData({
+        lockContent: false
+      })
+    }
+  },
   onUnlock(e) {
-    // this.setData({
-    //   lockContent: false
-    // })
-
     if (!app.globalData.user.registered) {
       wx.switchTab({
         url: '/pages/mine/mine'
@@ -71,8 +78,8 @@ Page({
   },
   onShareAppMessage(e) {
     return {
-      title: '桃花榜 - 对话养生少女',
-      path: 'pages/cp-board/cp-board'
+      title: this.data.shareTitle[this.data.tab],
+      path: `pages/cp-board/cp-board?tab=${this.data.tab}`
     }
   }
 })
