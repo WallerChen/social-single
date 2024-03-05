@@ -8,7 +8,7 @@
     </view>
 
     <view class="body">
-        <scroll-view scroll-x enable-flex class="tab-list" >
+        <scroll-view scroll-x enable-flex class="tab-list" show-scrollbar="{{false}}" enhanced >
             <view bind:tap="onTab" data-index="{{0}}" class="tab {{tab==0 ?'selected' :''}}">
                 <view class="txt">对话养生少女</view>
                 <view class="indicator-selected"></view>
@@ -16,7 +16,7 @@
             </view>
 
             <view bind:tap="onTab" data-index="{{1}}" class="tab {{tab==1 ?'selected' :''}}">
-                <view class="txt">荷尔蒙效应褪去，依然爱着真实的彼此</view>
+                <view class="txt">后荷尔蒙阶段的真爱</view>
                 <view class="indicator-selected"></view>
                 <view class="indicator-new-msg"></view>
             </view>
