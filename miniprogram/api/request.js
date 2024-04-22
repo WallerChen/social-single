@@ -1,7 +1,8 @@
-const USE_WX_CLOUD_RUN = true
-// const USE_WX_CLOUD_RUN = false
+// const USE_WX_CLOUD_RUN = true
+const USE_WX_CLOUD_RUN = false
 
-const API_SERVER = 'http://127.0.0.1:8100'
+// const API_SERVER = 'http://127.0.0.1:8100'
+const API_SERVER = 'https://api.buguu.cn'
 // const API_SERVER = 'http://192.168.6.227:8100'
 // const API_SERVER = 'http://192.168.8.236:8100'
 
@@ -21,8 +22,8 @@ export async function APICall(method, path, params = {}) {
       path,
       method,
       header: {
-        // 'X-WX-SERVICE': 'go-backend'
-        'X-WX-SERVICE': 'go-backend-test'
+        'X-WX-SERVICE': 'go-backend'
+        // 'X-WX-SERVICE': 'go-backend-test'
       },
       data: params
     })
