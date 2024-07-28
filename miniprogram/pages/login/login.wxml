@@ -1,0 +1,35 @@
+<view class="login-bg">
+    <image mode="aspectFill" src="/assets/images/login-bg.png"></image>
+</view>
+
+<image class="bg-bird" mode="aspectFit" src="/assets/images/bird2.png"></image>
+
+
+<view class="greeting">
+    <view class="txt1">Hello</view>
+    <view class="txt2">同学你好！</view>
+
+    <view class="txt3">
+        <view>欢迎来到互联网人都爱用的</view>
+        <view>高质量交友平台</view>
+    </view>
+
+    <view class="txt4">不咕同学录 链接对的人</view>
+</view>
+
+<view class="bottom">
+
+    <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
+
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">Phone</button>
+
+    <view class="button" hover-class="hover" hover-start-time="10" hover-stay-time="100">微信一键登录</view>
+
+    <view class="eula">
+        <view class="checkbox"></view>
+        <view>阅读并同意</view>
+        <view class="link">服务条款</view>
+        <view>及</view>
+        <view class="link">隐私政策</view>
+    </view>
+</view>
