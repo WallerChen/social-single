@@ -19,11 +19,10 @@
 
 <view class="bottom">
 
-    <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
+    <!-- <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
 
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">Phone</button>
-
-    <view class="button" hover-class="hover" hover-start-time="10" hover-stay-time="100">微信一键登录</view>
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">Phone</button> -->
+    <view bind:tap="onLogin" class="button" hover-class="hover" hover-start-time="10" hover-stay-time="100">微信一键登录</view>
 
     <view class="eula">
         <view class="checkbox"></view>
@@ -33,3 +32,45 @@
         <view class="link">隐私政策</view>
     </view>
 </view>
+
+
+
+<page-container show="{{showPopup1}}" round="{{true}}" bind:leave="onPopupHide">
+    <view class="popup-body">
+        <view class="body1">
+            <view class="slogan">不咕同学录 链接对的人</view>
+            <view class="invite-code">
+                <view class="hint"> 请输入您的专属邀请码 </view>
+
+                <view class="input-block-container">
+                    <input maxlength="6" model:value="{{inviteCode}}" bindinput="onInviteCodeInput" />
+
+                    <view class="input-block-list">
+                        <view class="input-block" wx:key="index" wx:for="{{inviteCodeArr}}">
+                            {{item}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+
+            <view class="button-list">
+                <view class="button hover">确定</view>
+                <view class="button" hover-class="hover" hover-start-time="10" hover-stay-time="100">微信一键登录</view>
+            </view>
+
+            <view bind:tap="onShowQr" class="no-code-hint">没有邀请码？</view>
+        </view>
+
+        <view class="body2" style="{{showBody2}}" >
+            <view class="hint">没有邀请码？</view>
+            <view class="hint2">长按识别，添加主理人</view>
+
+            <view class="img">
+                <image show-menu-by-longpress src="/src/images/info/wx_qr_shizi.jpeg"></image>
+            </view>
+
+        </view>
+
+    </view>
+
+</page-container>

@@ -8,7 +8,8 @@
     "pages/infoAuth/education/education",
     "pages/cp-board/cp-board",
     "pages/activity/activity",
-    "pages/activity/detail"
+    "pages/activity/detail",
+    "pages/login/login"
   ],
   "window": {
     "backgroundColor": "#F1F3F8",

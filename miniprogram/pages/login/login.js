@@ -2,7 +2,29 @@
 Page({
 
     data: {
+        inviteCode: '',
+        inviteCodeArr: ['', '', '', '', '', ''],
+        showPopup1: true,
+        showBody2: 'transform: translateY(1000rpx);',
 
+    },
+
+    onInviteCodeInput(e) {
+        console.log("ddonInviteCodeInput");
+        let value = e.detail.value
+        value = value.toUpperCase()
+
+        for (let i = 0; i < 6; i++) {
+            this.data.inviteCodeArr[i] = ''
+            if (i < value.length) {
+                let v = value[i]
+                this.data.inviteCodeArr[i] = v
+            }
+        }
+
+        this.setData({
+            inviteCodeArr: this.data.inviteCodeArr
+        })
     },
 
     onLoad(options) {
@@ -25,15 +47,35 @@ Page({
         })
     },
 
+    onLogin() {
+        this.setData({
+            showPopup1: true
+        })
+
+    },
     handleAgreePrivacyAuthorization() {
         // 用户点击同意按钮后
-        
+
         // this.resolvePrivacyAuthorization({ buttonId: 'agree-btn', event: 'agree' })
     },
     getPhoneNumber(e) {
         console.log(e.detail.code)  // 动态令牌
         console.log(e.detail.errMsg) // 回调信息（成功失败都会返回）
         console.log(e.detail.errno)  // 错误码（失败时返回）
+    },
+
+
+    onShowQr() {
+        this.setData({
+            showBody2: 'transform: translateY(0);',
+            
+        })
+    },
+    onPopupHide() {
+        this.setData({
+            showBody2: 'transform: translateY(1000rpx);',
+        })
+
     }
 
 })

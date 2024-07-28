@@ -1,5 +1,4 @@
-page {
-}
+page {}
 
 .login-bg {
     z-index: -1;
@@ -14,7 +13,8 @@ page {
         width: 100%;
     }
 }
-.bg-bird{
+
+.bg-bird {
     position: fixed;
     right: 30rpx;
     top: 165rpx;
@@ -55,6 +55,25 @@ page {
     }
 }
 
+.button {
+    width: 628rpx;
+    height: 100rpx;
+    border-radius: 50rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36rpx;
+    background: white;
+    color: black;
+
+    &.hover {
+        background: #555FFE;
+        color: #FFFFFF;
+    }
+}
+
+
+
 .bottom {
     position: fixed;
     width: 100vw;
@@ -64,23 +83,6 @@ page {
     justify-content: center;
     align-items: center;
 
-    .button {
-        width: 628rpx;
-        height: 100rpx;
-        border-radius: 50rpx;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 36rpx;
-        background: white;
-        color: black;
-
-        &.hover {
-            background: #555FFE;
-            color: #FFFFFF;
-        }
-
-    }
 
     .eula {
         margin-top: 200rpx;
@@ -106,4 +108,156 @@ page {
             text-decoration: underline;
         }
     }
+}
+
+.popup-body {
+    position: relative;
+    // position: fixed;
+    // bottom: 0rpx;
+    width: 750rpx;
+    height: 1000rpx;
+    background: #FFFFFF;
+    border-radius: 48rpx 48rpx 0rpx 0rpx;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+
+    .body1 {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .slogan {
+        margin-top: 84rpx;
+        width: 248rpx;
+        height: 33rpx;
+        font-size: 24rpx;
+        color: rgba(0, 0, 0, 0.6);
+        line-height: 33rpx;
+        text-align: left;
+        font-style: normal;
+    }
+
+    .invite-code {
+        .hint {
+            margin-top: 13rpx;
+            margin-bottom: 48rpx;
+            height: 63rpx;
+            font-weight: 500;
+            font-size: 45rpx;
+            color: rgba(0, 0, 0, 0.8);
+            line-height: 63rpx;
+            text-align: center;
+        }
+
+        .input-block-container {
+            // border: 1px solid red;
+            position: relative;
+
+            input {
+                // border: 1px solid blueviolet;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                color: transparent;
+                font-size: 1px;
+            }
+        }
+
+        .input-block-list {
+            display: flex;
+            justify-content: space-between;
+            width: 630rpx;
+
+            .input-block {
+                width: 90rpx;
+                height: 98rpx;
+                // background-color: white;
+                border: 2rpx solid rgba(0, 0, 0, 0.2);
+                border-radius: 10rpx;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                color: #575ff5;
+            }
+        }
+    }
+
+
+    .button-list {
+        margin-top: 100rpx;
+
+        .button {
+            margin-top: 32rpx;
+            border: 3rpx solid #a0b8f9;
+        }
+    }
+
+    .no-code-hint {
+        margin-top: 190rpx;
+        width: 144rpx;
+        height: 33rpx;
+        font-size: 24rpx;
+        color: rgba(0, 0, 0, 0.3);
+        line-height: 33rpx;
+        text-align: center;
+        text-decoration-line: underline;
+    }
+
+    // ========
+    .body2 {
+
+        width: 100%;
+        position: absolute;
+        top: 0;
+        transform-origin: top;
+        transform: translateY(1000rpx);
+        background-color: white;
+        border-radius: 48rpx 48rpx 0rpx 0rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 1000rpx;
+        transition: transform 0.3s ease-in-out;
+
+
+        .hint {
+            margin-top: 84rpx;
+            font-size: 24rpx;
+            color: #000000;
+            line-height: 33rpx;
+        }
+
+        .hint2 {
+            margin-top: 26rpx;
+            height: 63rpx;
+            font-weight: 500;
+            font-size: 45rpx;
+            color: #555FFE;
+            line-height: 63rpx;
+            text-align: center;
+        }
+
+        .img {
+            margin-top: 50rpx;
+            width: 412rpx;
+            height: 412rpx;
+            border-radius: 30rpx;
+            overflow: hidden;
+            border: 4rpx solid #a0b8f9;
+
+            image {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
 }
